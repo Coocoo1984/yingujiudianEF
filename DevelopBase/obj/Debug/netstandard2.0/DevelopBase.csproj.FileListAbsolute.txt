@@ -1,0 +1,9 @@
+f:\Develop\Purocurment\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.deps.json
+f:\Develop\Purocurment\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.dll
+f:\Develop\Purocurment\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.pdb
+f:\Develop\Purocurment\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.csprojAssemblyReference.cache
+f:\Develop\Purocurment\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.csproj.CoreCompileInputs.cache
+f:\Develop\Purocurment\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfoInputs.cache
+f:\Develop\Purocurment\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfo.cs
+f:\Develop\Purocurment\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.dll
+f:\Develop\Purocurment\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.pdb

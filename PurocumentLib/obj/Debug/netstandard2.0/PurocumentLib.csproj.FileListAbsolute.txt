@@ -1,0 +1,12 @@
+f:\Develop\Purocurment\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csprojAssemblyReference.cache
+f:\Develop\Purocurment\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csproj.CoreCompileInputs.cache
+f:\Develop\Purocurment\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.AssemblyInfoInputs.cache
+f:\Develop\Purocurment\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.AssemblyInfo.cs
+f:\Develop\Purocurment\PurocumentLib\bin\Debug\netstandard2.0\PurocumentLib.deps.json
+f:\Develop\Purocurment\PurocumentLib\bin\Debug\netstandard2.0\PurocumentLib.dll
+f:\Develop\Purocurment\PurocumentLib\bin\Debug\netstandard2.0\PurocumentLib.pdb
+f:\Develop\Purocurment\PurocumentLib\bin\Debug\netstandard2.0\DevelopBase.dll
+f:\Develop\Purocurment\PurocumentLib\bin\Debug\netstandard2.0\DevelopBase.pdb
+f:\Develop\Purocurment\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csproj.CopyComplete
+f:\Develop\Purocurment\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.dll
+f:\Develop\Purocurment\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.pdb
