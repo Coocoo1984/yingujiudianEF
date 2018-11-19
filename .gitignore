@@ -13,3 +13,4 @@ PurocumentLib/obj/Debug/netstandard2.0/PurocumentLib.assets.cache
 PurocumentLib/obj/Debug/netstandard2.0/PurocumentLib.csproj.CoreCompileInputs.cache
 PurocumentLib/obj/Debug/netstandard2.0/PurocumentLib.csprojAssemblyReference.cache
 PurocumentLib/obj/Debug/netstandard2.0/project.razor.json
+*.cache
