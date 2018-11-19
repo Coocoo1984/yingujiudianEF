@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PurocumentLib", "Purocument
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{2F9E1EE0-EB21-11E8-94B8-A733A7AB7EE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PurocumentAPI", "PurocumentAPI\PurocumentAPI.csproj", "{B21D59BD-9B00-4E60-B114-9E5E839E701C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,5 +48,17 @@ Global
 		{058D60A2-3AD5-4465-9494-072C5712553F}.Release|x64.Build.0 = Release|Any CPU
 		{058D60A2-3AD5-4465-9494-072C5712553F}.Release|x86.ActiveCfg = Release|Any CPU
 		{058D60A2-3AD5-4465-9494-072C5712553F}.Release|x86.Build.0 = Release|Any CPU
+		{B21D59BD-9B00-4E60-B114-9E5E839E701C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B21D59BD-9B00-4E60-B114-9E5E839E701C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B21D59BD-9B00-4E60-B114-9E5E839E701C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B21D59BD-9B00-4E60-B114-9E5E839E701C}.Debug|x64.Build.0 = Debug|Any CPU
+		{B21D59BD-9B00-4E60-B114-9E5E839E701C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B21D59BD-9B00-4E60-B114-9E5E839E701C}.Debug|x86.Build.0 = Debug|Any CPU
+		{B21D59BD-9B00-4E60-B114-9E5E839E701C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B21D59BD-9B00-4E60-B114-9E5E839E701C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B21D59BD-9B00-4E60-B114-9E5E839E701C}.Release|x64.ActiveCfg = Release|Any CPU
+		{B21D59BD-9B00-4E60-B114-9E5E839E701C}.Release|x64.Build.0 = Release|Any CPU
+		{B21D59BD-9B00-4E60-B114-9E5E839E701C}.Release|x86.ActiveCfg = Release|Any CPU
+		{B21D59BD-9B00-4E60-B114-9E5E839E701C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

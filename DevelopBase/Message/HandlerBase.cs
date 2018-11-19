@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 namespace DevelopBase.Message
 {
-    public abstract class HandlerBase<T> where T:RequestBase
+    public abstract class HandlerBase
     {
         private IServiceProvider _serviceProvider=null;
         protected IServiceProvider ServiceProvider{get=>_serviceProvider;}
@@ -14,8 +14,8 @@ namespace DevelopBase.Message
             }
             _serviceProvider=serviceProvider;
         }
-        public abstract ResponseBase Handler(T request);
-        public async Task<ResponseBase> HandlerAsync(T request)
+        public abstract ResponseBase Handler(RequestBase request);
+        public async Task<ResponseBase> HandlerAsync(RequestBase request)
         {
             return await Task.Run(()=>Handler(request));
         }

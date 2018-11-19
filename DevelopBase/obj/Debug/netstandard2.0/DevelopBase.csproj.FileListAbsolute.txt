@@ -7,3 +7,12 @@ f:\Develop\Purocurment\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.Assembly
 f:\Develop\Purocurment\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfo.cs
 f:\Develop\Purocurment\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.dll
 f:\Develop\Purocurment\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.pdb
+f:\Develop\yingujiudianEF\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.deps.json
+f:\Develop\yingujiudianEF\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.dll
+f:\Develop\yingujiudianEF\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.pdb
+f:\Develop\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.csprojAssemblyReference.cache
+f:\Develop\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.csproj.CoreCompileInputs.cache
+f:\Develop\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfoInputs.cache
+f:\Develop\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfo.cs
+f:\Develop\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.dll
+f:\Develop\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.pdb

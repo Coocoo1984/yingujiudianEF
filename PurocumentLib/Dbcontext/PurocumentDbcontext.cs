@@ -31,8 +31,7 @@ namespace PurocumentLib.Dbcontext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BizType>(builder=>{
-                builder.ToTable("biz_type");
-                builder.HasKey("id");
+                builder.ToTable("biz_type").HasKey(k=>k.ID);;
                 builder.Property(p=>p.ID).HasColumnName("id");
                 builder.Property(p=>p.Code).HasColumnName("code");
                 builder.Property(p=>p.Name).HasColumnName("name");
@@ -41,8 +40,7 @@ namespace PurocumentLib.Dbcontext
             });
             modelBuilder.Entity<Unit>(builder=>
             {
-                builder.ToTable("goods_unit");
-                builder.HasKey("id");
+                builder.ToTable("goods_unit").HasKey(k=>k.ID);
                 builder.Property(p=>p.ID).HasColumnName("id");
                 builder.Property(p=>p.Code).HasColumnName("code");
                 builder.Property(p=>p.Name).HasColumnName("name");
@@ -51,8 +49,7 @@ namespace PurocumentLib.Dbcontext
             });
             modelBuilder.Entity<GoodsClass>(builder=>
             {
-                builder.ToTable("goods_class");
-                builder.HasKey("id");
+                builder.ToTable("goods_class").HasKey(k=>k.ID);
                 builder.Property(p=>p.ID).HasColumnName("id");
                 builder.Property(p=>p.Code).HasColumnName("code");
                 builder.Property(p=>p.Name).HasColumnName("name");
@@ -63,7 +60,7 @@ namespace PurocumentLib.Dbcontext
             });
             modelBuilder.Entity<Goods>(builder=>
             {
-                builder.ToTable("goods");
+                builder.ToTable("goods").HasKey(k=>k.ID);
                 builder.Property(p=>p.ID).HasColumnName("id");
                 builder.Property(p=>p.Code).HasColumnName("code");
                 builder.Property(p=>p.Name).HasColumnName("name");
@@ -75,7 +72,7 @@ namespace PurocumentLib.Dbcontext
             });
             modelBuilder.Entity<Department>(builder=>
             {
-                builder.ToTable("department");
+                builder.ToTable("department").HasKey(k=>k.ID);
                 builder.Property(p=>p.ID).HasColumnName("id");
                 builder.Property(p=>p.WechatID).HasColumnName("wechat_id");
                 builder.Property(p=>p.Name).HasColumnName("name");
@@ -90,7 +87,7 @@ namespace PurocumentLib.Dbcontext
             });
             modelBuilder.Entity<Department>(builder=>
             {
-                builder.ToTable("vendor");
+                builder.ToTable("vendor").HasKey(k=>k.ID);
                 builder.Property(p=>p.ID).HasColumnName("id");
                 builder.Property(p=>p.WechatID).HasColumnName("wechat_id");
                 builder.Property(p=>p.Name).HasColumnName("name");
@@ -105,7 +102,7 @@ namespace PurocumentLib.Dbcontext
             });
             modelBuilder.Entity<PurchasingPlan>(builder=>
             {
-                builder.ToTable("purchasing_plan");
+                builder.ToTable("purchasing_plan").HasKey(k=>k.ID);
                 builder.Property(p=>p.ID).HasColumnName("id");
                 builder.Property(p=>p.Code).HasColumnName("code");
                 builder.Property(p=>p.Name).HasColumnName("name");
@@ -122,7 +119,7 @@ namespace PurocumentLib.Dbcontext
             });
             modelBuilder.Entity<PurchasingPlanDetail>(builder=>
             {
-                builder.ToTable("purchasing_plan_detail");
+                builder.ToTable("purchasing_plan_detail").HasKey(k=>k.ID);
                 builder.Property(p=>p.ID).HasColumnName("id");
                 builder.Property(p=>p.GoodsClassID).HasColumnName("goods_class_id");
                 builder.Property(p=>p.GoodsID).HasColumnName("goods_id");

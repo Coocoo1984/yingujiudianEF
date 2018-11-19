@@ -2526,11 +2526,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "f:\\Develop\\Purocurment\\DevelopBase\\DevelopBase.csproj",
+      "projectUniqueName": "f:\\Develop\\yingujiudianEF\\DevelopBase\\DevelopBase.csproj",
       "projectName": "DevelopBase",
-      "projectPath": "f:\\Develop\\Purocurment\\DevelopBase\\DevelopBase.csproj",
+      "projectPath": "f:\\Develop\\yingujiudianEF\\DevelopBase\\DevelopBase.csproj",
       "packagesPath": "C:\\Users\\panjun\\.nuget\\packages\\",
-      "outputPath": "f:\\Develop\\Purocurment\\DevelopBase\\obj\\",
+      "outputPath": "f:\\Develop\\yingujiudianEF\\DevelopBase\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

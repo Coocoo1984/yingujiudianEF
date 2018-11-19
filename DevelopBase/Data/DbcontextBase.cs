@@ -17,6 +17,7 @@ namespace DevelopBase.Data
                 throw new ArgumentNullException();
             }
             _connectionString=connectionString;
+            
         }
     }
 }

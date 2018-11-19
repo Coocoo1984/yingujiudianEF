@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using DevelopBase.Common;
 using System.Reflection;
-namespace DevelopBase.Message
+using DevelopBase.Message;
+namespace DevelopBase.Common
 {
     public static partial class ServiceCollectionExtend
     {
@@ -12,7 +13,7 @@ namespace DevelopBase.Message
             foreach(var item in handlers)
             {
                 //生成泛型
-                var handlerType=typeof(HandlerBase<>).MakeGenericType(item.From);
+                var handlerType=typeof(HandlerGeneric<>).MakeGenericType(item.From);
                 switch(item.LifeScope)
                 {
                     case LifeScope.Default:
