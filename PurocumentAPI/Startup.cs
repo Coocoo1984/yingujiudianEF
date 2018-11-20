@@ -47,7 +47,9 @@ namespace PurocumentAPI
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(routes=>{
+                routes.MapRoute(name:"default",template:"api/{controller}/{action}");
+            });
         }
     }
 }

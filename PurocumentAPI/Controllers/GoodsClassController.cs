@@ -8,21 +8,20 @@ using PurocumentLib.Message.Request;
 using DevelopBase.Message;
 namespace PurocumentAPI.Controllers
 {
-    public class GoodsController : ControllerBase
+    public class GoodsClassController:ControllerBase
     {
         private IServiceProvider _serviceProvider=null;
-        public GoodsController(IServiceProvider serviceProvider)
+        public GoodsClassController(IServiceProvider serviceProvider)
         {
             _serviceProvider=serviceProvider;
         }
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody]AddGoodsRequest request)
+        public async Task<IActionResult> Add([FromBody]AddGoodsClassRequest request)
         {
             try
             {
                 var response=await _serviceProvider.HandlerAsync(request);
                 return new JsonResult(response);
-                
             }
             catch(Exception ex)
             {
@@ -30,13 +29,12 @@ namespace PurocumentAPI.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Update([FromBody]UpdateGoodsRequest request)
+        public async Task<IActionResult> Update([FromBody] UpdateGoodsClassRequest request)
         {
             try
             {
                 var response=await _serviceProvider.HandlerAsync(request);
                 return new JsonResult(response);
-                
             }
             catch(Exception ex)
             {
@@ -44,13 +42,12 @@ namespace PurocumentAPI.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Disable([FromBody]DisableGoodsRequest request)
+        public async Task<IActionResult> Disable([FromBody]GoodsClassDisableRequest request)
         {
             try
             {
                 var response=await _serviceProvider.HandlerAsync(request);
                 return new JsonResult(response);
-                
             }
             catch(Exception ex)
             {

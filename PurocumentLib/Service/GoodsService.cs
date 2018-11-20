@@ -38,6 +38,47 @@ namespace PurocumentLib.Service
             dbContext.SaveChanges();
         }
 
+        public void Disable(IEnumerable<int> ids)
+        {
+            var dbContext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            if(ids.Count()==0)
+            {
+                return;
+            }
+            var goods=dbContext.Goods.Where(w=>ids.Contains(w.ID)).ToList();
+            foreach(var item in goods)
+            {
+                item.Disable=true;
+            }
+            dbContext.UpdateRange(goods);
+            dbContext.SaveChanges();
+        }
+
+        public void Update(Model.Goods goods)
+        {
+            var dbContext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var entity=dbContext.Goods.SingleOrDefault(f=>f.ID==goods.ID);
+            if(entity==null)
+            {
+                throw new Exception("商品信息不存在");
+            }
+            if(entity.Disable)
+            {
+                throw new Exception("商品禁用无法修改");
+            }
+            if(string.IsNullOrEmpty(goods.Name))
+            {
+                throw new Exception("商品名称无效");
+            }
+            entity.Name=goods.Name;
+            entity.Desc=goods.Desc;
+            entity.Specification=goods.Specification;
+            entity.ClassID=goods.ClassID;
+            entity.UnitID=goods.UnitID;
+            dbContext.Update(entity);
+            dbContext.SaveChanges();
+        }
+
         public bool ValidateGoodsID(int[] goodsID)
         {
             var dbContext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();

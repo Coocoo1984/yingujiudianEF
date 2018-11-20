@@ -39,7 +39,7 @@ namespace PurocumentLib.Message.Handler
                     BizType = request.BizTypeID,
                     DepartmentID = request.DepartmentID,
                     CreateUser = request.CreateUserID,
-                    Details=request.Details.Select(s=>new PurchasingPlanDetail() { GoodsID=s.GoodsID, PurchasingPlanCount=s.PurocumentCount })
+                    Details=request.Details.GroupBy(g=>g.GoodsID).Select(s=>new PurchasingPlanDetail() { GoodsID=s.Key, PurchasingPlanCount=s.Sum(g=>g.PurocumentCount) })
                 };
                 var purchaasingPlanService = ServiceProvider.GetService<IPurchasingplanService>();
                 purchaasingPlanService.CreatePlan(model);

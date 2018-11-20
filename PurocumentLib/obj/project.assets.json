@@ -2738,11 +2738,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Develop\\yingujiudianEF\\PurocumentLib\\PurocumentLib.csproj",
+      "projectUniqueName": "f:\\Develop\\yingujiudianEF\\PurocumentLib\\PurocumentLib.csproj",
       "projectName": "PurocumentLib",
-      "projectPath": "F:\\Develop\\yingujiudianEF\\PurocumentLib\\PurocumentLib.csproj",
+      "projectPath": "f:\\Develop\\yingujiudianEF\\PurocumentLib\\PurocumentLib.csproj",
       "packagesPath": "C:\\Users\\panjun\\.nuget\\packages\\",
-      "outputPath": "F:\\Develop\\yingujiudianEF\\PurocumentLib\\obj\\",
+      "outputPath": "f:\\Develop\\yingujiudianEF\\PurocumentLib\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

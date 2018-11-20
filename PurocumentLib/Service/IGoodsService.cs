@@ -19,5 +19,7 @@ namespace PurocumentLib.Service
         /// <param name="goods">商品信息</param>
         /// <returns></returns>
         void AddGoods(Goods goods);
+        void Update(Goods goods);
+        void Disable(IEnumerable<int> ids);
     }
 }

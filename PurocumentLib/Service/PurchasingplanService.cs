@@ -16,6 +16,10 @@ namespace PurocumentLib.Service
 
         public void CreatePlan(PurchasingPlan plan)
         {
+            if(plan.Details.Count(c=>c.PurchasingPlanCount<=0)>0)
+            {
+                throw new Exception("商品数量无效");
+            }
             //创建主表
             var entity=new Entity.PurchasingPlan()
             {

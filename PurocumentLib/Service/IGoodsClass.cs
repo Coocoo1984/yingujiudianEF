@@ -1,10 +1,16 @@
 using System;
 using System.Collections.Generic;
 using DevelopBase.Services;
+using PurocumentLib.Model;
 namespace PurocumentLib.Service
 {
     public interface IGoodsClass:IService
     {
         bool ValidateGoodsClassID(IEnumerable<int> classIDs);
+        void AddGoodsClass(GoodsClassModel model);
+        //检查编码是否存在
+        bool CodeExists(string code);
+        void Update(GoodsClassModel model);
+        void Disable(int id);
     }
 }

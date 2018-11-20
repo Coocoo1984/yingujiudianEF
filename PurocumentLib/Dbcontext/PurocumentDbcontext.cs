@@ -56,6 +56,7 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p=>p.Desc).HasColumnName("desc");
                 builder.Property(p=>p.Remark).HasColumnName("remark");
                 builder.Property(p=>p.Specification).HasColumnName("specification");
+                builder.Property(p=>p.BizTypeID).HasColumnName("biz_type_id");
                 builder.Property(p=>p.Disable).HasColumnName("disable");
             });
             modelBuilder.Entity<Goods>(builder=>
@@ -85,11 +86,10 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p=>p.Mobile).HasColumnName("mobile");
                 builder.Property(p=>p.Mobile1).HasColumnName("mobile1");
             });
-            modelBuilder.Entity<Department>(builder=>
+            modelBuilder.Entity<Vendor>(builder=>
             {
                 builder.ToTable("vendor").HasKey(k=>k.ID);
                 builder.Property(p=>p.ID).HasColumnName("id");
-                builder.Property(p=>p.WechatID).HasColumnName("wechat_id");
                 builder.Property(p=>p.Name).HasColumnName("name");
                 builder.Property(p=>p.Code).HasColumnName("code");
                 builder.Property(p=>p.Desc).HasColumnName("desc");
