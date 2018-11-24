@@ -13,6 +13,6 @@ namespace PurocumentLib.Service
         //加载
         PurchasingPlan Load(int id);    
         //草稿提交
-        void SubmitPlan(IEnumerable<int> ids,int userID,string desc);
+        void SubmitPlan(IEnumerable<int> ids,int userID);
     } 
 }

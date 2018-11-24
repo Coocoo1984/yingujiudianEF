@@ -17,7 +17,7 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new ArgumentNullException();
             }
-            ServiceProvider.GetService<IPurchasingplanService>()?.SubmitPlan(request.IDs,request.UserID,request.Desc);
+            ServiceProvider.GetService<IPurchasingplanService>()?.SubmitPlan(request.IDs,request.UserID);
             return new ResponseBase(){Result=1,ResultInfo=""};
         }
     }

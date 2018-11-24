@@ -8,6 +8,6 @@ namespace PurocumentLib.Message.Request
     {
         public IEnumerable<int> Ids{get;set;}
         public int UserID{get;set;}
-        public string Desc{get;set;}
+        
     }
 }
