@@ -18,7 +18,7 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new ArgumentNullException();
             }
-            var model = new RoleModel()
+            var model = new Role()
             {
                 WechatGroupID = request.WechatGroupID,
                 Code = request.Code,

@@ -1,10 +1,9 @@
 ﻿using System;
-
-namespace PurocumentLib.Entity
+using DevelopBase.Message;
+namespace PurocumentLib.Message.Request
 {
-    public class Usr
+    public class AddUsrRequest : RequestBase
     {
-        public int ID { get; set; }
         public string WechatID { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
@@ -19,5 +18,6 @@ namespace PurocumentLib.Entity
         public int VendorID { get; set; }
         public int RoleID { get; set; }
         public bool Disable { get; set; }
+
     }
 }

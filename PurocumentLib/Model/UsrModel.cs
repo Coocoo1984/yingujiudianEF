@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PurocumentLib.Model
 {
-    public class UsrModel
+    public class Usr
     {
         public int ID { get; set; }
         public string WechatID { get; set; }

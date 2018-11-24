@@ -4,6 +4,7 @@ using DevelopBase.Common;
 using PurocumentLib.Message.Request;
 using PurocumentLib.Service;
 using PurocumentLib.Model;
+
 namespace PurocumentLib.Message.Handler
 {
     public class UpdateRoleHandler : HandlerGeneric<UpdateRoleRequest>
@@ -18,7 +19,7 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new ArgumentNullException();
             }
-            var model = new RoleModel()
+            var model = new Role()
             {
                 ID = request.ID,
                 WechatGroupID = request.WechatGroupID,

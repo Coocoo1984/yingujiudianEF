@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using DevelopBase.Common;
 using DevelopBase.Services;
+using PurocumentLib.Dbcontext;
+//using PurocumentLib.Entity;
 using PurocumentLib.Model;
 
 namespace PurocumentLib.Service
 {
-    public interface IRole
+    public interface IRoleService
     {
         /// <summary>
         /// 校验RoleID
         /// </summary>
-        /// <param name="goodsID"></param>
+        /// <param name="roleID"></param>
         /// <returns></returns>
-        bool ValidateGoodsID(int[] roleID);
+        bool ValidateRoleID(int[] roleID);
         /// <summary>
         /// 新增商品信息
         /// </summary>
         /// <param name="goods">商品信息</param>
         /// <returns></returns>
-        void AddRole(Role goods);
-        void Update(Role goods);
+        void Add(Role role);
+        void Update(Role role);
         Role Load(int id);
         void Disable(IEnumerable<int> ids);
     }

@@ -18,19 +18,24 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new ArgumentNullException();
             }
-            var model = new DepartmentModel()
+            var model = new Usr()
             {
                 WechatID = request.WechatID,
                 Code = request.Code,
                 Name = request.Name,
-                Address = request.Address,
-                Address1 = request.Address1,
+                Desc = request.Desc,
                 Tel = request.Tel,
                 Tel1 = request.Tel1,
                 Mobile = request.Mobile,
-                Mobile1 = request.Mobile1
+                Mobile1 = request.Mobile1,
+                Addr = request.Addr,
+                Addr1 = request.Addr1,
+                DepartmentID = request.DepartmentID,
+                VendorID = request.VendorID,
+                RoleID = request.RoleID,
+                Disable = request.Disable
             };
-            var service = ServiceProvider.GetService<IDepartmentService>();
+            var service = ServiceProvider.GetService<IUsrService>();
             service.Add(model);
             return new ResponseBase() { Result = 1, ResultInfo = "" };
         }
