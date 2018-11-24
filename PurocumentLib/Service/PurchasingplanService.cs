@@ -73,7 +73,7 @@ namespace PurocumentLib.Service
             return master;
         }
         //初审提交
-        public void SubmitPlan(IEnumerable<int> ids,int userID,string desc)
+        public void SubmitPlan(IEnumerable<int> ids,int userID)
         {
             if(ids==null)
             {
@@ -88,15 +88,8 @@ namespace PurocumentLib.Service
             foreach(var item in plans)
             {
                 item.Status=2;
-                //添加初审记录
-                var submitRecord=new PurchasingAudit()
-                {
-                    PlanID=item.ID,
-                    UserID=userID,
-                    Desc=desc,
-                    CreateTime=DateTime.Now
-                };
-                dbcontext.Add(submitRecord);
+                item.UpdateUserID=userID;
+                item.UpdateTime=DateTime.Now;
             }
             dbcontext.UpdateRange(plans);
             dbcontext.SaveChanges();
