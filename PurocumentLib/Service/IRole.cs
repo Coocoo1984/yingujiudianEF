@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using DevelopBase.Services;
 using PurocumentLib.Model;
 
@@ -18,7 +19,7 @@ namespace PurocumentLib.Service
         /// </summary>
         /// <param name="goods">商品信息</param>
         /// <returns></returns>
-        void AddGoods(Role goods);
+        void AddRole(Role goods);
         void Update(Role goods);
         Role Load(int id);
         void Disable(IEnumerable<int> ids);

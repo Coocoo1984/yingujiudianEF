@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PurocumentLib.Model
 {
-    public class Usr
+    public class UsrModel
     {
         public int ID { get; set; }
         public string WechatID { get; set; }

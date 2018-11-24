@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PurocumentLib.Model
+using DevelopBase.Message;
+namespace PurocumentLib.Message.Request
 {
-    public class RoleModel
+    class UpdateRoleRequest : RequestBase
     {
         public int ID { get; set; }
         public string WechatGroupID { get; set; }

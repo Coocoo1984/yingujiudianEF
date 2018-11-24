@@ -25,3 +25,14 @@ F:\GitHubBase\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI
 F:\GitHubBase\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.AssemblyInfo.cs
 F:\GitHubBase\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.dll
 F:\GitHubBase\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.pdb
+F:\GitHubBase\yingujiudianEF\PurocumentAPI\bin\Debug\netcoreapp2.1\PurocumentAPI.deps.json
+F:\GitHubBase\yingujiudianEF\PurocumentAPI\bin\Debug\netcoreapp2.1\PurocumentAPI.runtimeconfig.json
+F:\GitHubBase\yingujiudianEF\PurocumentAPI\bin\Debug\netcoreapp2.1\PurocumentAPI.runtimeconfig.dev.json
+F:\GitHubBase\yingujiudianEF\PurocumentAPI\bin\Debug\netcoreapp2.1\PurocumentAPI.dll
+F:\GitHubBase\yingujiudianEF\PurocumentAPI\bin\Debug\netcoreapp2.1\PurocumentAPI.pdb
+F:\GitHubBase\yingujiudianEF\PurocumentAPI\bin\Debug\netcoreapp2.1\DevelopBase.dll
+F:\GitHubBase\yingujiudianEF\PurocumentAPI\bin\Debug\netcoreapp2.1\PurocumentLib.dll
+F:\GitHubBase\yingujiudianEF\PurocumentAPI\bin\Debug\netcoreapp2.1\PurocumentLib.pdb
+F:\GitHubBase\yingujiudianEF\PurocumentAPI\bin\Debug\netcoreapp2.1\DevelopBase.pdb
+F:\GitHubBase\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.RazorTargetAssemblyInfo.cache
+F:\GitHubBase\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.csproj.CopyComplete
