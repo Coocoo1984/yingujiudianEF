@@ -19,6 +19,10 @@ namespace PurocumentLib.Dbcontext
 
         public IQueryable<Department> Department => Set<Department>().AsNoTracking();
 
+        public IQueryable<Role> Role => Set<Role>().AsNoTracking();
+
+        public IQueryable<Usr> Usr => Set<Usr>().AsNoTracking();
+
         public IQueryable<Vendor> Vendor =>Set<Vendor>().AsNoTracking();
 
         public IQueryable<PurchasingPlan> PurchasingPlan => Set<PurchasingPlan>().AsNoTracking();

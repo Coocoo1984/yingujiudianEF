@@ -21,7 +21,7 @@ namespace PurocumentLib.Dbcontext
         //角色
         IQueryable<Role> Role { get; }
         //用户
-        IQueryable<Usr> Usrs { get; }
+        IQueryable<Usr> Usr { get; }
         //供应商
         IQueryable<Vendor> Vendor{get;}
         //采购计划
