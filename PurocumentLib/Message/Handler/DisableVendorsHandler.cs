@@ -19,7 +19,7 @@ namespace PurocumentLib.Message.Handler
             }
             var service=ServiceProvider.GetService<IVendorService>();
             service.Disable(request.VendorIDs);
-            return new ResponseBase(){Result=1,ResultInfo=""}
+            return new ResponseBase(){Result=1,ResultInfo=""};
         }
     }
 }

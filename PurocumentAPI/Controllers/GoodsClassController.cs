@@ -62,7 +62,8 @@ namespace PurocumentAPI.Controllers
             };
             try
             {
-                //var request=new 
+                var response=await _serviceProvider.HandlerAsync(request);
+                return new JsonResult(response);
             }
             catch(Exception ex)
             {

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Entity=PurocumentLib.Entity;
 using PurocumentLib.Dbcontext;
 using DevelopBase.Common;
+using Microsoft.EntityFrameworkCore;
 namespace PurocumentLib.Service
 {
     public class PurchasingplanService :ServiceBase ,IPurchasingplanService
@@ -23,6 +24,7 @@ namespace PurocumentLib.Service
             //创建主表
             var entity=new Entity.PurchasingPlan()
             {
+                Desc=plan.Desc,
                 BizTypeID=plan.BizType,
                 Status=plan.Status,
                 CreateTime=plan.CreateTime,
@@ -41,6 +43,75 @@ namespace PurocumentLib.Service
             dbcontext.AddRange(details);
             dbcontext.SaveChanges();
 
+        }
+
+        public PurchasingPlan Load(int id)
+        {
+            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var entity=dbcontext.PurchasingPlan.Include(i=>i.Details).SingleOrDefault(s=>s.ID==id);
+            var details=entity.Details.Select(s=>new Model.PurchasingPlanDetail()
+            {
+                GoodsID=s.GoodsID,
+                PurchasingPlanCount=s.PurchasingCount
+            });
+            var master=new PurchasingPlan()
+            {
+                ID=entity.ID,
+                DepartmentID=entity.DepartmentID,
+                BizType=entity.BizTypeID,
+                Desc=entity.Desc,
+                Status=entity.Status,
+                Details=details,
+                CreateTime=entity.CreateTime,
+                CreateUser=entity.CreateUserID,
+                UpdateUser=entity.UpdateUserID,
+                UpdateTime=entity.UpdateTime
+
+            };
+            return master;
+        }
+
+        public void UpdatePlan(PurchasingPlan plan)
+        {
+            if(plan==null)
+            {
+                throw new ArgumentNullException();
+            }
+            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var entity=dbcontext.PurchasingPlan.Include(i=>i.Details).SingleOrDefault(s=>s.ID==plan.ID);
+            if(entity==null)
+            {
+                throw new Exception("采购计划不存在");
+            }
+            entity.Desc=plan.Desc;
+            entity.UpdateTime=DateTime.Now;
+            entity.UpdateUserID=plan.UpdateUser;
+            //修改商品信息
+            var saveGoods=entity.Details.Select(s=>s.GoodsID).ToList();
+            var submitGoods=plan.Details.Select(s=>s.GoodsID).ToList();
+            //新增
+            var addGoods =submitGoods.Where(w=>!saveGoods.Contains(w));
+            var addDetails=plan.Details.Where(w=>addGoods.Contains(w.GoodsID)).Select(s=>new Entity.PurchasingPlanDetail()
+            {
+                PurchasingPlanID=entity.ID,
+                GoodsID=s.GoodsID,
+                PurchasingCount=s.PurchasingPlanCount
+            });
+            dbcontext.AddRange(addDetails);
+            //删除
+            var removeGoods=saveGoods.Where(w=>!submitGoods.Contains(w));
+            var removeDetails=entity.Details.Where(w=>removeGoods.Contains(w.GoodsID));
+            dbcontext.RemoveRange(removeDetails);
+            //修改
+            var updateGoods=submitGoods.Where(w=>saveGoods.Contains(w));
+            var updateDetails=plan.Details.Where(w=>updateGoods.Contains(w.GoodsID));
+            foreach(var goods in updateDetails)
+            {
+                var updated=entity.Details.SingleOrDefault(s=>s.GoodsID==goods.GoodsID);
+                updated.PurchasingCount=goods.PurchasingPlanCount;
+                dbcontext.Update(updated);
+            }
+            dbcontext.SaveChanges();
         }
     }
 }

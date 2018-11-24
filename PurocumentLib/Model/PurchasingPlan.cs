@@ -12,10 +12,13 @@ namespace PurocumentLib.Model
         public int ID{get;set;}
         public int DepartmentID{get;set;}
         public int BizType{get;set;}
-        public int Status{get;private set;}
+        public string Desc{get;set;}
+        public int Status{get;set;}
         public IEnumerable<PurchasingPlanDetail> Details{get;set;}
-        public DateTime CreateTime{get;private set;}
+        public DateTime CreateTime{get;set;}
         public int CreateUser{get;set;}
+        public DateTime UpdateTime{get;set;}
+        public int UpdateUser{get;set;}
         
     }
     

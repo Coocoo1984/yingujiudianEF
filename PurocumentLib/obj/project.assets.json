@@ -2761,8 +2761,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "F:\\Develop\\yingujiudianEF\\DevelopBase\\DevelopBase.csproj": {
-              "projectPath": "F:\\Develop\\yingujiudianEF\\DevelopBase\\DevelopBase.csproj"
+            "f:\\Develop\\yingujiudianEF\\DevelopBase\\DevelopBase.csproj": {
+              "projectPath": "f:\\Develop\\yingujiudianEF\\DevelopBase\\DevelopBase.csproj"
             }
           }
         }
