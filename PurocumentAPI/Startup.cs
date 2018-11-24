@@ -25,6 +25,14 @@ namespace PurocumentAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(Options=>{
+                Options.AddPolicy("default",builder=>{
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyOrigin();
+                    builder.AllowCredentials();
+                });
+            });
             var dbcontextRegisterInfo=Configuration.GetSection("Database").Get<IEnumerable<RegisterInfo>>();
             services.AddDbcontext(dbcontextRegisterInfo);
             var serviceRegisterInfo=Configuration.GetSection("Service").Get<IEnumerable<RegisterInfo>>();
@@ -45,7 +53,7 @@ namespace PurocumentAPI
             {
                 app.UseHsts();
             }
-
+            app.UseCors("default");
             app.UseHttpsRedirection();
             app.UseMvc(routes=>{
                 routes.MapRoute(name:"default",template:"api/{controller}/{action}");
