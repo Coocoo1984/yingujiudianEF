@@ -9,5 +9,6 @@ namespace PurocumentLib.Entity
         public Quote Quote{get;set;}
         public int GoodsID{get;set;}
         public decimal Price{get;set;}
+        public int GoodsClassID{get;set;}
     }
 }

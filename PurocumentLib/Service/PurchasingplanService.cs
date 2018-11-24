@@ -36,12 +36,15 @@ namespace PurocumentLib.Service
             };
             var dbcontext= ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             dbcontext.Add(entity);
-            var details=plan.Details.Select(s=>new Entity.PurchasingPlanDetail()
+            var details=from a in plan.Details
+                        join b in dbcontext.Goods on a.GoodsID equals b.ID
+            select new Entity.PurchasingPlanDetail()
             {
-                GoodsID=s.GoodsID,
-                PurchasingCount=s.PurchasingPlanCount,
+                GoodsID=a.GoodsID,
+                PurchasingCount=a.PurchasingPlanCount,
+                GoodsClassID=b.ClassID,
                 PurchasingPlan=entity
-            });
+            };
             dbcontext.AddRange(details);
             dbcontext.SaveChanges();
 
@@ -120,26 +123,32 @@ namespace PurocumentLib.Service
             var submitGoods=plan.Details.Select(s=>s.GoodsID).ToList();
             //新增
             var addGoods =submitGoods.Where(w=>!saveGoods.Contains(w));
-            var addDetails=plan.Details.Where(w=>addGoods.Contains(w.GoodsID)).Select(s=>new Entity.PurchasingPlanDetail()
-            {
-                PurchasingPlanID=entity.ID,
-                GoodsID=s.GoodsID,
-                PurchasingCount=s.PurchasingPlanCount
-            });
+            var addDetails=from a in  plan.Details.Where(w=>addGoods.Contains(w.GoodsID)) 
+                           join b in dbcontext.Goods on a.GoodsID equals b.ID
+                            select new Entity.PurchasingPlanDetail()
+                            {
+                                PurchasingPlanID=entity.ID,
+                                GoodsID=a.GoodsID,
+                                GoodsClassID=b.ClassID,
+                                PurchasingCount=a.PurchasingPlanCount
+                            };
             dbcontext.AddRange(addDetails);
             //删除
             var removeGoods=saveGoods.Where(w=>!submitGoods.Contains(w));
             var removeDetails=entity.Details.Where(w=>removeGoods.Contains(w.GoodsID));
             dbcontext.RemoveRange(removeDetails);
             //修改
-            var updateGoods=submitGoods.Where(w=>saveGoods.Contains(w));
-            var updateDetails=plan.Details.Where(w=>updateGoods.Contains(w.GoodsID));
-            foreach(var goods in updateDetails)
-            {
-                var updated=entity.Details.SingleOrDefault(s=>s.GoodsID==goods.GoodsID);
-                updated.PurchasingCount=goods.PurchasingPlanCount;
-                dbcontext.Update(updated);
-            }
+            var combinGoods=addGoods.Concat(removeGoods);
+            var updateDetails=from a in plan.Details.Where(w=>combinGoods.Contains(w.GoodsID))
+                              join b in dbcontext.Goods on a.GoodsID equals b.ID
+                              select new Entity.PurchasingPlanDetail()
+                            {
+                                PurchasingPlanID=entity.ID,
+                                GoodsID=a.GoodsID,
+                                GoodsClassID=b.ClassID,
+                                PurchasingCount=a.PurchasingPlanCount
+                            };
+            dbcontext.UpdateRange(updateDetails);
             dbcontext.SaveChanges();
         }
     }

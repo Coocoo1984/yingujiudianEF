@@ -21,7 +21,7 @@ namespace PurocumentLib.Service
             {
                 throw new ArgumentNullException();
             }
-            
+            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             var entity=new Quote()
             {
                 Code=model.Code,
@@ -30,12 +30,15 @@ namespace PurocumentLib.Service
                 CreateUserID=model.CreateUserID,
                 Desc=model.Desc
             };
-            var detials=model.Details.Select(s=>new QuoteDetail(){
-                GoodsID=s.GoodsID,
-                Price=s.Price,
-                Quote=entity
-            });
-            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var detials=from a in model.Details
+                        join b in dbcontext.Goods on a.GoodsID equals b.ID
+                        select new QuoteDetail(){
+                                    GoodsID=a.GoodsID,
+                                    GoodsClassID=b.ClassID,
+                                    Price=a.Price,
+                                    Quote=entity
+                                };
+            
             dbcontext.Add(entity);
             dbcontext.AddRange(detials);
             dbcontext.SaveChanges();
@@ -100,14 +103,23 @@ namespace PurocumentLib.Service
             var removeGoods=entity.Details.Where(w=>!modelGoods.Contains(w.GoodsID)).ToList();
             dbcontext.RemoveRange(removeGoods);
             //新增
-            var addGoods=model.Details.Where(w=>!entityGoods.Contains(w.GoodsID));
+            var addGoods=from a in model.Details.Where(w=>!entityGoods.Contains(w.GoodsID))
+                         join b in dbcontext.Goods on a.GoodsID equals b.ID
+                              select new QuoteDetail(){
+                                GoodsID=a.GoodsID,
+                                GoodsClassID=b.ClassID,
+                                Price=a.Price
+                            };
             dbcontext.AddRange(addGoods);
             //修改
             var updateGoods=addGoods.Select(s=>s.GoodsID).Concat(removeGoods.Select(s=>s.GoodsID));
-            var updateDetails=model.Details.Where(w=>updateGoods.Contains(w.GoodsID)).Select(s=>new QuoteDetail(){
-                GoodsID=s.GoodsID,
-                Price=s.Price
-            });
+            var updateDetails=from a in model.Details.Where(w=>updateGoods.Contains(w.GoodsID))
+                              join b in dbcontext.Goods on a.GoodsID equals b.ID  
+                              select new QuoteDetail(){
+                                GoodsID=a.GoodsID,
+                                GoodsClassID=b.ClassID,
+                                Price=a.Price
+                            };
             dbcontext.UpdateRange(updateDetails);
             dbcontext.SaveChanges();
         }
