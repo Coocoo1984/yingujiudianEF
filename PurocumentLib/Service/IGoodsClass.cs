@@ -11,6 +11,7 @@ namespace PurocumentLib.Service
         //检查编码是否存在
         bool CodeExists(string code);
         void Update(GoodsClassModel model);
+        GoodsClassModel Load(int id);
         void Disable(int id);
     }
 }

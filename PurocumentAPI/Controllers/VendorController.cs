@@ -50,5 +50,21 @@ namespace PurocumentAPI.Controllers
             }
 
         }
+        public async Task<IActionResult> Get(int id)
+        {
+            var request=new GetVendorRequest()
+            {
+                ID=id
+            };
+            try
+            {
+                var response=await _serviceProvider.HandlerAsync(request);
+                return new JsonResult(response);
+            }
+            catch(Exception ex)
+            {
+                return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
+            }
+        }
     }
 }

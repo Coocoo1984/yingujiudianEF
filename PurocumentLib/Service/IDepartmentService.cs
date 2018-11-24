@@ -10,6 +10,6 @@ namespace PurocumentLib.Service
         bool ValidateDepartment(IEnumerable<int> departmentIDs);
         void Add(DepartmentModel model);
         void Update(DepartmentModel model);
-        
+        DepartmentModel Load(int id);
     }
 }

@@ -64,6 +64,28 @@ namespace PurocumentLib.Service
             dbcontext.SaveChanges();
         }
 
+        public VendorModel Load(int id)
+        {
+            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var entity=dbcontext.Vendor.SingleOrDefault(s=>s.ID==id);
+            if(entity==null)
+            {
+                return null;
+            }
+            return new VendorModel()
+            {
+                ID=entity.ID,
+                Code=entity.Code,
+                Name=entity.Name,
+                Tel=entity.Tel,
+                Tel1=entity.Tel1,
+                Mobile=entity.Mobile,
+                Mobile1=entity.Mobile1,
+                Address=entity.Address,
+                Address1=entity.Address1
+            };
+        }
+
         public void Update(VendorModel model)
         {
             if(model==null)

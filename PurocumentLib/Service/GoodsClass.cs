@@ -67,6 +67,24 @@ namespace PurocumentLib.Service
             }
         }
 
+        public GoodsClassModel Load(int id)
+        {
+            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var entity=dbcontext.GoodsClass.SingleOrDefault(s=>s.ID==id);
+            if(entity==null)
+            {
+                return null;
+            }
+            return new GoodsClassModel()
+            {
+                ID=entity.ID,
+                Code=entity.Code,
+                Name=entity.Name,
+                Disable=entity.Disable,
+                Desc=entity.Desc
+            };
+        }
+
         public void Update(GoodsClassModel model)
         {
             if(model==null)

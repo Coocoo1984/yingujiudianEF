@@ -20,6 +20,7 @@ namespace PurocumentLib.Service
         /// <returns></returns>
         void AddGoods(Goods goods);
         void Update(Goods goods);
+        Goods Load(int id);
         void Disable(IEnumerable<int> ids);
     }
 }
