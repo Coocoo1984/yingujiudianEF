@@ -15,6 +15,7 @@ namespace PurocumentAPI.Controllers
         {
             _serviceProvider=serviceProvider;
         }
+        //新增采购计划
         [HttpPost]
         public async Task<IActionResult> Add([FromBody]CreatePurocumentPlanRequest request)
         {
@@ -28,6 +29,7 @@ namespace PurocumentAPI.Controllers
                 return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
             }
         }
+        //修改采购计划
         public async Task<IActionResult> Update([FromBody]UpdatePurocumentPlanRequest request)
         {
             try
@@ -40,6 +42,7 @@ namespace PurocumentAPI.Controllers
                 return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
             }
         }
+        //获取商品信息
         public async Task<IActionResult> Get(int id)
         {
             var request=new GetPurchasingPlanRequest()

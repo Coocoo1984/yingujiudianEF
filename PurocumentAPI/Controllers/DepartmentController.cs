@@ -16,6 +16,7 @@ namespace PurocumentAPI.Controllers
         {
             _serviceProvider=serviceProvider;
         }
+        //部门新增
         [HttpPost]
         public async Task<IActionResult> Add([FromBody]AddDepartmentRequest request)
         {
@@ -29,6 +30,7 @@ namespace PurocumentAPI.Controllers
                 return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
             }
         }
+        //部门修改
         [HttpPost]
         public async Task<IActionResult> Update([FromBody]UpdateDepartmentRequest request)
         {
@@ -43,6 +45,7 @@ namespace PurocumentAPI.Controllers
             }
 
         }
+        //获取部门信息
         public async Task<IActionResult> Get(int id)
         {
             var request=new GetDepartmentRequest()

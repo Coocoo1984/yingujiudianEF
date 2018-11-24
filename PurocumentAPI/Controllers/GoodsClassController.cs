@@ -15,6 +15,7 @@ namespace PurocumentAPI.Controllers
         {
             _serviceProvider=serviceProvider;
         }
+        //商品类别新增
         [HttpPost]
         public async Task<IActionResult> Add([FromBody]AddGoodsClassRequest request)
         {
@@ -28,6 +29,7 @@ namespace PurocumentAPI.Controllers
                 return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
             }
         }
+        //商品类别修改
         [HttpPost]
         public async Task<IActionResult> Update([FromBody] UpdateGoodsClassRequest request)
         {
@@ -41,6 +43,7 @@ namespace PurocumentAPI.Controllers
                 return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
             }
         }
+        //禁用商品类别
         [HttpPost]
         public async Task<IActionResult> Disable([FromBody]GoodsClassDisableRequest request)
         {
@@ -54,6 +57,7 @@ namespace PurocumentAPI.Controllers
                 return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
             }
         }
+        //获取商品类别信息
         public async Task<IActionResult> Get(int id)
         {
             var request=new GetGoodsRequest()

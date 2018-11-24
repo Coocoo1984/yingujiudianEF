@@ -87,7 +87,7 @@ namespace PurocumentLib.Service
             var plans=dbcontext.PurchasingPlan.Where(w=>ids.Contains(w.ID)).ToList();
             foreach(var item in plans)
             {
-                item.Status=2;
+                item.Status=item.Status+1;
                 item.UpdateUserID=userID;
                 item.UpdateTime=DateTime.Now;
             }
@@ -107,6 +107,7 @@ namespace PurocumentLib.Service
             {
                 throw new Exception("采购计划不存在");
             }
+            var modifyStatus=new int[]{1,3,7};
             if(entity.Status!=1)
             {
                 throw new Exception("采购计划不可修改");
