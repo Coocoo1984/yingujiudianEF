@@ -18,7 +18,8 @@ namespace PurocumentLib.Message.Handler
                 throw new ArgumentNullException();
             }
             var service=ServiceProvider.GetService<IPurchasingAuditService>();
-            
+            service.PlanAudit(request.PlanID,request.UserID,request.IsPass,request.Desc);
+            return new ResponseBase(){Result=1,ResultInfo=""};
         }
     }
 }
