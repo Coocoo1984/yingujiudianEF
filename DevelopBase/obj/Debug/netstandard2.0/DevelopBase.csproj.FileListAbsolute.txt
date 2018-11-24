@@ -24,4 +24,3 @@ F:\GitHubBase\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.As
 F:\GitHubBase\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfo.cs
 F:\GitHubBase\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.dll
 F:\GitHubBase\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.pdb
-F:\GitHubBase\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.csprojAssemblyReference.cache

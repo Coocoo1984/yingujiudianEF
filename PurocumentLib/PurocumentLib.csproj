@@ -1,6 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Compile Remove="Message\Handler\AddRoleHandler.cs" />
+    <Compile Remove="Message\Handler\GetRoleHandler.cs" />
+    <Compile Remove="Message\Handler\UpdateRoleRequest.cs" />
+    <Compile Remove="Service\IRoleService.cs" />
+    <Compile Remove="Service\RoleService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DevelopBase\DevelopBase.csproj" />
   </ItemGroup>
 
