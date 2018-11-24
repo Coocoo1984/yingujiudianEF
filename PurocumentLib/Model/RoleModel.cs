@@ -2,7 +2,7 @@
 
 namespace PurocumentLib.Model
 {
-    public class Role
+    public class RoleModel
     {
         public int ID { get; set; }
         public string WechatGroupID { get; set; }

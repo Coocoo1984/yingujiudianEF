@@ -19,7 +19,7 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new ArgumentNullException();
             }
-            var model = new Role()
+            var model = new RoleModel()
             {
                 ID = request.ID,
                 WechatGroupID = request.WechatGroupID,

@@ -5,12 +5,11 @@ using System.Linq;
 using DevelopBase.Common;
 using DevelopBase.Services;
 using PurocumentLib.Dbcontext;
-//using PurocumentLib.Entity;
 using PurocumentLib.Model;
 
 namespace PurocumentLib.Service
 {
-    public interface IRoleService
+    public interface IRoleService : IService
     {
         /// <summary>
         /// 校验RoleID
@@ -23,9 +22,9 @@ namespace PurocumentLib.Service
         /// </summary>
         /// <param name="goods">商品信息</param>
         /// <returns></returns>
-        void Add(Role role);
-        void Update(Role role);
-        Role Load(int id);
+        void Add(RoleModel role);
+        void Update(RoleModel role);
+        RoleModel Load(int id);
         void Disable(IEnumerable<int> ids);
     }
 }

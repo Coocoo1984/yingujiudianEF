@@ -22,7 +22,7 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new Exception("用户名称无效");
             }
-            var model = new Model.Usr()
+            var model = new UsrModel()
             {
                 WechatID = request.WechatID,
                 Code = request.Code,

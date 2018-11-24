@@ -19,7 +19,7 @@ namespace PurocumentLib.Message.Handler
             }
             var service = ServiceProvider.GetService<IRoleService>();
             var model = service.Load(request.ID);
-            return new ResponseGeneric<Model.Role>() { Result = 1, ResultInfo = "", Data = model };
+            return new ResponseGeneric<Model.RoleModel>() { Result = 1, ResultInfo = "", Data = model };
         }
     }
 }

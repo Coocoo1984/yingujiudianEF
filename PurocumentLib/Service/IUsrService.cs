@@ -5,7 +5,6 @@ using System.Linq;
 using DevelopBase.Common;
 using DevelopBase.Services;
 using PurocumentLib.Dbcontext;
-//using PurocumentLib.Entity;
 using PurocumentLib.Model;
 
 namespace PurocumentLib.Service
@@ -23,9 +22,9 @@ namespace PurocumentLib.Service
         /// </summary>
         /// <param name="usr">用户对象</param>
         /// <returns></returns>
-        void Add(Usr usr);
-        void Update(Usr usr);
-        Usr Load(int id);
+        void Add(UsrModel usr);
+        void Update(UsrModel usr);
+        UsrModel Load(int id);
         void Disable(IEnumerable<int> ids);
     }
 }

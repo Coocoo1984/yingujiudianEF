@@ -18,7 +18,7 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new ArgumentNullException();
             }
-            var model = new Usr()
+            var model = new UsrModel()
             {
                 WechatID = request.WechatID,
                 Code = request.Code,
