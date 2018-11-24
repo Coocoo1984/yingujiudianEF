@@ -26,5 +26,9 @@ namespace PurocumentLib.Dbcontext
         IQueryable<PurchasingPlanDetail> PurchasingPlanDetail{get;}
         //审核记录
         IQueryable<PurchasingAudit> PurchasingAudits{get;}
+        //供应商报价单
+        IQueryable<Quote> Quotes{get;}
+        //报价单明细
+        IQueryable<QuoteDetail> QuoteDetails{get;}
     }
 }

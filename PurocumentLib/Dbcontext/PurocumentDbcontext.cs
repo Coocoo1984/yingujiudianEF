@@ -27,6 +27,10 @@ namespace PurocumentLib.Dbcontext
 
         public IQueryable<PurchasingAudit> PurchasingAudits => Set<PurchasingAudit>().AsNoTracking();
 
+        public IQueryable<Quote> Quotes => Set<Quote>().AsNoTracking();
+
+        public IQueryable<QuoteDetail> QuoteDetails => Set<QuoteDetail>().AsNoTracking();
+
         public PurocumentDbcontext(string connectionString) : base(connectionString)
         {
         }
@@ -142,6 +146,29 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p=>p.UserID).HasColumnName("audit_usr_id");
                 builder.Property(p=>p.CreateTime).HasColumnName("audit_time");
                 builder.Property(p=>p.Desc).HasColumnName("audit_desc");
+            });
+            modelBuilder.Entity<Quote>(builder=>
+            {
+                builder.ToTable("quote").HasKey(k=>k.ID);
+                builder.Property(p=>p.ID).HasColumnName("id");
+                builder.Property(p=>p.Code).HasColumnName("code");
+                builder.Property(p=>p.Name).HasColumnName("name");
+                builder.Property(p=>p.VendorID).HasColumnName("vendor_id");
+                builder.Property(p=>p.BizTypeID).HasColumnName("biz_type_id");
+                builder.Property(p=>p.CreateUserID).HasColumnName("create_usr_id");
+                builder.Property(p=>p.CreatDateTime).HasColumnName("create_time");
+                builder.Property(p=>p.UpdateUserID).HasColumnName("update_usr_id");
+                builder.Property(p=>p.UpdateDateTime).HasColumnName("update_time");
+                builder.Property(p=>p.Disable).HasColumnName("disable");
+                builder.HasMany(p=>p.Details).WithOne(p=>p.Quote).HasForeignKey(f=>f.QuoteID);
+            });
+            modelBuilder.Entity<QuoteDetail>(builder=>
+            {
+                builder.ToTable("quote_detail").HasKey(k=>k.ID);
+                builder.Property(p=>p.ID).HasColumnName("id");
+                builder.Property(p=>p.QuoteID).HasColumnName("quote_id");
+                builder.Property(p=>p.GoodsID).HasColumnName("goods_id");
+                builder.Property(p=>p.Price).HasColumnName("unit_price");
             });
             base.OnModelCreating(modelBuilder);
         }
