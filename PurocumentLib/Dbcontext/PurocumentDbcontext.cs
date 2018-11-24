@@ -25,6 +25,8 @@ namespace PurocumentLib.Dbcontext
 
         public IQueryable<PurchasingPlanDetail> PurchasingPlanDetail => Set<PurchasingPlanDetail>().AsNoTracking();
 
+        public IQueryable<PurchasingAudit> PurchasingAudits => Set<PurchasingAudit>().AsNoTracking();
+
         public PurocumentDbcontext(string connectionString) : base(connectionString)
         {
         }
@@ -130,6 +132,16 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p=>p.CreateTime).HasColumnName("create_time");
                 builder.Property(p=>p.UpdateTime).HasColumnName("update_time");
                 
+            });
+            modelBuilder.Entity<PurchasingAudit>(builder=>
+            {
+                builder.ToTable("purchasing_audit").HasKey(k=>k.ID);
+                builder.Property(p=>p.ID).HasColumnName("id");
+                builder.Property(p=>p.PlanID).HasColumnName("purchasing_plan_id");
+                builder.Property(p=>p.Result).HasColumnName("audit_type");
+                builder.Property(p=>p.UserID).HasColumnName("audit_usr_id");
+                builder.Property(p=>p.CreateTime).HasColumnName("audit_time");
+                builder.Property(p=>p.Desc).HasColumnName("audit_desc");
             });
             base.OnModelCreating(modelBuilder);
         }

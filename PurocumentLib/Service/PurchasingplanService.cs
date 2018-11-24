@@ -7,6 +7,8 @@ using Entity=PurocumentLib.Entity;
 using PurocumentLib.Dbcontext;
 using DevelopBase.Common;
 using Microsoft.EntityFrameworkCore;
+using PurocumentLib.Entity;
+
 namespace PurocumentLib.Service
 {
     public class PurchasingplanService :ServiceBase ,IPurchasingplanService
@@ -15,7 +17,7 @@ namespace PurocumentLib.Service
         {
         }
 
-        public void CreatePlan(PurchasingPlan plan)
+        public void CreatePlan(Model.PurchasingPlan plan)
         {
             if(plan.Details.Count(c=>c.PurchasingPlanCount<=0)>0)
             {
@@ -45,7 +47,7 @@ namespace PurocumentLib.Service
 
         }
 
-        public PurchasingPlan Load(int id)
+        public Model.PurchasingPlan Load(int id)
         {
             var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             var entity=dbcontext.PurchasingPlan.Include(i=>i.Details).SingleOrDefault(s=>s.ID==id);
@@ -54,7 +56,7 @@ namespace PurocumentLib.Service
                 GoodsID=s.GoodsID,
                 PurchasingPlanCount=s.PurchasingCount
             });
-            var master=new PurchasingPlan()
+            var master=new Model.PurchasingPlan()
             {
                 ID=entity.ID,
                 DepartmentID=entity.DepartmentID,
@@ -70,8 +72,37 @@ namespace PurocumentLib.Service
             };
             return master;
         }
+        //初审提交
+        public void SubmitPlan(IEnumerable<int> ids,int userID,string desc)
+        {
+            if(ids==null)
+            {
+                throw new ArgumentNullException();
+            }
+            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            if(dbcontext.PurchasingPlan.Count(c=>ids.Contains(c.ID) && c.Status!=1)>0)
+            {
+                throw new Exception("采购计划状态不正确");
+            }
+            var plans=dbcontext.PurchasingPlan.Where(w=>ids.Contains(w.ID)).ToList();
+            foreach(var item in plans)
+            {
+                item.Status=2;
+                //添加初审记录
+                var submitRecord=new PurchasingAudit()
+                {
+                    PlanID=item.ID,
+                    UserID=userID,
+                    Desc=desc,
+                    CreateTime=DateTime.Now
+                };
+                dbcontext.Add(submitRecord);
+            }
+            dbcontext.UpdateRange(plans);
+            dbcontext.SaveChanges();
+        }
 
-        public void UpdatePlan(PurchasingPlan plan)
+        public void UpdatePlan(Model.PurchasingPlan plan)
         {
             if(plan==null)
             {
@@ -82,6 +113,10 @@ namespace PurocumentLib.Service
             if(entity==null)
             {
                 throw new Exception("采购计划不存在");
+            }
+            if(entity.Status!=1)
+            {
+                throw new Exception("采购计划不可修改");
             }
             entity.Desc=plan.Desc;
             entity.UpdateTime=DateTime.Now;
