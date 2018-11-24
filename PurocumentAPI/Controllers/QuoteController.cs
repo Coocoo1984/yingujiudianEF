@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DevelopBase.Message;
 namespace PurocumentAPI.Controllers
 {
+    //供应商报价
     public class QuoteController:ControllerBase
     {
         private IServiceProvider _serviceProvider=null;
@@ -20,6 +21,7 @@ namespace PurocumentAPI.Controllers
             }
             _serviceProvider=serviceProvider;
         }
+        //获取报价信息
         public async Task<IActionResult> Get(int id)
         {
             var request=new GetQuoteRequest()
@@ -36,6 +38,7 @@ namespace PurocumentAPI.Controllers
                 return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
             }
         }
+        //新增报价
         public async Task<IActionResult> Add([FromBody]AddQuoteRequest request)
         {
             try
@@ -49,6 +52,7 @@ namespace PurocumentAPI.Controllers
             }
 
         }
+        //修改报价
         public async Task<IActionResult> Update([FromBody]UpdateQuoteRequest request)
         {
             try
