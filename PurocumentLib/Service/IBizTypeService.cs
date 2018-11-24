@@ -12,5 +12,6 @@ namespace PurocumentLib.Service
         /// <param name="BizTypeID"></param>
         /// <returns></returns>
         bool ValidateBizTypeID(IEnumerable<int> BizTypeID);
+        
     }
 }

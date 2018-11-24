@@ -17,6 +17,49 @@ namespace PurocumentLib.Service
         {
         }
 
+        public decimal CalPlanPriceTotal(int id, int vendorID, int goodsClassID)
+        {
+            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var details=dbcontext.PurchasingPlanDetail.Where(w=>w.PurchasingPlanID==id && w.GoodsClassID==goodsClassID).ToList();
+            var goodsIds=details.Select(s=>s.GoodsID);
+            //查询供应商报价单
+            var quoteDetails=from a in dbcontext.QuoteDetails.Include(i=>i.Quote).Where(w=>w.Quote.VendorID==vendorID && goodsIds.Contains(w.GoodsID))
+                             group a by a.GoodsID into temp
+                             select new {GoodsId=temp.Key,QuoteDetailID=temp.OrderByDescending(o=>o.Quote.CreatDateTime).First().ID};
+            //获取单价
+            var quoteResult=from a in details
+                            join b in quoteDetails on a.GoodsID equals b.GoodsId
+                            join c in dbcontext.QuoteDetails on b.QuoteDetailID equals c.ID
+                            select new {GoodsID=a.GoodsID,Count=a.PurchasingCount,Price=c.Price};
+            return quoteResult.ToList().Sum(s=>s.Price*s.Count);
+            
+        }
+
+        public void ConfirmVendor(int id, int vendorID, int goodsClassID)
+        {
+            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var details=dbcontext.PurchasingPlanDetail.Where(w=>w.PurchasingPlanID==id && w.GoodsClassID==goodsClassID).ToList();
+            var goodsIds=details.Select(s=>s.GoodsID);
+            //查询供应商报价单
+            var quoteDetails=from a in dbcontext.QuoteDetails.Include(i=>i.Quote).Where(w=>w.Quote.VendorID==vendorID && goodsIds.Contains(w.GoodsID))
+                             group a by a.GoodsID into temp
+                             select new {GoodsId=temp.Key,QuoteDetailID=temp.OrderByDescending(o=>o.Quote.CreatDateTime).First().ID};
+            var updateDetails=from a in details
+                              join b in quoteDetails.ToList() on a.GoodsID equals b.GoodsId
+                              select new Entity.PurchasingPlanDetail()
+                              {
+                                  ID=a.ID,
+                                  PurchasingPlanID=a.PurchasingPlanID,
+                                  GoodsID=a.GoodsID,
+                                  PurchasingCount=a.PurchasingCount,
+                                  GoodsClassID=a.GoodsClassID,
+                                  QuoteDetailID=b.QuoteDetailID,
+                                  VendorID=vendorID
+                              };
+            dbcontext.UpdateRange(updateDetails);
+            dbcontext.SaveChanges();
+        }
+
         public void CreatePlan(Model.PurchasingPlan plan)
         {
             if(plan.Details.Count(c=>c.PurchasingPlanCount<=0)>0)

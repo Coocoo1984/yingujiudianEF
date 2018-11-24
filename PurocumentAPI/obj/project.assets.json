@@ -11870,11 +11870,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "f:\\Develop\\yingujiudianEF\\PurocumentAPI\\PurocumentAPI.csproj",
+      "projectUniqueName": "F:\\Develop\\yingujiudianEF\\PurocumentAPI\\PurocumentAPI.csproj",
       "projectName": "PurocumentAPI",
-      "projectPath": "f:\\Develop\\yingujiudianEF\\PurocumentAPI\\PurocumentAPI.csproj",
+      "projectPath": "F:\\Develop\\yingujiudianEF\\PurocumentAPI\\PurocumentAPI.csproj",
       "packagesPath": "C:\\Users\\panjun\\.nuget\\packages\\",
-      "outputPath": "f:\\Develop\\yingujiudianEF\\PurocumentAPI\\obj\\",
+      "outputPath": "F:\\Develop\\yingujiudianEF\\PurocumentAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -11893,8 +11893,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "f:\\Develop\\yingujiudianEF\\PurocumentLib\\PurocumentLib.csproj": {
-              "projectPath": "f:\\Develop\\yingujiudianEF\\PurocumentLib\\PurocumentLib.csproj"
+            "F:\\Develop\\yingujiudianEF\\PurocumentLib\\PurocumentLib.csproj": {
+              "projectPath": "F:\\Develop\\yingujiudianEF\\PurocumentLib\\PurocumentLib.csproj"
             }
           }
         }

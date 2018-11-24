@@ -72,5 +72,33 @@ namespace PurocumentAPI.Controllers
                 return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
             }
         }
+        //计算采购计划商品类别金额
+        public async Task<IActionResult> CalPlanTotalByGoodsClass([FromBody]CalVendorQuoteTotalRequest request)
+        {
+            try
+            {
+                var response=await _serviceProvider.HandlerAsync(request);
+                return new JsonResult(response);
+            }
+            catch(Exception ex)
+            {
+                return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
+            }
+
+        }
+        //确认采购计划供应商
+        public async Task<IActionResult> ConfirmVendor([FromBody]ConfirmPlanVendorRequest request)
+        {
+            try
+            {
+                var response=await _serviceProvider.HandlerAsync(request);
+                return new JsonResult(response);
+            }
+            catch(Exception ex)
+            {
+                return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
+            }
+
+        }
     }
 }

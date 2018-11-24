@@ -14,5 +14,9 @@ namespace PurocumentLib.Service
         PurchasingPlan Load(int id);    
         //草稿提交
         void SubmitPlan(IEnumerable<int> ids,int userID);
+        //确定计划供应商
+        void ConfirmVendor(int id,int vendorID,int goodsClassID);
+        //计算采购计划分类采购金额合计
+        decimal CalPlanPriceTotal(int id,int vendorID,int goodsClassID);
     } 
 }
