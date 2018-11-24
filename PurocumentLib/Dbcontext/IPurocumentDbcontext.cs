@@ -18,6 +18,10 @@ namespace PurocumentLib.Dbcontext
         IQueryable<Goods> Goods{get;}
         //部门
         IQueryable<Department> Department{get;}
+        //角色
+        IQueryable<Role> Role { get; }
+        //用户
+        IQueryable<Usr> Usrs { get; }
         //供应商
         IQueryable<Vendor> Vendor{get;}
         //采购计划
@@ -30,5 +34,6 @@ namespace PurocumentLib.Dbcontext
         IQueryable<Quote> Quotes{get;}
         //报价单明细
         IQueryable<QuoteDetail> QuoteDetails{get;}
+
     }
 }

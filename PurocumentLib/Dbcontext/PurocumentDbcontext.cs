@@ -92,6 +92,34 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p=>p.Mobile).HasColumnName("mobile");
                 builder.Property(p=>p.Mobile1).HasColumnName("mobile1");
             });
+            modelBuilder.Entity<Role>(builder =>
+            {
+                builder.ToTable("role").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.WechatGroupID).HasColumnName("wechat_group_id");
+                builder.Property(p => p.Name).HasColumnName("name");
+                builder.Property(p => p.Code).HasColumnName("code");
+            });
+            modelBuilder.Entity<Usr>(builder =>
+            {
+                builder.ToTable("usr").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.WechatID).HasColumnName("wechat_id");
+                builder.Property(p => p.Code).HasColumnName("code");
+                builder.Property(p => p.Name).HasColumnName("name");                
+                builder.Property(p => p.Desc).HasColumnName("desc");
+                builder.Property(p => p.Tel).HasColumnName("tel");
+                builder.Property(p => p.Tel1).HasColumnName("tel1");
+                builder.Property(p => p.Mobile).HasColumnName("mobile");
+                builder.Property(p => p.Mobile1).HasColumnName("mobile1");
+                builder.Property(p => p.Addr).HasColumnName("addr");
+                builder.Property(p => p.Addr1).HasColumnName("addr1");
+                builder.Property(p => p.DepartmentID).HasColumnName("department_id");
+                builder.Property(p => p.VendorID).HasColumnName("vendor_id");
+                builder.Property(p => p.RoleID).HasColumnName("role_id");
+                builder.Property(p => p.Disable).HasColumnName("disable");
+
+            });
             modelBuilder.Entity<Vendor>(builder=>
             {
                 builder.ToTable("vendor").HasKey(k=>k.ID);
