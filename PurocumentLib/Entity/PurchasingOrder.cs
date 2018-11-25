@@ -22,7 +22,7 @@ namespace PurocumentLib.Entity
         public int UpdateUserID { get; set; }
         public DateTime UpdateTime { get; set; }
         public int ItemCount { get; set; }
-        public int Total { get; set; }
+        public decimal? Total { get; set; }
         public int PurchasingOrderStatusID { get; set; }
         public ICollection<PurchasingOrderDetail> Details { get; set; }
     }

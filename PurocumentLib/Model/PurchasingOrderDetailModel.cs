@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace PurocumentLib.Entity
+namespace PurocumentLib.Model
 {
-    public class PurchasingOrderDetail
+    public class PurchasingOrderDetailModel
     {
         public int ID { get; set; }
         public int PurchasingOrderID { get; set; }
-        public PurchasingOrder PurchasingOrder { get; set; }
+        public PurchasingOrderModel PurchasingOrder { get; set; }
         public int GoodsID { get; set; }
         public int? GoodsClassID { get; set; }
         public decimal? Count { get; set; }
@@ -23,7 +25,7 @@ namespace PurocumentLib.Entity
         public DateTime AuditTime { get; set; }
         public int? Audit2UsrID { get; set; }
         public DateTime Audit2Time { get; set; }
-        public int? PurchasingOrderStateID { get; set; }
+        public int PurchasingOrderStateID { get; set; }
         public int? PurchasingPlanDetailID { get; set; }
     }
 }

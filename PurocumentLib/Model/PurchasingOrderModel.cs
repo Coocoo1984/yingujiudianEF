@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 namespace PurocumentLib.Model
 {
-    public class PurchasingOrder
+    public class PurchasingOrderModel
     {
-        public PurchasingOrder()
+        public PurchasingOrderModel()
         {
             CreateTime = DateTime.Now;
             PurchasingOrderStatusID = 1;
@@ -20,13 +20,14 @@ namespace PurocumentLib.Model
         public string Tel { get; set; }
         public string Addr { get; set; }
         public int BizTypeID { get; set; }
-        public int CreateID { get; set; }
+        public int CreateUsrID { get; set; }
         public DateTime CreateTime { get; set; }
         public int UpdateUserID { get; set; }
         public DateTime UpdateTime { get; set; }
         public int ItemCount { get; set; }
-        public int Total { get; set; }
+        public decimal? Total { get; set; }
         public int PurchasingOrderStatusID { get; set; }
+        public ICollection<PurchasingOrderDetailModel> Details { get; set; }
     }
 
 }
