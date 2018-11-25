@@ -150,6 +150,7 @@ namespace PurocumentLib.Service
             var updatePP = new Entity.PurchasingPlan();
             var updatePPD = new List<Entity.PurchasingPlanDetail>();
 
+            ///下面这段代码写得乱 性能应该也不高 EF语法糖不熟悉 后面要改
 
             if (plan == null)
             {
@@ -174,19 +175,6 @@ namespace PurocumentLib.Service
             {
                 //按供应商的订单明细集合
                 var verdorPPDs = entityPP.Details.Where(w=> vendorIDs.Contains(w.VendorID));
-                PurchasingOrder po = new PurchasingOrder
-                {
-                    Code = $"PO{DateTime.Now.ToString("yyyyMMddHHmmssfff")}",//[2][17]
-                    PurchasingPlanID = plan.ID,
-                    PurchasingOrderStatusID = 1,//写死
-                    VendorID = vendorID.Value,
-                    DepartmentID = plan.DepartmentID,
-                    Tel = entityD.Tel,
-                    Addr = entityD.Address,
-                    BizTypeID = plan.BizType,
-                    //CreateUsrID =  //没得用户
-                    CreateTime = DateTime.Now,
-                };
 
                 int itemCount = 0;
                 decimal? total = 0;
@@ -196,7 +184,7 @@ namespace PurocumentLib.Service
                     //生成每个供应商分配的采购明细
                     PurchasingOrderDetail pod = new PurchasingOrderDetail
                     {
-                        PurchasingOrder = po,
+                        //PurchasingOrder = po,
                         PurchasingOrderStateID = 1,//写死
                         GoodsClassID = vendorPPD.GoodsClassID,
                         GoodsID = vendorPPD.GoodsID,
@@ -221,13 +209,25 @@ namespace PurocumentLib.Service
                     updatePPD.Add(vendorPPD);   /// 更新PPD
 
                 }
-                po.Total = total;
-                po.ItemCount = itemCount;
 
+                PurchasingOrder po = new PurchasingOrder
+                {
+                    Code = $"PO{DateTime.Now.ToString("yyyyMMddHHmmssfff")}",//[2][17]
+                    PurchasingPlanID = plan.ID,
+                    PurchasingOrderStatusID = 1,//写死
+                    VendorID = vendorID.Value,
+                    DepartmentID = plan.DepartmentID,
+                    Tel = entityD.Tel,
+                    Addr = entityD.Address,
+                    BizTypeID = plan.BizType,
+                    //CreateUsrID =  //没得用户
+                    CreateTime = DateTime.Now,
+                    Total = total,
+                    ItemCount = itemCount
+                };
                 insertPOs.Add(po);  // 生成PO
 
             }
-
             
             updatePP = entityPP;
             updatePP.Status = 9; //复审确认
