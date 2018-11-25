@@ -34,6 +34,9 @@ namespace PurocumentLib.Dbcontext
         IQueryable<Quote> Quotes{get;}
         //报价单明细
         IQueryable<QuoteDetail> QuoteDetails{get;}
-
+        //订单
+        IQueryable<PurchasingOrder> PurchasingOrder { get; }
+        //订单明细
+        IQueryable<PurchasingOrderDetail> PurchasingOrderDetail { get; }
     }
 }

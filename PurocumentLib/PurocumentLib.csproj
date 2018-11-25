@@ -1,10 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <Compile Remove="Service\RoleService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DevelopBase\DevelopBase.csproj" />
   </ItemGroup>
 

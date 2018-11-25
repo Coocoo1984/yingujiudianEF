@@ -16,7 +16,7 @@ namespace PurocumentLib.Service
         /// </summary>
         /// <param name="usrID"></param>
         /// <returns></returns>
-        bool ValidateUsrID(int[] usrID);
+        bool ValidateUsrID(IEnumerable<int> ids);
         /// <summary>
         /// 新增用户信息
         /// </summary>

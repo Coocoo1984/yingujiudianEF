@@ -16,7 +16,7 @@ namespace PurocumentLib.Service
         /// </summary>
         /// <param name="roleID"></param>
         /// <returns></returns>
-        bool ValidateRoleID(int[] roleID);
+        bool ValidateRoleID(IEnumerable<int> departmentIDs);
         /// <summary>
         /// 新增商品信息
         /// </summary>
@@ -25,6 +25,6 @@ namespace PurocumentLib.Service
         void Add(RoleModel role);
         void Update(RoleModel role);
         RoleModel Load(int id);
-        void Disable(IEnumerable<int> ids);
+        //void Disable(IEnumerable<int> ids);
     }
 }

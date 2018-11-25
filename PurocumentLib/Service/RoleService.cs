@@ -16,7 +16,7 @@ namespace PurocumentLib.Service
         {
         }
 
-        public void Add(Model.Role model)
+        public void Add(RoleModel model)
         {
             if (string.IsNullOrEmpty(model.Name))
             {
@@ -41,7 +41,7 @@ namespace PurocumentLib.Service
             dbContext.SaveChanges();
         }
 
-        public Model.Role Load(int id)
+        public RoleModel Load(int id)
         {
             var dbContext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             var entity = dbContext.Department.SingleOrDefault(s => s.ID == id);
@@ -49,7 +49,7 @@ namespace PurocumentLib.Service
             {
                 return null;
             }
-            var model = new Model.Role()
+            var model = new RoleModel()
             {
                 ID = entity.ID,
                 WechatGroupID = entity.WechatID,
@@ -59,7 +59,7 @@ namespace PurocumentLib.Service
             return model;
         }
 
-        public void Update(Model.Role model)
+        public void Update(RoleModel model)
         {
             var dbContext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             var entity = dbContext.Role.SingleOrDefault(s => s.ID == model.ID);
@@ -87,6 +87,22 @@ namespace PurocumentLib.Service
             dbContext.Update(entity);
             dbContext.SaveChanges();
         }
+
+        ////public void Disable(IEnumerable<int> ids)
+        ////{
+        ////    var dbContext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+        ////    if (ids.Count() == 0)
+        ////    {
+        ////        return;
+        ////    }
+        ////    var roles = dbContext.Role.Where(w => ids.Contains(w.ID)).ToList();
+        ////    foreach (var item in roles)
+        ////    {
+        ////        item.Disable = true;
+        ////    }
+        ////    dbContext.UpdateRange(roles);
+        ////    dbContext.SaveChanges();
+        ////}
 
         public bool ValidateRoleID(IEnumerable<int> roleIDs)
         {

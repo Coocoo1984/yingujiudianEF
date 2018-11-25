@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace PurocumentLib.Entity
+{
+    //订单
+    public class PurchasingOrder
+    {
+        public  int ID { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
+        public string Desc { get; set; }
+        public int PurchasingPlanID { get; set; }
+        public int VendorID { get; set; }
+        public int DepartmentID { get; set; }
+        public string Tel { get; set; }
+        public string Addr { get; set; }
+        public int BizTypeID { get; set; }
+        public int CreateUsrID { get; set; }
+        public DateTime CreateTime { get; set; }
+        public int UpdateUserID { get; set; }
+        public DateTime UpdateTime { get; set; }
+        public int ItemCount { get; set; }
+        public int Total { get; set; }
+        public int PurchasingOrderStatusID { get; set; }
+        public ICollection<PurchasingOrderDetail> Details { get; set; }
+    }
+}
