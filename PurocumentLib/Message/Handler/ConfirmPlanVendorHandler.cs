@@ -18,7 +18,7 @@ namespace PurocumentLib.Message.Handler
                 throw new ArgumentNullException();
             }
             var service=ServiceProvider.GetService<IPurchasingplanService>();
-            service.ConfirmVendor(request.PlanID,request.VendorID,request.GoodsClassID);
+            service.ConfirmVendor(request.PlanID, request.VendorID, request.GoodsClassID);
             return new ResponseBase(){Result=1,ResultInfo=""};
         }
     }

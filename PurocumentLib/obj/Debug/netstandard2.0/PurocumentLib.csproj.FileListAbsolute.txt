@@ -34,3 +34,15 @@ F:\GitHubBase\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\PurocumentLi
 F:\GitHubBase\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\DevelopBase.dll
 F:\GitHubBase\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\DevelopBase.pdb
 F:\GitHubBase\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csproj.CopyComplete
+F:\MyGitHub\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\PurocumentLib.deps.json
+F:\MyGitHub\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\PurocumentLib.dll
+F:\MyGitHub\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\PurocumentLib.pdb
+F:\MyGitHub\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\DevelopBase.dll
+F:\MyGitHub\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\DevelopBase.pdb
+F:\MyGitHub\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csprojAssemblyReference.cache
+F:\MyGitHub\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csproj.CoreCompileInputs.cache
+F:\MyGitHub\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.AssemblyInfoInputs.cache
+F:\MyGitHub\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.AssemblyInfo.cs
+F:\MyGitHub\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csproj.CopyComplete
+F:\MyGitHub\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.dll
+F:\MyGitHub\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.pdb

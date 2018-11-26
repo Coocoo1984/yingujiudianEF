@@ -5,14 +5,12 @@ using System.Collections.Generic;
 
 namespace PurocumentLib.Message.Request
 {
-    /// <summary>
-    /// 供应商确认订单
-    /// </summary>
-    public class ComfirmOrderRequest : RequestBase
+    public class CheckInRequest: RequestBase
     {
         public int OrderID { get; set; }
         public bool Result { get; set; }
         public int UserID { get; set; }
         public string Desc { get; set; }
-}
+        public List<Model.PurchasingOrderDetailModel> ListOrderDetailIDAndActualCount { get; set; }
+    }
 }

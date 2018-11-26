@@ -69,7 +69,8 @@ namespace PurocumentLib.Service
             //创建主表
             var entity=new Entity.PurchasingPlan()
             {
-                Desc=plan.Desc,
+                Code = $"PP{DateTime.Now.ToString("yyyyMMddHHmmssfff")}",//[2][17]
+                Desc =plan.Desc,
                 BizTypeID=plan.BizType,
                 Status=plan.Status,
                 CreateTime=plan.CreateTime,

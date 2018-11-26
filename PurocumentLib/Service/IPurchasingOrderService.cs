@@ -10,15 +10,15 @@ namespace PurocumentLib.Service
         //void CreateOrder(Model.PurchasingPlan plan);
         ////修改  
         //void UpdateOrder(Model.PurchasingOrderModel order, int userID);
-        //加载
-        PurchasingOrderDetailModel Load(int id);
+        //////加载
+        ////PurchasingOrderModel Load(int id);
         //确认订单
-        void ComfirmOrder(IEnumerable<int> ids, int userID);
+        void ComfirmOrder(int orderId, int userID, bool isPass, string Desc);
         //确认发货
-        void ComfirmDelivery(IEnumerable<int> ids, int userID);
+        void ComfirmDelivery(int orderId, int userID, bool isPass, string Desc);
         //收货
-        void CheckInOrder(Model.PurchasingOrderModel order, int userID);
+        void CheckInOrder(int orderId, int userID, List<Model.PurchasingOrderDetailModel> ListOrderDetailIDAndActualCount);
         //确认收货完成
-        void FinishOrder(int id, int userID);
+        void FinishOrder(int orderId, int userID, bool isPass, string Desc);
     }
 }

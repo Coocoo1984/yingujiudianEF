@@ -27,7 +27,7 @@ namespace PurocumentLib.Model
         public int ItemCount { get; set; }
         public decimal? Total { get; set; }
         public int PurchasingOrderStatusID { get; set; }
-        public ICollection<PurchasingOrderDetailModel> Details { get; set; }
+        public IEnumerable<PurchasingOrderDetailModel> Details { get; set; }
     }
 
 }
