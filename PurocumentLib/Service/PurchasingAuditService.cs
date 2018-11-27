@@ -26,30 +26,23 @@ namespace PurocumentLib.Service
                 throw new Exception("采购计划不存在");
             }
 
-            int status = 0;
-            int auditStatus = 0;
-            var firstStatus=new int[]{2,4};//提初审、再提初审
-            if (firstStatus.Contains(plan.Status))
-            {
-                status = isPass ? 5 : 3;
-                auditStatus = isPass ? 2 : 1;
-            }
-            ////var secondStatus=new int[]{6,8};
-            ////if(secondStatus.Contains(plan.Status))
-            ////{
-            ////    //复审
-            ////    status = isPass ? 9 : 7;
-            ///     auditStatus = isPass ? 4 : 3;
-            ////}
+            DateTime dateTimeNow = DateTime.Now;
+            int status = isPass ? (int)EnumPurchasingPlanState.PlanAudit1Pass : (int)EnumPurchasingPlanState.PlanAudit1Rejected;
+            int auditType = isPass ? (int)EnumAuditType.PlanAudit1Pass : (int)EnumAuditType.PlanAudit1Rejected;
+
             //保存审核结果和修改计划状态
-            plan.Status=status;
+            plan.Status = status;
+            plan.UpdateTime = dateTimeNow;
+            plan.UpdateUserID = userID;
+
             dbcontext.Update(plan);
-            var record=new PurchasingAudit()
+
+            var record = new PurchasingAudit()
             {
-                PlanID=planId,
-                Result=plan.Status,
-                UserID=userID,
-                CreateTime=DateTime.Now
+                PlanID = planId,
+                Result = auditType,
+                UserID = userID,
+                CreateTime = DateTime.Now
             };
             dbcontext.Add(record);
             dbcontext.SaveChanges();
@@ -58,7 +51,6 @@ namespace PurocumentLib.Service
         //提交复审 生成与供应商的订单及订单明细
         public void ComfirmPlanAndSubmitOrder(int planId, int userID, bool isPass, string Desc)
         {
-
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             var plan = dbcontext.PurchasingPlan.SingleOrDefault(s => s.ID == planId);
             if (plan == null)
@@ -67,21 +59,29 @@ namespace PurocumentLib.Service
             }
 
             DateTime dateTimeNow = DateTime.Now;
+            int status = isPass ? (int)EnumPurchasingPlanState.PlanAudit1Pass : (int)EnumPurchasingPlanState.PlanAudit1Rejected;
+            int auditType = isPass ? (int)EnumAuditType.PlanAudit1Pass : (int)EnumAuditType.PlanAudit1Rejected;
 
-            int status = 0;
-            int auditStatus = 0;
-            var secondStatus = new int[] { 6, 8 };//提复审、再提复审
-            if (secondStatus.Contains(plan.Status))
-            {
-                status = isPass ? 9 : 7;
-                auditStatus = isPass ? 2 : 1;
-            }
+            List<PurchasingOrder> insertListPOs = new List<PurchasingOrder>();
+            List<PurchasingOrderDetail> insertListPODs = new List<PurchasingOrderDetail>();
+
+            //保存审核结果和修改计划状态
             plan.Status = status;
             plan.UpdateTime = dateTimeNow;
             plan.UpdateUserID = userID;
-            dbcontext.Update(plan);     //更新采购计划状态
+            dbcontext.Update(plan);
 
-            ///下面这段代码写得乱 性能应该也不高 EF语法糖不熟悉 后面要改
+            PurchasingAudit insertPA = new PurchasingAudit
+            {
+                PlanID = plan.ID,
+                UserID = userID,
+                CreateTime = dateTimeNow,
+                Result = auditType,
+                Desc = Desc
+            };
+            dbcontext.Add(insertPA);
+
+            ///下面这段代码写得乱 性能应该也不高 Linq to EF语法不熟悉 后面要改
 
             //采购计划的部门
             var entityD = dbcontext.Department.SingleOrDefault(s => s.ID == plan.DepartmentID);
@@ -91,7 +91,7 @@ namespace PurocumentLib.Service
 
             //按供应商分组,循环操作
             var vendorIDs = entityPP.Details.Select(s => s.VendorID).ToList();
-
+            //按供应商的循环操作
             foreach (var vendorID in vendorIDs)
             {
                 //按供应商的订单明细集合
@@ -121,13 +121,13 @@ namespace PurocumentLib.Service
                         PurchasiongOrderStateID = status,//冗余的字段
                         PurchasingPlanDetailID = vendorPPD.ID
                     };
-                    dbcontext.Add(pod);    /// 生成订单明细
+                    insertListPODs.Add(pod); //订单明细
 
                     total += pod.Subtotal;//累计每种商品的小计金额
                     itemCount++;//明细数量
 
                     //更新采购计划、采购计划明细状态
-                    vendorPPD.Status = 9;//复审通过
+                    vendorPPD.Status = status;//复审通过
 
                     dbcontext.Update(vendorPPD);   /// 更新PPD
 
@@ -135,7 +135,7 @@ namespace PurocumentLib.Service
 
                 PurchasingOrder po = new PurchasingOrder
                 {
-                    Code = $"PO{DateTime.Now.ToString("yyyyMMddHHmmssfff")}",//[2][17]
+                    Code = StrPOPrefix + DateTime.Now.ToString(StrPOSuffixFormat),//[2][17]
                     PurchasingPlanID = plan.ID,
                     PurchasingOrderStatusID = 1,//写死
                     VendorID = vendorID.Value,
@@ -143,24 +143,17 @@ namespace PurocumentLib.Service
                     Tel = entityD.Tel,
                     Addr = entityD.Address,
                     BizTypeID = plan.BizTypeID,
-                    //CreateUsrID =  //没得用户
+                    CreateUsrID = userID,
                     CreateTime = dateTimeNow,
                     Total = total,
                     ItemCount = itemCount
                 };
-                dbcontext.Add(po);  // 生成PO
+                insertListPOs.Add(po);  // 订单
 
             }
 
-            PurchasingAudit insertPA = new PurchasingAudit
-            {
-                PlanID = plan.ID,
-                //UserID = //没得用户
-                CreateTime = dateTimeNow,
-                Result = auditStatus,
-                //Desc = //没得
-            };
-            dbcontext.Add(insertPA);    //插入审核表
+            dbcontext.AddRange(insertListPOs);
+            dbcontext.AddRange(insertListPODs);
 
             dbcontext.SaveChanges();
         }

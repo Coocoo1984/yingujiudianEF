@@ -17,56 +17,8 @@ namespace PurocumentLib.Service
         {
         }
 
-
-
         /// <summary>
-        /// 供应商发货确认
-        /// </summary>
-
-        public void ComfirmDelivery(int orderId, int userID, bool isPass, string Desc)
-        {
-
-            if (orderId == 0)
-            {
-                throw new ArgumentNullException();
-            }
-            var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && c.PurchasingOrderStatusID != 2) > 0)
-            {
-                throw new Exception("订单状态不正确");
-            }
-            PurchasingOrder order = dbcontext.PurchasingOrder.Single<PurchasingOrder>(w => orderId.Equals(w.ID));
-
-            int status = 0;
-            int auditStatus = 0;
-            var statusID = new int[] { 2 };
-            if (statusID.Contains(order.PurchasingOrderStatusID))
-            {
-                status = isPass ? 2 : 1;//待调整
-                auditStatus = isPass ? 8 : 7;
-            }
-
-            DateTime dtNow = DateTime.Now;
-
-            order.PurchasingOrderStatusID = status;  // 2 -> 3
-            order.UpdateUserID = userID;
-            order.UpdateTime = dtNow;
-
-            PurchasingAudit pa = new PurchasingAudit()
-            {
-                PlanID = order.PurchasingPlanID,
-                UserID = userID,
-                CreateTime = dtNow,
-                Result = auditStatus  // audit_type = 7 供应商确认发货
-            };
-
-            dbcontext.Update(order);
-            dbcontext.Add(pa);
-            dbcontext.SaveChanges();
-        }
-
-        /// <summary>
-        /// 供应商确认订单
+        /// 供应商订单确认
         /// </summary>
         public void ComfirmOrder(int orderId, int userID, bool isPass, string Desc)
         {
@@ -74,38 +26,71 @@ namespace PurocumentLib.Service
             {
                 throw new ArgumentNullException();
             }
+
+            DateTime dateTimeNow = DateTime.Now;
+            int status = (int)EnumPurchasingOrderState.VendorConfirmed;//isPass ? (int)PurchasingOrderStateEnum.VendorConfirmed : (int)PurchasingOrderStateEnum.Other;
+            int auditType = (int)EnumAuditType.VendorConfirmed;//isPass ? (int)AuditTypeEnum.VendorConfirmed : (int)AuditTypeEnum.Other;
+
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && c.PurchasingOrderStatusID != 1) > 0)
+            if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && c.PurchasingOrderStatusID != (int)EnumPurchasingOrderState.AwaitVendorConfirm) > 0)
             {
                 throw new Exception("订单状态不正确");
             }
+
             PurchasingOrder order = dbcontext.PurchasingOrder.Single<PurchasingOrder>(w => orderId.Equals(w.ID));
-
-            int status = 0;
-            int auditStatus = 0;
-            var statusID = new int[] { 1 };
-            if (statusID.Contains(order.PurchasingOrderStatusID))
-            {
-                status = isPass ? 2 : 1;//待调整
-                auditStatus = isPass ? 6 : 5;
-            }
-
-            DateTime dtNow = DateTime.Now;
-
-            order.PurchasingOrderStatusID = status;  // 1 -> 2
+            order.PurchasingOrderStatusID = status; 
             order.UpdateUserID = userID;
-            order.UpdateTime = dtNow;
+            order.UpdateTime = dateTimeNow;
+            dbcontext.Update(order);
 
             PurchasingAudit pa = new PurchasingAudit()
             {
                 PlanID = order.PurchasingPlanID,
                 UserID = userID,
-                CreateTime = dtNow,
-                Result = auditStatus  // audit_type = 8 供应商确认订单
+                CreateTime = dateTimeNow,
+                Result = auditType
             };
-
-            dbcontext.Update(order);
             dbcontext.Add(pa);
+
+            dbcontext.SaveChanges();
+        }
+
+        /// <summary>
+        /// 供应商发货确认
+        /// </summary>
+        public void ComfirmDelivery(int orderId, int userID, bool isPass, string Desc)
+        {
+
+            if (orderId == 0)
+            {
+                throw new ArgumentNullException();
+            }
+
+            DateTime dateTimeNow = DateTime.Now;
+            int status = (int)EnumPurchasingOrderState.VendorShipped;//isPass ? (int)PurchasingOrderStateEnum.VendorShipped : (int)PurchasingOrderStateEnum.Other;
+            int auditType = (int)EnumAuditType.VendorShipped;//isPass ? (int)AuditTypeEnum.VendorShipped : (int)AuditTypeEnum.Other;
+
+            var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && c.PurchasingOrderStatusID != (int)EnumPurchasingOrderState.VendorConfirmed) > 0)
+            {
+                throw new Exception("订单状态不正确");
+            }
+
+            PurchasingOrder order = dbcontext.PurchasingOrder.Single<PurchasingOrder>(w => orderId.Equals(w.ID));
+            order.PurchasingOrderStatusID = status;
+            order.UpdateUserID = userID;
+            order.UpdateTime = dateTimeNow;
+            dbcontext.Update(order);
+
+            PurchasingAudit pa = new PurchasingAudit()
+            {
+                PlanID = order.PurchasingPlanID,
+                UserID = userID,
+                CreateTime = dateTimeNow,
+                Result = auditType
+            };            
+            dbcontext.Add(pa);
+
             dbcontext.SaveChanges();
         }
 
@@ -120,8 +105,13 @@ namespace PurocumentLib.Service
             {
                 throw new ArgumentNullException();
             }
+
+            DateTime dateTimeNow = DateTime.Now;
+            int status = (int)EnumPurchasingOrderState.DeparmentCheckIn;
+            int auditType = (int)EnumAuditType.DeparmentCheckIn;
+
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && (c.PurchasingOrderStatusID == 3 || c.PurchasingOrderStatusID == 4)) > 0)
+            if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && (c.PurchasingOrderStatusID.Equals((int)EnumAuditType.VendorShipped) || c.PurchasingOrderStatusID.Equals((int)EnumAuditType.DeparmentCheckIn))) > 0)
             {
                 throw new Exception("订单状态不正确");
             }
@@ -132,12 +122,13 @@ namespace PurocumentLib.Service
             }
 
             PurchasingOrder order = dbcontext.PurchasingOrder.Single<PurchasingOrder>(w => orderId.Equals(w.ID));
+            order.PurchasingOrderStatusID = status;
+            order.UpdateUserID = userID;
+            order.UpdateTime = dateTimeNow;
+            dbcontext.Update(order);
 
-            DateTime dtNow = DateTime.Now;
             var updatePPDIDs = ListOrderDetailIDAndActualCount.Select(s => s.ID);
-
             var details = dbcontext.PurchasingOrder.Include(r => r.Details); 
-
             var pods = from f in ListOrderDetailIDAndActualCount
                        join d in details
                        on f.ID equals d.ID
@@ -146,21 +137,22 @@ namespace PurocumentLib.Service
             {
                 item.ActualCount = item.ActualCount;
                 item.ActualSubtotal = item.Price * item.ActualCount;
-                item.PurchasingOrderStateID = 4; //收货中(每次可能是部分货 也可能是全部)
+                item.PurchasingOrderStateID = auditType;
                 item.UpdateUsrID = userID;
-                item.UpdateTime = dtNow;
+                item.UpdateTime = dateTimeNow;
             }
             dbcontext.UpdateRange(pods);
 
-
-            order.PurchasingOrderStatusID = 4;  // 4 收货中
-            order.UpdateUserID = userID;
-            order.UpdateTime = dtNow;
-
-            dbcontext.Update(order);
+            PurchasingAudit pa = new PurchasingAudit()
+            {
+                PlanID = order.PurchasingPlanID,
+                UserID = userID,
+                CreateTime = dateTimeNow,
+                Result = auditType
+            };
+            dbcontext.Add(pa);
 
             dbcontext.SaveChanges();
-
         }
 
 
@@ -175,40 +167,33 @@ namespace PurocumentLib.Service
             {
                 throw new ArgumentNullException();
             }
+
+            DateTime dateTimeNow = DateTime.Now;
+            int status = (int)EnumPurchasingOrderState.ConfirmReceipt;//isPass ? (int)PurchasingOrderStateEnum.ConfirmReceipt : (int)PurchasingOrderStateEnum.ConfirmReceipt;
+            int auditType = (int)EnumAuditType.VendorShipped;//isPass ? (int)AuditTypeEnum.VendorShipped : (int)AuditTypeEnum.Other;
+
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && c.PurchasingOrderStatusID != 4) > 0)
+            if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && c.PurchasingOrderStatusID.Equals((int)EnumPurchasingOrderState.DeparmentCheckIn)) > 0)
             {
                 throw new Exception("订单状态不正确");
             }
-            PurchasingOrder order = dbcontext.PurchasingOrder.FirstOrDefault(w => orderId.Equals(w.ID));
-            int status = 0;
-            int auditStatus = 0;
-            var statusID = new int[] { 4 };
-            if (statusID.Contains(order.PurchasingOrderStatusID))
-            {
-                status = isPass ? 2 : 1;//待调整
-                auditStatus = isPass ? 8 : 7;
-            }
-            
-            DateTime dtNow = DateTime.Now;
 
+            PurchasingOrder order = dbcontext.PurchasingOrder.FirstOrDefault(w => orderId.Equals(w.ID));
             order.PurchasingOrderStatusID = status; 
             order.UpdateUserID = userID;
-            order.UpdateTime = dtNow;
+            order.UpdateTime = dateTimeNow;
+            dbcontext.Update(order);
 
             PurchasingAudit pa = new PurchasingAudit()
             {
                 PlanID = order.PurchasingPlanID,
                 UserID = userID,
-                CreateTime = dtNow,
-                Result = auditStatus  // audit_type = 8 供应商订单确认
+                CreateTime = dateTimeNow,
+                Result = auditType
             };
-
-            dbcontext.Update(order);
             dbcontext.Add(pa);
 
             dbcontext.SaveChanges();
-
         }
 
     }
