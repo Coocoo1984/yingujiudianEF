@@ -4,26 +4,27 @@ namespace PurocumentLib.Entity
 {
     public class PurchasingOrderDetail
     {
-        public int ID { get; set; }
-        public int PurchasingOrderID { get; set; }
-        public PurchasingOrder PurchasingOrder { get; set; }
-        public int GoodsID { get; set; }
-        public int? GoodsClassID { get; set; }
-        public decimal? Count { get; set; }
-        public decimal? Price { get; set; }
-        public decimal? Subtotal { get; set; }
-        public decimal? ActualCount { get; set; }
-        public decimal? ActualSubtotal { get; set; }
-        public int? CreateUsrID { get; set; }
-        public int? UpdateUsrID { get; set; }
-        public DateTime CreateTime { get; set; }
-        public DateTime UpdateTime { get; set; }
-        public int? PurchasingStateID { get; set; }//没用
-        public int? AuditUsrID { get; set; }
-        public DateTime AuditTime { get; set; }
-        public int? Audit2UsrID { get; set; }
-        public DateTime Audit2Time { get; set; }
-        public int? PurchasingOrderStateID { get; set; }
-        public int? PurchasingPlanDetailID { get; set; }
+        public virtual int ID { get; set; }
+        public virtual int PurchasingOrderID { get; set; }
+        public virtual PurchasingOrder PurchasingOrder { get; set; }
+        public virtual int GoodsID { get; set; }
+        public virtual int? GoodsClassID { get; set; }
+        public virtual decimal? Count { get; set; }
+        public virtual decimal? Price { get; set; }
+        public virtual decimal? Subtotal { get; set; }
+        public virtual decimal? ActualCount { get; set; }
+        public virtual decimal? ActualSubtotal { get; set; }
+        public virtual int? CreateUsrID { get; set; }
+        public virtual int? UpdateUsrID { get; set; }
+        public virtual DateTime CreateTime { get; set; }
+        public virtual DateTime UpdateTime { get; set; }
+        public virtual int? PurchasingStateID { get; set; }//没用
+        public virtual int? AuditUsrID { get; set; }
+        public virtual DateTime? AuditTime { get; set; }
+        public virtual int? Audit2UsrID { get; set; }
+        public virtual DateTime? Audit2Time { get; set; }
+        public virtual int? PurchasingOrderStateID { get; set; }
+        public virtual int? PurchasingPlanDetailID { get; set; }
+        public virtual int? PurchasiongOrderStateID { get; internal set; }
     }
 }

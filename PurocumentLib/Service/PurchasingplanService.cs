@@ -119,7 +119,7 @@ namespace PurocumentLib.Service
             };
             return master;
         }
-        //初审提交
+        //供应商提交计划 待初审
         public void SubmitPlan(IEnumerable<int> ids,int userID)
         {
             if(ids==null)

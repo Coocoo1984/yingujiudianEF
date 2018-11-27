@@ -7,23 +7,23 @@ namespace PurocumentLib.Entity
     //订单
     public class PurchasingOrder
     {
-        public  int ID { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string Desc { get; set; }
-        public int PurchasingPlanID { get; set; }
-        public int VendorID { get; set; }
-        public int DepartmentID { get; set; }
-        public string Tel { get; set; }
-        public string Addr { get; set; }
-        public int BizTypeID { get; set; }
-        public int CreateUsrID { get; set; }
-        public DateTime CreateTime { get; set; }
-        public int UpdateUserID { get; set; }
-        public DateTime UpdateTime { get; set; }
-        public int ItemCount { get; set; }
-        public decimal? Total { get; set; }
-        public int PurchasingOrderStatusID { get; set; }
-        public ICollection<PurchasingOrderDetail> Details { get; set; }
+        public virtual int ID { get; set; }
+        public virtual string Code { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Desc { get; set; }
+        public virtual int PurchasingPlanID { get; set; }
+        public virtual int VendorID { get; set; }
+        public virtual int DepartmentID { get; set; }
+        public virtual string Tel { get; set; }
+        public virtual string Addr { get; set; }
+        public virtual int BizTypeID { get; set; }
+        public virtual int CreateUsrID { get; set; }
+        public virtual DateTime CreateTime { get; set; }
+        public virtual int UpdateUserID { get; set; }
+        public virtual DateTime UpdateTime { get; set; }
+        public virtual int ItemCount { get; set; }
+        public virtual decimal? Total { get; set; }
+        public virtual int PurchasingOrderStatusID { get; set; }
+        public virtual ICollection<PurchasingOrderDetail> Details { get; set; }
     }
 }

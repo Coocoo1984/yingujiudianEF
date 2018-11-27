@@ -6,6 +6,7 @@ using PurocumentLib.Entity;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using PurocumentLib.Model;
 
 namespace PurocumentLib.Service
 {
@@ -27,8 +28,8 @@ namespace PurocumentLib.Service
 
             int status = 0;
             int auditStatus = 0;
-            var firstStatus=new int[]{2,4};
-            if(firstStatus.Contains(plan.Status))
+            var firstStatus=new int[]{2,4};//提初审、再提初审
+            if (firstStatus.Contains(plan.Status))
             {
                 status = isPass ? 5 : 3;
                 auditStatus = isPass ? 2 : 1;
@@ -58,46 +59,38 @@ namespace PurocumentLib.Service
         public void ComfirmPlanAndSubmitOrder(int planId, int userID, bool isPass, string Desc)
         {
 
-
-            var dc = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            var plan = dc.PurchasingPlan.Single(s => s.ID == planId);
-
-
-            ///下面这段代码写得乱 性能应该也不高 EF语法糖不熟悉 后面要改
-
-            if (plan == null)
-            {
-                throw new ArgumentNullException();
-            }
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            //采购计划
-            var entityPP = dbcontext.PurchasingPlan.Include(i => i.Details).SingleOrDefault(s => s.ID == plan.ID);
-
-
-            if (entityPP == null)
+            var plan = dbcontext.PurchasingPlan.SingleOrDefault(s => s.ID == planId);
+            if (plan == null)
             {
                 throw new Exception("采购计划不存在");
             }
 
+            DateTime dateTimeNow = DateTime.Now;
+
             int status = 0;
             int auditStatus = 0;
-            var secondStatus = new int[] { 6, 8 };
-            if (secondStatus.Contains(entityPP.Status))
+            var secondStatus = new int[] { 6, 8 };//提复审、再提复审
+            if (secondStatus.Contains(plan.Status))
             {
                 status = isPass ? 9 : 7;
                 auditStatus = isPass ? 2 : 1;
             }
             plan.Status = status;
+            plan.UpdateTime = dateTimeNow;
+            plan.UpdateUserID = userID;
             dbcontext.Update(plan);     //更新采购计划状态
 
-
-            DateTime dateTimeNow = DateTime.Now;
+            ///下面这段代码写得乱 性能应该也不高 EF语法糖不熟悉 后面要改
 
             //采购计划的部门
             var entityD = dbcontext.Department.SingleOrDefault(s => s.ID == plan.DepartmentID);
 
+            //采购计划明细
+            var entityPP = dbcontext.PurchasingPlan.Include(i => i.Details).SingleOrDefault(s => s.ID == plan.ID);
+
             //按供应商分组,循环操作
-            var vendorIDs = entityPP.Details.Select(s => s.VendorID).Distinct().ToList();
+            var vendorIDs = entityPP.Details.Select(s => s.VendorID).ToList();
 
             foreach (var vendorID in vendorIDs)
             {
@@ -121,9 +114,11 @@ namespace PurocumentLib.Service
                         Subtotal = vendorPPD.PurchasingCount * vendorPPD.Price,
                         ActualCount = 0,
                         ActualSubtotal = 0,
-                        //CreateUsrID =  //没得用户
+                        CreateUsrID = userID,
                         CreateTime = dateTimeNow,
-                        //PurchasiongOrderStateID = secondStatus,//冗余的字段
+                        UpdateUsrID = userID,
+                        UpdateTime = dateTimeNow,
+                        PurchasiongOrderStateID = status,//冗余的字段
                         PurchasingPlanDetailID = vendorPPD.ID
                     };
                     dbcontext.Add(pod);    /// 生成订单明细

@@ -8,7 +8,7 @@ namespace PurocumentLib.Model
     {
         public int ID { get; set; }
         public int PurchasingOrderID { get; set; }
-        public PurchasingOrderModel PurchasingOrder { get; set; }
+        //public PurchasingOrderModel PurchasingOrder { get; set; }
         public int GoodsID { get; set; }
         public int? GoodsClassID { get; set; }
         public decimal? Count { get; set; }
