@@ -17,3 +17,4 @@ PurocumentLib/obj/Debug/netstandard2.0/project.razor.json
 PurocumentAPI/bin/Debug/netcoreapp2.1/PurocumentLib.dll
 PurocumentAPI/bin/Debug/netcoreapp2.1/PurocumentLib.pdb
 *.dll
+/DevelopBase/obj/Release/netstandard2.0
