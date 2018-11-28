@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PurocumentLib.Model
 {
-    public class RsVendor
+    public class RsVendorModel
     {
         public int ID { get; set; }
         public int VendorID { get; set; }

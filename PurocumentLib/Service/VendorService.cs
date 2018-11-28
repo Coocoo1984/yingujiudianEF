@@ -6,6 +6,7 @@ using PurocumentLib.Entity;
 using DevelopBase.Common;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace PurocumentLib.Service
 {
@@ -77,8 +78,8 @@ namespace PurocumentLib.Service
         public VendorModel Load(int id)
         {
             var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            var entity=dbcontext.Vendor.SingleOrDefault(s=>s.ID==id);
-            if(entity==null)
+            var entity= dbcontext.Vendor.SingleOrDefault(s => s.ID == id);//dbcontext.Vendor.Include(i => i.RsVendors).SingleOrDefault(s => s.ID == id);//
+            if (entity==null)
             {
                 return null;
             }
@@ -103,8 +104,8 @@ namespace PurocumentLib.Service
                 throw new ArgumentNullException();
             }
             var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            var entity=dbcontext.Vendor.SingleOrDefault(s=>s.ID==model.ID);
-            if(entity==null)
+            var entity= dbcontext.Vendor.Include(i => i.RsVendors).SingleOrDefault(s => s.ID == model.ID);
+            if (entity==null)
             {
                 throw new Exception("供应商信息无效");
             }
@@ -116,18 +117,36 @@ namespace PurocumentLib.Service
             {
                 throw new Exception("供应商名称无效");
             }
-            entity.Name=model.Name;
-            entity.Mobile=model.Mobile;
-            entity.Mobile1=model.Mobile1;
-            entity.Tel=model.Tel;
-            entity.Tel1=model.Tel1;
-            entity.Address=model.Address;
-            entity.Address1=model.Address1;
-            entity.Desc=model.Desc;
-            entity.Remark=model.Remark;
-            entity.Code=model.Code;
+            entity.Name = model.Name;
+            entity.Mobile = model.Mobile;
+            entity.Mobile1 = model.Mobile1;
+            entity.Tel = model.Tel;
+            entity.Tel1 = model.Tel1;
+            entity.Address = model.Address;
+            entity.Address1 = model.Address1;
+            entity.Desc = model.Desc;
+            entity.Remark = model.Remark;
+            entity.Code = model.Code;
             
             dbcontext.Update(entity);
+
+            //数据库已经存在的当前供应商的商品类目关联记录(ID、VendorID、GoodsClassID)
+            var savedRsVendors = entity.RsVendors;
+            //需要新保存的的关联记录(有VendorID、GoodsClassID)
+            var newRsVendors = model.RsVendors;
+
+            //只需要删除的货物类型关联
+            var forDeleteRsVendors = from a in savedRsVendors
+                                     where !(newRsVendors.Select(s => s.GoodsClassID).Contains(a.GoodsClassID))
+                                     select a;
+            dbcontext.RemoveRange(forDeleteRsVendors);
+
+            //只需要新增的货物类型关联
+            var forAddRsVendors = from b in newRsVendors
+                                  where !(forDeleteRsVendors.Select(s => s.GoodsClassID).Contains(b.GoodsClassID))
+                                  select b;
+            dbcontext.AddRange(forAddRsVendors);
+
             dbcontext.SaveChanges();
         }
     }

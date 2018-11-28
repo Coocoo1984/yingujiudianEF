@@ -35,10 +35,10 @@ namespace PurocumentLib.Message.Handler
                 throw new Exception("商品信息无效");
             }
 
-            var rsVendors = new List<RsVendor>();
+            var rsVendors = new List<RsVendorModel>();
             foreach (int goodsClassID in request.GoodsClassIDs)
             {
-                    rsVendors.Add(new RsVendor {
+                    rsVendors.Add(new RsVendorModel {
                         BizTypeID = goodsClassID
                     });
             }

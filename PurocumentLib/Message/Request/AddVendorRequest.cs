@@ -21,6 +21,6 @@ namespace PurocumentLib.Message.Request
         public string Address1{get;set;}
         public string Remark{get;set;}
 
-        public ICollection<RsVendor> RsVendors { get; set; }
+        public ICollection<RsVendorModel> RsVendors { get; set; }
     }
 }
