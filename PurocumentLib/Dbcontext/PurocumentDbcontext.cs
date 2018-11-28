@@ -156,7 +156,7 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p=>p.UpdateTime).HasColumnName("update_time");
                 builder.Property(p=>p.UpdateUserID).HasColumnName("update_usr_id");
                 builder.Property(p=>p.ItemCount).HasColumnName("item_count");
-                builder.Property(p=>p.Status).HasColumnName("pruchasing_state_id");
+                builder.Property(p=>p.Status).HasColumnName("purchasing_state_id");
                 builder.HasMany(p=>p.Details).WithOne(p=>p.PurchasingPlan).HasForeignKey(p=>p.PurchasingPlanID);
             });
             modelBuilder.Entity<PurchasingPlanDetail>(builder=>
@@ -171,7 +171,11 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p=>p.Price).HasColumnName("unit_price");
                 builder.Property(p=>p.CreateTime).HasColumnName("create_time");
                 builder.Property(p=>p.UpdateTime).HasColumnName("update_time");
-                
+                builder.Property(p => p.UpdateUsrID).HasColumnName("update_usr_id");
+                builder.Property(p => p.CreateUsrID).HasColumnName("create_usr_id");
+                builder.Property(p => p.Status).HasColumnName("purchasing_state_id");
+                builder.Property(p => p.PurchasingPlanID).HasColumnName("purchasing_plan_id");
+
             });
             modelBuilder.Entity<PurchasingAudit>(builder=>
             {

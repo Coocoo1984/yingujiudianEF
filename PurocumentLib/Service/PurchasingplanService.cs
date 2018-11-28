@@ -76,7 +76,8 @@ namespace PurocumentLib.Service
                 CreateTime=plan.CreateTime,
                 UpdateTime=plan.CreateTime,
                 CreateUserID=plan.CreateUser,
-                UpdateUserID=plan.CreateUser
+                UpdateUserID=plan.CreateUser,
+                ItemCount = plan.Details.Count()
             };
             var dbcontext= ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             dbcontext.Add(entity);
@@ -165,6 +166,8 @@ namespace PurocumentLib.Service
             entity.Desc=plan.Desc;
             entity.UpdateTime=DateTime.Now;
             entity.UpdateUserID=plan.UpdateUser;
+            entity.ItemCount = plan.Details.Count();
+
             //修改商品信息
             var saveGoods=entity.Details.Select(s=>s.GoodsID).ToList();
             var submitGoods=plan.Details.Select(s=>s.GoodsID).ToList();
