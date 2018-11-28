@@ -24,7 +24,7 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new Exception("计量单位无效");
             }
-            var goodsClassService=ServiceProvider.GetService<IGoodsClass>();
+            var goodsClassService=ServiceProvider.GetService<IGoodsClassService>();
             if(!goodsClassService.ValidateGoodsClassID(new int[]{request.ClassID}))
             {
                 throw new Exception("商品类别无效");

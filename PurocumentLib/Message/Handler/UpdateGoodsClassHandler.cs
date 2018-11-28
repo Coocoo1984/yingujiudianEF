@@ -23,7 +23,7 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new Exception("业务类型无效");
             }
-            var goodsClassService=ServiceProvider.GetService<IGoodsClass>();
+            var goodsClassService=ServiceProvider.GetService<IGoodsClassService>();
             var model=new Model.GoodsClassModel()
             {
                 ID=request.ID,

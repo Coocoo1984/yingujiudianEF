@@ -18,7 +18,7 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new ArgumentNullException();
             }
-            var service=ServiceProvider.GetService<IGoodsClass>();
+            var service=ServiceProvider.GetService<IGoodsClassService>();
             var response=service.Load(request.ID);
             return new ResponseGeneric<GoodsClassModel>(){Result=1,ResultInfo="",Data=response};
         }

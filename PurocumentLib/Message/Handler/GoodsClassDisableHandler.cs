@@ -13,7 +13,7 @@ namespace PurocumentLib.Message.Handler
 
         public override ResponseBase Handler(GoodsClassDisableRequest request)
         {
-            var service=ServiceProvider.GetService<IGoodsClass>();
+            var service=ServiceProvider.GetService<IGoodsClassService>();
             service.Disable(request.ID);
             return new ResponseBase(){Result=1,ResultInfo=""};
         }

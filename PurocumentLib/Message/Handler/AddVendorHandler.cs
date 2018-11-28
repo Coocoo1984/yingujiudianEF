@@ -4,6 +4,8 @@ using DevelopBase.Message;
 using PurocumentLib.Message.Request;
 using PurocumentLib.Service;
 using PurocumentLib.Model;
+using System.Collections.Generic;
+
 namespace PurocumentLib.Message.Handler
 {
     public class AddVendorHandler : HandlerGeneric<AddVendorRequest>
@@ -22,9 +24,29 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new Exception("供应商名称无效");
             }
+            ////var bizService = ServiceProvider.GetService<IBizTypeService>();
+            ////if (!bizService.ValidateBizTypeID(request.BizTypIDs))
+            ////{
+            ////    throw new Exception("业务类型无效");
+            ////}
+            var goodsClassService = ServiceProvider.GetService<IGoodsClassService>();
+            if (!goodsClassService.ValidateGoodsClassID(request.GoodsClassIDs))
+            {
+                throw new Exception("商品信息无效");
+            }
+
+            var rsVendors = new List<RsVendor>();
+            foreach (int goodsClassID in request.GoodsClassIDs)
+            {
+                    rsVendors.Add(new RsVendor {
+                        BizTypeID = goodsClassID
+                    });
+            }
+
             var model=new VendorModel()
             {
-                Code=request.Code,
+                RsVendors = rsVendors,
+                Code =request.Code,
                 Name=request.Name,
                 Tel=request.Tel,
                 Tel1=request.Tel,
@@ -35,6 +57,7 @@ namespace PurocumentLib.Message.Handler
                 Desc=request.Desc,
                 Remark=request.Remark,
                 Disable=false
+               
             };
             var service=ServiceProvider.GetService<IVendorService>();
             service.Add(model);

@@ -34,7 +34,7 @@ namespace PurocumentLib.Message.Handler
                 Desc=request.Desc,
                 BizTypeID=request.BizTypeID
             };
-            var goodsClassService=ServiceProvider.GetService<IGoodsClass>();
+            var goodsClassService=ServiceProvider.GetService<IGoodsClassService>();
             goodsClassService.AddGoodsClass(model);
             return new ResponseBase(){Result=1,ResultInfo=""};
         }

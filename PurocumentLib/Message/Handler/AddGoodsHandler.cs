@@ -19,7 +19,7 @@ namespace PurocumentLib.Message.Handler
                 {
                     throw new Exception("商品信息无效");
                 }
-                var service=ServiceProvider.GetService<IGoodsClass>();
+                var service=ServiceProvider.GetService<IGoodsClassService>();
                 if(!service.ValidateGoodsClassID(new int[]{request.ClassID}))
                 {
                     throw new Exception("商品类别无效");

@@ -15,32 +15,42 @@ namespace PurocumentLib.Service
         {
         }
 
-        public void Add(VendorModel model)
+        public void Add(VendorModel vendor)
         {
-            if(model==null)
+            if(vendor == null)
             {
                 throw new ArgumentNullException();
             }
-            if(string.IsNullOrEmpty(model.Name))
+            if(string.IsNullOrEmpty(vendor.Name))
             {
                 throw new Exception("供应商名称无效");
             }
             var entity=new Vendor()
             {
-                Code=model.Code,
-                Name=model.Name,
-                Address=model.Address,
-                Address1=model.Address1,
-                Mobile=model.Mobile,
-                Mobile1=model.Mobile1,
-                Tel=model.Tel,
-                Tel1=model.Tel1,
-                Desc=model.Desc,
-                Disable=model.Disable,
-                Remark=model.Remark
+                //RsVendors = model.RsVendors,
+                Code= vendor.Code,
+                Name= vendor.Name,
+                Address= vendor.Address,
+                Address1= vendor.Address1,
+                Mobile= vendor.Mobile,
+                Mobile1= vendor.Mobile1,
+                Tel= vendor.Tel,
+                Tel1= vendor.Tel1,
+                Desc= vendor.Desc,
+                Disable= vendor.Disable,
+                Remark= vendor.Remark
             };
             var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             dbcontext.Add(entity);
+            var rsvendors = from a in vendor.RsVendors
+                          join b in dbcontext.GoodsClass on a.GoodsClassID equals b.ID
+                           select new Entity.RsVendor()
+                          {
+                              BizTypeID = b.BizTypeID,
+                              GoodsClassID = a.GoodsClassID,
+                              Vendor = entity
+                           };
+            dbcontext.AddRange(rsvendors);
             dbcontext.SaveChanges();
         }
 

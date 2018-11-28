@@ -4,7 +4,7 @@ using DevelopBase.Services;
 using PurocumentLib.Model;
 namespace PurocumentLib.Service
 {
-    public interface IGoodsClass:IService
+    public interface IGoodsClassService:IService
     {
         bool ValidateGoodsClassID(IEnumerable<int> classIDs);
         void AddGoodsClass(GoodsClassModel model);

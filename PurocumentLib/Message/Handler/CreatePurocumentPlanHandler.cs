@@ -41,7 +41,7 @@ namespace PurocumentLib.Message.Handler
                     CreateUser = request.CreateUserID,
                     Details=request.Details.GroupBy(g=>g.GoodsID).Select(s=>new PurchasingPlanDetail() {
                         GoodsID =s.Key,
-                        PurchasingPlanCount =s.Sum(g=>g.PurocumentCount)
+                        PurchasingPlanCount =s.Sum(g=>g.PurocumentCount)//?
                     })
                 };
                 var purchaasingPlanService = ServiceProvider.GetService<IPurchasingplanService>();

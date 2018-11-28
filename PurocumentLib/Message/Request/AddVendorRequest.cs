@@ -8,6 +8,8 @@ namespace PurocumentLib.Message.Request
     //新增供应商
     public class AddVendorRequest:RequestBase
     {
+        //public IEnumerable<int> BizTypIDs { get; set; }
+        public IEnumerable<int> GoodsClassIDs { get; set; }
         public string Code{get;set;}
         public string Name{get;set;}
         public string Desc{get;set;}

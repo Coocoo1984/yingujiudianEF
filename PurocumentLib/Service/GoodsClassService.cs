@@ -8,7 +8,7 @@ using System.Linq;
 using PurocumentLib.Entity;
 namespace PurocumentLib.Service
 {
-    public class GoodsClassService : ServiceBase, IGoodsClass
+    public class GoodsClassService : ServiceBase, IGoodsClassService
     {
         public GoodsClassService(IServiceProvider serviceProvider) : base(serviceProvider)
         {

@@ -1,9 +1,15 @@
 using System;
+using System.Collections.Generic;
 using DevelopBase.Message;
+using PurocumentLib.Model;
+
 namespace PurocumentLib.Message.Request
 {
     public class UpdateVendorRequest:RequestBase
     {
+        //public IEnumerable<int> BizTypIDs { get; set; }
+        public IEnumerable<int> GoodsClassIDs { get; set; }
+
         public int ID{get;set;}
         public string Code{get;set;}
         public string Name{get;set;}
@@ -16,5 +22,6 @@ namespace PurocumentLib.Message.Request
         public string Address1{get;set;}
         public string Remark{get;set;}
 
+        //public ICollection<RsVendor> RsVendors { get; set; }
     }
 }
