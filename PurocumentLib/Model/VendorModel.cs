@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+
 namespace PurocumentLib.Model
 {
     public class VendorModel
@@ -16,5 +18,6 @@ namespace PurocumentLib.Model
         public string Remark{get;set;}
         public bool Disable{get;set;}
 
+        public IEnumerable<RsVendor> RsVendors { get; set; }
     }
 }

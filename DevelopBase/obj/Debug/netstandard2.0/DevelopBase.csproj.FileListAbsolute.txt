@@ -32,3 +32,11 @@ F:\MyGitHub\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.Asse
 F:\MyGitHub\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfo.cs
 F:\MyGitHub\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.dll
 F:\MyGitHub\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.pdb
+C:\Users\HeYan\Source\Repos\yingujiudianEF\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.deps.json
+C:\Users\HeYan\Source\Repos\yingujiudianEF\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.dll
+C:\Users\HeYan\Source\Repos\yingujiudianEF\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.pdb
+C:\Users\HeYan\Source\Repos\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.csproj.CoreCompileInputs.cache
+C:\Users\HeYan\Source\Repos\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfoInputs.cache
+C:\Users\HeYan\Source\Repos\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfo.cs
+C:\Users\HeYan\Source\Repos\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.dll
+C:\Users\HeYan\Source\Repos\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.pdb

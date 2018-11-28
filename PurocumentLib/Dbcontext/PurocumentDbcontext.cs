@@ -25,6 +25,8 @@ namespace PurocumentLib.Dbcontext
 
         public IQueryable<Vendor> Vendor =>Set<Vendor>().AsNoTracking();
 
+        public IQueryable<RsVendor> RsVendor => Set<RsVendor>().AsNoTracking();
+
         public IQueryable<PurchasingPlan> PurchasingPlan => Set<PurchasingPlan>().AsNoTracking();
 
         public IQueryable<PurchasingPlanDetail> PurchasingPlanDetail => Set<PurchasingPlanDetail>().AsNoTracking();
@@ -141,6 +143,16 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p=>p.Tel1).HasColumnName("tel1");
                 builder.Property(p=>p.Mobile).HasColumnName("mobile");
                 builder.Property(p=>p.Mobile1).HasColumnName("mobile1");
+                builder.HasMany(p => p.RsVendors).WithOne(p => p.Vendor).HasForeignKey(p => p.VendorID);
+            });
+            modelBuilder.Entity<RsVendor>(builder =>
+            {
+                builder.ToTable("rs_vendor").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.VendorID).HasColumnName("vendor_id");
+                builder.Property(p => p.BizTypeID).HasColumnName("biz_type_id");
+                builder.Property(p => p.GoodsClassID).HasColumnName("goods_class_id");
+                builder.Property(p => p.GoodsID).HasColumnName("goods_id");
             });
             modelBuilder.Entity<PurchasingPlan>(builder=>
             {
@@ -175,7 +187,6 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.CreateUsrID).HasColumnName("create_usr_id");
                 builder.Property(p => p.Status).HasColumnName("purchasing_state_id");
                 builder.Property(p => p.PurchasingPlanID).HasColumnName("purchasing_plan_id");
-
             });
             modelBuilder.Entity<PurchasingAudit>(builder=>
             {

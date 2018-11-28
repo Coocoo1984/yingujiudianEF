@@ -24,6 +24,8 @@ namespace PurocumentLib.Dbcontext
         IQueryable<Usr> Usr { get; }
         //供应商
         IQueryable<Vendor> Vendor{get;}
+        //供应商关系
+        IQueryable<RsVendor> RsVendor { get; }
         //采购计划
         IQueryable<PurchasingPlan> PurchasingPlan{get;}
         //采购计划明细
@@ -38,5 +40,6 @@ namespace PurocumentLib.Dbcontext
         IQueryable<PurchasingOrder> PurchasingOrder { get; }
         //订单明细
         IQueryable<PurchasingOrderDetail> PurchasingOrderDetail { get; }
+
     }
 }

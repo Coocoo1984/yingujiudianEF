@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using DevelopBase.Message;
+using PurocumentLib.Model;
+
 namespace PurocumentLib.Message.Request
 {
     //新增供应商
@@ -16,5 +19,6 @@ namespace PurocumentLib.Message.Request
         public string Address1{get;set;}
         public string Remark{get;set;}
 
+        public ICollection<RsVendor> RsVendors { get; set; }
     }
 }

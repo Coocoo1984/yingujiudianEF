@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace PurocumentLib.Entity
 {
@@ -17,5 +18,7 @@ namespace PurocumentLib.Entity
         public string Address1{get;set;}
         public string Remark{get;set;}
         public bool Disable{get;set;}
+
+        public ICollection<RsVendor> RsVendors { get; set; }
     }
 }

@@ -55,3 +55,9 @@ F:\MyGitHub\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.R
 F:\MyGitHub\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.csproj.CopyComplete
 F:\MyGitHub\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.dll
 F:\MyGitHub\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.pdb
+C:\Users\HeYan\Source\Repos\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.csprojAssemblyReference.cache
+C:\Users\HeYan\Source\Repos\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.csproj.CoreCompileInputs.cache
+C:\Users\HeYan\Source\Repos\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.RazorAssemblyInfo.cache
+C:\Users\HeYan\Source\Repos\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.RazorAssemblyInfo.cs
+C:\Users\HeYan\Source\Repos\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.AssemblyInfoInputs.cache
+C:\Users\HeYan\Source\Repos\yingujiudianEF\PurocumentAPI\obj\Debug\netcoreapp2.1\PurocumentAPI.AssemblyInfo.cs
