@@ -16,11 +16,11 @@ namespace PurocumentLib.Message.Handler
 
         public override ResponseBase Handler(AddVendorRequest request)
         {
-            if(request==null)
+            if (request == null)
             {
                 throw new ArgumentNullException();
             }
-            if(string.IsNullOrEmpty(request.Name))
+            if (string.IsNullOrEmpty(request.Name))
             {
                 throw new Exception("供应商名称无效");
             }
@@ -38,30 +38,32 @@ namespace PurocumentLib.Message.Handler
             var rsVendors = new List<RsVendorModel>();
             foreach (int goodsClassID in request.GoodsClassIDs)
             {
-                    rsVendors.Add(new RsVendorModel {
-                        BizTypeID = goodsClassID
-                    });
+                rsVendors.Add(new RsVendorModel
+                {
+                    GoodsClassID = goodsClassID,
+                    BizTypeID = 1,
+                });
             }
 
-            var model=new VendorModel()
+            var model = new VendorModel()
             {
                 RsVendors = rsVendors,
-                Code =request.Code,
-                Name=request.Name,
-                Tel=request.Tel,
-                Tel1=request.Tel,
-                Mobile=request.Mobile,
-                Mobile1=request.Mobile1,
-                Address=request.Address,
-                Address1=request.Address1,
-                Desc=request.Desc,
-                Remark=request.Remark,
-                Disable=false
-               
+                Code = request.Code,
+                Name = request.Name,
+                Tel = request.Tel,
+                Tel1 = request.Tel,
+                Mobile = request.Mobile,
+                Mobile1 = request.Mobile1,
+                Address = request.Address,
+                Address1 = request.Address1,
+                Desc = request.Desc,
+                Remark = request.Remark,
+                Disable = false
+
             };
-            var service=ServiceProvider.GetService<IVendorService>();
+            var service = ServiceProvider.GetService<IVendorService>();
             service.Add(model);
-            return new ResponseBase(){Result=1,ResultInfo=""};
+            return new ResponseBase() { Result = 1, ResultInfo = "" };
         }
     }
 }

@@ -9,7 +9,7 @@ namespace PurocumentLib.Service
     {
         void Add(VendorModel model);
         void Update(VendorModel model);
-        VendorModel Load(int id);
+        VendorModel Load(string id);
         void Disable(IEnumerable<int> ids);
     }
 }

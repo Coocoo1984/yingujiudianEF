@@ -7,63 +7,66 @@ using PurocumentLib.Message.Request;
 using DevelopBase.Common;
 namespace PurocumentAPI.Controllers
 {
-    public class VendorController:ControllerBase
+    public class VendorController : ControllerBase
     {
-        private IServiceProvider _serviceProvider=null;
-        
+        private IServiceProvider _serviceProvider = null;
+        public VendorController(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
         public async Task<IActionResult> Add([FromBody]AddVendorRequest request)
         {
             try
             {
-                var response=await _serviceProvider.HandlerAsync(request);
+                var response = await _serviceProvider.HandlerAsync(request);
                 return new JsonResult(response);
 
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return  new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
+                return new JsonResult(new ResponseBase() { Result = -1, ResultInfo = ex.Message });
             }
         }
         public async Task<IActionResult> Update([FromBody]UpdateVendorRequest request)
         {
             try
             {
-                var response=await _serviceProvider.HandlerAsync(request);
+                var response = await _serviceProvider.HandlerAsync(request);
                 return new JsonResult(response);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return  new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
+                return new JsonResult(new ResponseBase() { Result = -1, ResultInfo = ex.Message });
             }
         }
-        public async Task<IActionResult>  Disable([FromBody]DisableVendorsRequest request)
+        public async Task<IActionResult> Disable([FromBody]DisableVendorsRequest request)
         {
             try
             {
-                var response=await _serviceProvider.HandlerAsync(request);
+                var response = await _serviceProvider.HandlerAsync(request);
                 return new JsonResult(response);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return  new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
+                return new JsonResult(new ResponseBase() { Result = -1, ResultInfo = ex.Message });
             }
 
         }
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get(string id)
         {
-            var request=new GetVendorRequest()
+            var request = new GetVendorRequest()
             {
-                ID=id
+                ID = id
             };
             try
             {
-                var response=await _serviceProvider.HandlerAsync(request);
+                var response = await _serviceProvider.HandlerAsync(request);
                 return new JsonResult(response);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
+                return new JsonResult(new ResponseBase() { Result = -1, ResultInfo = ex.Message });
             }
         }
     }

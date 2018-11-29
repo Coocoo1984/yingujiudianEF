@@ -16,16 +16,16 @@ namespace PurocumentLib.Message.Handler
 
         public override ResponseBase Handler(UpdateVendorRequest request)
         {
-            if(request==null)
+            if (request == null)
             {
                 throw new ArgumentNullException();
             }
-            if(string.IsNullOrEmpty(request.Name))
+            if (string.IsNullOrEmpty(request.Name))
             {
                 throw new Exception("供应商名称无效");
             }
 
-            var model=new VendorModel()
+            var model = new VendorModel()
             {
                 RsVendors = from item in request.GoodsClassIDs
                             select new RsVendorModel
@@ -40,12 +40,13 @@ namespace PurocumentLib.Message.Handler
                 Tel = request.Tel,
                 Tel1 = request.Tel1,
                 Mobile = request.Mobile,
-                Mobile1 = request.Mobile1
+                Mobile1 = request.Mobile1,
+                ID = request.ID
             };
-            var service=ServiceProvider.GetService<IVendorService>();
+            var service = ServiceProvider.GetService<IVendorService>();
             service.Update(model);
 
-            return new ResponseBase(){Result=1,ResultInfo=""};
+            return new ResponseBase() { Result = 1, ResultInfo = "" };
         }
     }
 }

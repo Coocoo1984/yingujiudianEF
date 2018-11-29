@@ -19,7 +19,7 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new ArgumentNullException();
             }
-            if (request.ListOrderDetailIDAndActualCount?.Count>0)
+            if (request.ListOrderDetailIDAndActualCount?.Count<=0)
             {
                 return new ResponseBase() { Result = 1, ResultInfo = "" };
             }

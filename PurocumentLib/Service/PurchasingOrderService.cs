@@ -38,7 +38,7 @@ namespace PurocumentLib.Service
             }
 
             PurchasingOrder order = dbcontext.PurchasingOrder.Single<PurchasingOrder>(w => orderId.Equals(w.ID));
-            order.PurchasingOrderStatusID = status; 
+            order.PurchasingOrderStatusID = status;
             order.UpdateUserID = userID;
             order.UpdateTime = dateTimeNow;
             dbcontext.Update(order);
@@ -88,7 +88,7 @@ namespace PurocumentLib.Service
                 UserID = userID,
                 CreateTime = dateTimeNow,
                 Result = auditType
-            };            
+            };
             dbcontext.Add(pa);
 
             dbcontext.SaveChanges();
@@ -128,14 +128,14 @@ namespace PurocumentLib.Service
             dbcontext.Update(order);
 
             var updatePPDIDs = ListOrderDetailIDAndActualCount.Select(s => s.ID);
-            var details = dbcontext.PurchasingOrder.Include(r => r.Details); 
+            var details = dbcontext.PurchasingOrder.Include(r => r.Details).FirstOrDefault(en => en.ID == orderId);
             var pods = from f in ListOrderDetailIDAndActualCount
-                       join d in details
+                       join d in details.Details
                        on f.ID equals d.ID
-                       select new PurchasingOrderDetailModel();
-            foreach(var item in pods)
+                       select d;
+            foreach (var item in pods)
             {
-                item.ActualCount = item.ActualCount;
+                item.ActualCount = ListOrderDetailIDAndActualCount.FirstOrDefault(i => i.ID == item.ID).ActualCount;
                 item.ActualSubtotal = item.Price * item.ActualCount;
                 item.PurchasingOrderStateID = auditType;
                 item.UpdateUsrID = userID;
@@ -173,13 +173,13 @@ namespace PurocumentLib.Service
             int auditType = (int)EnumAuditType.VendorShipped;//isPass ? (int)AuditTypeEnum.VendorShipped : (int)AuditTypeEnum.Other;
 
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && c.PurchasingOrderStatusID.Equals((int)EnumPurchasingOrderState.DeparmentCheckIn)) > 0)
+            if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && !c.PurchasingOrderStatusID.Equals((int)EnumPurchasingOrderState.DeparmentCheckIn)) > 0)
             {
                 throw new Exception("订单状态不正确");
             }
 
             PurchasingOrder order = dbcontext.PurchasingOrder.FirstOrDefault(w => orderId.Equals(w.ID));
-            order.PurchasingOrderStatusID = status; 
+            order.PurchasingOrderStatusID = status;
             order.UpdateUserID = userID;
             order.UpdateTime = dateTimeNow;
             dbcontext.Update(order);

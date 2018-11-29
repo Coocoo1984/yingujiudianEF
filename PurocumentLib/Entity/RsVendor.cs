@@ -10,7 +10,7 @@ namespace PurocumentLib.Entity
         public int VendorID { get; set; }
         public int BizTypeID { get; set; }
         public int GoodsClassID { get; set; }
-        public int GoodsID { get; set; }
+        public int? GoodsID { get; set; }
 
         public Vendor Vendor { get; set; }
     }

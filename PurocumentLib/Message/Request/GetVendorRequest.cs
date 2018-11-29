@@ -5,6 +5,6 @@ namespace PurocumentLib.Message.Request
 {
     public class GetVendorRequest:RequestBase
     {
-        public int ID{get;set;}
+        public string ID{get;set;}
     }
 }
