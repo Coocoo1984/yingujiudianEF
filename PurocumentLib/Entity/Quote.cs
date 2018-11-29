@@ -14,8 +14,8 @@ namespace PurocumentLib.Entity
         public int CreateUserID{get;set;}
 
         public DateTime CreatDateTime{get;set;}
-        public int UpdateUserID{get;set;}
-        public DateTime UpdateDateTime{get;set;}
+        public int? UpdateUserID{get;set;}
+        public DateTime? UpdateDateTime{get;set;}
         public bool Disable{get;set;}
 
     }

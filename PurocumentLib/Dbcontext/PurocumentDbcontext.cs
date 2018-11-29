@@ -23,7 +23,7 @@ namespace PurocumentLib.Dbcontext
 
         public IQueryable<Usr> Usr => Set<Usr>().AsNoTracking();
 
-        public IQueryable<Vendor> Vendor =>Set<Vendor>().AsNoTracking();
+        public IQueryable<Vendor> Vendor => Set<Vendor>().AsNoTracking();
 
         public IQueryable<RsVendor> RsVendor => Set<RsVendor>().AsNoTracking();
 
@@ -46,61 +46,62 @@ namespace PurocumentLib.Dbcontext
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BizType>(builder=>{
-                builder.ToTable("biz_type").HasKey(k=>k.ID);;
-                builder.Property(p=>p.ID).HasColumnName("id");
-                builder.Property(p=>p.Code).HasColumnName("code");
-                builder.Property(p=>p.Name).HasColumnName("name");
-                builder.Property(p=>p.Desc).HasColumnName("desc");
-                builder.Property(p=>p.Disable).HasColumnName("disable");
-            });
-            modelBuilder.Entity<Unit>(builder=>
+            modelBuilder.Entity<BizType>(builder =>
             {
-                builder.ToTable("goods_unit").HasKey(k=>k.ID);
-                builder.Property(p=>p.ID).HasColumnName("id");
-                builder.Property(p=>p.Code).HasColumnName("code");
-                builder.Property(p=>p.Name).HasColumnName("name");
-                builder.Property(p=>p.Desc).HasColumnName("desc");
-                builder.Property(p=>p.Remark).HasColumnName("remark");
+                builder.ToTable("biz_type").HasKey(k => k.ID); ;
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.Code).HasColumnName("code");
+                builder.Property(p => p.Name).HasColumnName("name");
+                builder.Property(p => p.Desc).HasColumnName("desc");
+                builder.Property(p => p.Disable).HasColumnName("disable");
             });
-            modelBuilder.Entity<GoodsClass>(builder=>
+            modelBuilder.Entity<Unit>(builder =>
             {
-                builder.ToTable("goods_class").HasKey(k=>k.ID);
-                builder.Property(p=>p.ID).HasColumnName("id");
-                builder.Property(p=>p.Code).HasColumnName("code");
-                builder.Property(p=>p.Name).HasColumnName("name");
-                builder.Property(p=>p.Desc).HasColumnName("desc");
-                builder.Property(p=>p.Remark).HasColumnName("remark");
-                builder.Property(p=>p.Specification).HasColumnName("specification");
-                builder.Property(p=>p.BizTypeID).HasColumnName("biz_type_id");
-                builder.Property(p=>p.Disable).HasColumnName("disable");
+                builder.ToTable("goods_unit").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.Code).HasColumnName("code");
+                builder.Property(p => p.Name).HasColumnName("name");
+                builder.Property(p => p.Desc).HasColumnName("desc");
+                builder.Property(p => p.Remark).HasColumnName("remark");
             });
-            modelBuilder.Entity<Goods>(builder=>
+            modelBuilder.Entity<GoodsClass>(builder =>
             {
-                builder.ToTable("goods").HasKey(k=>k.ID);
-                builder.Property(p=>p.ID).HasColumnName("id");
-                builder.Property(p=>p.Code).HasColumnName("code");
-                builder.Property(p=>p.Name).HasColumnName("name");
-                builder.Property(p=>p.Specification).HasColumnName("specification");
-                builder.Property(p=>p.ClassID).HasColumnName("goods_class_id");
-                builder.Property(p=>p.UnitID).HasColumnName("goods_unit_id");
-                builder.Property(p=>p.Disable).HasColumnName("disable");
-                builder.Property(p=>p.Desc).HasColumnName("desc");                
+                builder.ToTable("goods_class").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.Code).HasColumnName("code");
+                builder.Property(p => p.Name).HasColumnName("name");
+                builder.Property(p => p.Desc).HasColumnName("desc");
+                builder.Property(p => p.Remark).HasColumnName("remark");
+                builder.Property(p => p.Specification).HasColumnName("specification");
+                builder.Property(p => p.BizTypeID).HasColumnName("biz_type_id");
+                builder.Property(p => p.Disable).HasColumnName("disable");
             });
-            modelBuilder.Entity<Department>(builder=>
+            modelBuilder.Entity<Goods>(builder =>
             {
-                builder.ToTable("department").HasKey(k=>k.ID);
-                builder.Property(p=>p.ID).HasColumnName("id");
-                builder.Property(p=>p.WechatID).HasColumnName("wechat_id");
-                builder.Property(p=>p.Name).HasColumnName("name");
-                builder.Property(p=>p.Code).HasColumnName("code");
-                builder.Property(p=>p.Desc).HasColumnName("desc");
-                builder.Property(p=>p.Address).HasColumnName("addr");
-                builder.Property(p=>p.Address1).HasColumnName("addr1");
-                builder.Property(p=>p.Tel).HasColumnName("tel");
-                builder.Property(p=>p.Tel1).HasColumnName("tel1");
-                builder.Property(p=>p.Mobile).HasColumnName("mobile");
-                builder.Property(p=>p.Mobile1).HasColumnName("mobile1");
+                builder.ToTable("goods").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.Code).HasColumnName("code");
+                builder.Property(p => p.Name).HasColumnName("name");
+                builder.Property(p => p.Specification).HasColumnName("specification");
+                builder.Property(p => p.ClassID).HasColumnName("goods_class_id");
+                builder.Property(p => p.UnitID).HasColumnName("goods_unit_id");
+                builder.Property(p => p.Disable).HasColumnName("disable");
+                builder.Property(p => p.Desc).HasColumnName("desc");
+            });
+            modelBuilder.Entity<Department>(builder =>
+            {
+                builder.ToTable("department").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.WechatID).HasColumnName("wechat_id");
+                builder.Property(p => p.Name).HasColumnName("name");
+                builder.Property(p => p.Code).HasColumnName("code");
+                builder.Property(p => p.Desc).HasColumnName("desc");
+                builder.Property(p => p.Address).HasColumnName("addr");
+                builder.Property(p => p.Address1).HasColumnName("addr1");
+                builder.Property(p => p.Tel).HasColumnName("tel");
+                builder.Property(p => p.Tel1).HasColumnName("tel1");
+                builder.Property(p => p.Mobile).HasColumnName("mobile");
+                builder.Property(p => p.Mobile1).HasColumnName("mobile1");
             });
             modelBuilder.Entity<Role>(builder =>
             {
@@ -116,7 +117,7 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.ID).HasColumnName("id");
                 builder.Property(p => p.WechatID).HasColumnName("wechat_id");
                 builder.Property(p => p.Code).HasColumnName("code");
-                builder.Property(p => p.Name).HasColumnName("name");                
+                builder.Property(p => p.Name).HasColumnName("name");
                 builder.Property(p => p.Desc).HasColumnName("desc");
                 builder.Property(p => p.Tel).HasColumnName("tel");
                 builder.Property(p => p.Tel1).HasColumnName("tel1");
@@ -130,19 +131,19 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.Disable).HasColumnName("disable");
 
             });
-            modelBuilder.Entity<Vendor>(builder=>
+            modelBuilder.Entity<Vendor>(builder =>
             {
-                builder.ToTable("vendor").HasKey(k=>k.ID);
-                builder.Property(p=>p.ID).HasColumnName("id");
-                builder.Property(p=>p.Name).HasColumnName("name");
-                builder.Property(p=>p.Code).HasColumnName("code");
-                builder.Property(p=>p.Desc).HasColumnName("desc");
-                builder.Property(p=>p.Address).HasColumnName("addr");
-                builder.Property(p=>p.Address1).HasColumnName("addr1");
-                builder.Property(p=>p.Tel).HasColumnName("tel");
-                builder.Property(p=>p.Tel1).HasColumnName("tel1");
-                builder.Property(p=>p.Mobile).HasColumnName("mobile");
-                builder.Property(p=>p.Mobile1).HasColumnName("mobile1");
+                builder.ToTable("vendor").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.Name).HasColumnName("name");
+                builder.Property(p => p.Code).HasColumnName("code");
+                builder.Property(p => p.Desc).HasColumnName("desc");
+                builder.Property(p => p.Address).HasColumnName("addr");
+                builder.Property(p => p.Address1).HasColumnName("addr1");
+                builder.Property(p => p.Tel).HasColumnName("tel");
+                builder.Property(p => p.Tel1).HasColumnName("tel1");
+                builder.Property(p => p.Mobile).HasColumnName("mobile");
+                builder.Property(p => p.Mobile1).HasColumnName("mobile1");
                 builder.HasMany(p => p.RsVendors).WithOne(p => p.Vendor).HasForeignKey(p => p.VendorID);
             });
             modelBuilder.Entity<RsVendor>(builder =>
@@ -154,72 +155,73 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.GoodsClassID).HasColumnName("goods_class_id");
                 builder.Property(p => p.GoodsID).HasColumnName("goods_id");
             });
-            modelBuilder.Entity<PurchasingPlan>(builder=>
+            modelBuilder.Entity<PurchasingPlan>(builder =>
             {
-                builder.ToTable("purchasing_plan").HasKey(k=>k.ID);
-                builder.Property(p=>p.ID).HasColumnName("id");
-                builder.Property(p=>p.Code).HasColumnName("code");
-                builder.Property(p=>p.Name).HasColumnName("name");
-                builder.Property(p=>p.BizTypeID).HasColumnName("biz_type_id");
-                builder.Property(p=>p.Desc).HasColumnName("desc");
-                builder.Property(p=>p.DepartmentID).HasColumnName("department_id");
-                builder.Property(p=>p.CreateUserID).HasColumnName("create_usr_id");
-                builder.Property(p=>p.CreateTime).HasColumnName("create_time");
-                builder.Property(p=>p.UpdateTime).HasColumnName("update_time");
-                builder.Property(p=>p.UpdateUserID).HasColumnName("update_usr_id");
-                builder.Property(p=>p.ItemCount).HasColumnName("item_count");
-                builder.Property(p=>p.Status).HasColumnName("purchasing_state_id");
-                builder.HasMany(p=>p.Details).WithOne(p=>p.PurchasingPlan).HasForeignKey(p=>p.PurchasingPlanID);
+                builder.ToTable("purchasing_plan").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.Code).HasColumnName("code");
+                builder.Property(p => p.Name).HasColumnName("name");
+                builder.Property(p => p.BizTypeID).HasColumnName("biz_type_id");
+                builder.Property(p => p.Desc).HasColumnName("desc");
+                builder.Property(p => p.DepartmentID).HasColumnName("department_id");
+                builder.Property(p => p.CreateUserID).HasColumnName("create_usr_id");
+                builder.Property(p => p.CreateTime).HasColumnName("create_time");
+                builder.Property(p => p.UpdateTime).HasColumnName("update_time");
+                builder.Property(p => p.UpdateUserID).HasColumnName("update_usr_id");
+                builder.Property(p => p.ItemCount).HasColumnName("item_count");
+                builder.Property(p => p.Status).HasColumnName("purchasing_state_id");
+                builder.HasMany(p => p.Details).WithOne(p => p.PurchasingPlan).HasForeignKey(p => p.PurchasingPlanID);
             });
-            modelBuilder.Entity<PurchasingPlanDetail>(builder=>
+            modelBuilder.Entity<PurchasingPlanDetail>(builder =>
             {
-                builder.ToTable("purchasing_plan_detail").HasKey(k=>k.ID);
-                builder.Property(p=>p.ID).HasColumnName("id");
-                builder.Property(p=>p.GoodsClassID).HasColumnName("goods_class_id");
-                builder.Property(p=>p.GoodsID).HasColumnName("goods_id");
-                builder.Property(p=>p.PurchasingCount).HasColumnName("count");
-                builder.Property(p=>p.VendorID).HasColumnName("vendor_id");
-                builder.Property(p=>p.QuoteDetailID).HasColumnName("quote_detail_id");
-                builder.Property(p=>p.Price).HasColumnName("unit_price");
-                builder.Property(p=>p.CreateTime).HasColumnName("create_time");
-                builder.Property(p=>p.UpdateTime).HasColumnName("update_time");
+                builder.ToTable("purchasing_plan_detail").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.GoodsClassID).HasColumnName("goods_class_id");
+                builder.Property(p => p.GoodsID).HasColumnName("goods_id");
+                builder.Property(p => p.PurchasingCount).HasColumnName("count");
+                builder.Property(p => p.VendorID).HasColumnName("vendor_id");
+                builder.Property(p => p.QuoteDetailID).HasColumnName("quote_detail_id");
+                builder.Property(p => p.Price).HasColumnName("unit_price");
+                builder.Property(p => p.CreateTime).HasColumnName("create_time");
+                builder.Property(p => p.UpdateTime).HasColumnName("update_time");
                 builder.Property(p => p.UpdateUsrID).HasColumnName("update_usr_id");
                 builder.Property(p => p.CreateUsrID).HasColumnName("create_usr_id");
                 builder.Property(p => p.Status).HasColumnName("purchasing_state_id");
                 builder.Property(p => p.PurchasingPlanID).HasColumnName("purchasing_plan_id");
             });
-            modelBuilder.Entity<PurchasingAudit>(builder=>
+            modelBuilder.Entity<PurchasingAudit>(builder =>
             {
-                builder.ToTable("purchasing_audit").HasKey(k=>k.ID);
-                builder.Property(p=>p.ID).HasColumnName("id");
-                builder.Property(p=>p.PlanID).HasColumnName("purchasing_plan_id");
-                builder.Property(p=>p.Result).HasColumnName("audit_type");
-                builder.Property(p=>p.UserID).HasColumnName("audit_usr_id");
-                builder.Property(p=>p.CreateTime).HasColumnName("audit_time");
-                builder.Property(p=>p.Desc).HasColumnName("audit_desc");
+                builder.ToTable("purchasing_audit").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.PlanID).HasColumnName("purchasing_plan_id");
+                builder.Property(p => p.Result).HasColumnName("audit_type");
+                builder.Property(p => p.UserID).HasColumnName("audit_usr_id");
+                builder.Property(p => p.CreateTime).HasColumnName("audit_time");
+                builder.Property(p => p.Desc).HasColumnName("audit_desc");
             });
-            modelBuilder.Entity<Quote>(builder=>
+            modelBuilder.Entity<Quote>(builder =>
             {
-                builder.ToTable("quote").HasKey(k=>k.ID);
-                builder.Property(p=>p.ID).HasColumnName("id");
-                builder.Property(p=>p.Code).HasColumnName("code");
-                builder.Property(p=>p.Name).HasColumnName("name");
-                builder.Property(p=>p.VendorID).HasColumnName("vendor_id");
-                builder.Property(p=>p.BizTypeID).HasColumnName("biz_type_id");
-                builder.Property(p=>p.CreateUserID).HasColumnName("create_usr_id");
-                builder.Property(p=>p.CreatDateTime).HasColumnName("create_time");
-                builder.Property(p=>p.UpdateUserID).HasColumnName("update_usr_id");
-                builder.Property(p=>p.UpdateDateTime).HasColumnName("update_time");
-                builder.Property(p=>p.Disable).HasColumnName("disable");
-                builder.HasMany(p=>p.Details).WithOne(p=>p.Quote).HasForeignKey(f=>f.QuoteID);
+                builder.ToTable("quote").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.Code).HasColumnName("code");
+                builder.Property(p => p.Name).HasColumnName("name");
+                builder.Property(p => p.VendorID).HasColumnName("vendor_id");
+                builder.Property(p => p.BizTypeID).HasColumnName("biz_type_id");
+                builder.Property(p => p.CreateUserID).HasColumnName("create_usr_id");
+                builder.Property(p => p.CreatDateTime).HasColumnName("create_time");
+                builder.Property(p => p.UpdateUserID).HasColumnName("update_usr_id");
+                builder.Property(p => p.UpdateDateTime).HasColumnName("update_time");
+                builder.Property(p => p.Disable).HasColumnName("disable");
+                builder.HasMany(p => p.Details).WithOne(p => p.Quote).HasForeignKey(f => f.QuoteID);
             });
-            modelBuilder.Entity<QuoteDetail>(builder=>
+            modelBuilder.Entity<QuoteDetail>(builder =>
             {
-                builder.ToTable("quote_detail").HasKey(k=>k.ID);
-                builder.Property(p=>p.ID).HasColumnName("id");
-                builder.Property(p=>p.QuoteID).HasColumnName("quote_id");
-                builder.Property(p=>p.GoodsID).HasColumnName("goods_id");
-                builder.Property(p=>p.Price).HasColumnName("unit_price");
+                builder.ToTable("quote_detail").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.QuoteID).HasColumnName("quote_id");
+                builder.Property(p => p.GoodsID).HasColumnName("goods_id");
+                builder.Property(p => p.Price).HasColumnName("unit_price");
+                builder.Property(p => p.GoodsClassID).HasColumnName("goods_class_id");
             });
             modelBuilder.Entity<PurchasingOrder>(builder =>
             {
@@ -240,14 +242,13 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.UpdateTime).HasColumnName("update_time");
                 builder.Property(p => p.ItemCount).HasColumnName("item_count");
                 builder.Property(p => p.ItemCount).HasColumnName("total");
-                builder.Property(p => p.PurchasingOrderStatusID).HasColumnName("pruchasing_state_id");
-                builder.HasMany(p => p.Details).WithOne(p => p.PurchasingOrder).HasForeignKey(p => p.PurchasingOrderID);
+                builder.Property(p => p.PurchasingOrderStatusID).HasColumnName("purchasing_order_state_id");
+                //builder.HasMany(p => p.Details).WithOne(p => p.PurchasingOrder).HasForeignKey(p => p.PurchasingOrderID);
             });
             modelBuilder.Entity<PurchasingOrderDetail>(builder =>
             {
                 builder.ToTable("purchasing_order_detail").HasKey(k => k.ID);
-                builder.Property(p => p.ID).HasColumnName("id");
-                builder.Property(p => p.ID).HasColumnName("purchasing_order_id");
+                builder.Property(p => p.ID).HasColumnName("id").ValueGeneratedOnAdd();
                 builder.Property(p => p.GoodsClassID).HasColumnName("goods_class_id");
                 builder.Property(p => p.GoodsID).HasColumnName("goods_id");
                 builder.Property(p => p.Count).HasColumnName("count");
@@ -264,7 +265,9 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.AuditTime).HasColumnName("audit_time");
                 builder.Property(p => p.Audit2UsrID).HasColumnName("audit2_usr_id");
                 builder.Property(p => p.Audit2Time).HasColumnName("audit2_time");
+                builder.Property(p => p.PurchasingOrderID).HasColumnName("purchasing_order_id");
                 builder.Property(p => p.PurchasingOrderStateID).HasColumnName("purchasiong_order_state_id");
+                //builder.Property(p => p.PurchasiongOrderStateID).HasColumnName("purchasiong_order_state_id");
                 builder.Property(p => p.PurchasingPlanDetailID).HasColumnName("purchasing_plan_detail_id");
             });
 

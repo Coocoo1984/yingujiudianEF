@@ -58,3 +58,15 @@ C:\Users\HeYan\Source\Repos\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.
 C:\Users\HeYan\Source\Repos\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\DevelopBase.pdb
 C:\Users\HeYan\Source\Repos\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csproj.CopyComplete
 C:\Users\HeYan\Source\Repos\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.dll
+D:\jdxt\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\PurocumentLib.deps.json
+D:\jdxt\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\PurocumentLib.dll
+D:\jdxt\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\PurocumentLib.pdb
+D:\jdxt\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\DevelopBase.dll
+D:\jdxt\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\DevelopBase.pdb
+D:\jdxt\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csprojAssemblyReference.cache
+D:\jdxt\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csproj.CoreCompileInputs.cache
+D:\jdxt\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.AssemblyInfoInputs.cache
+D:\jdxt\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.AssemblyInfo.cs
+D:\jdxt\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csproj.CopyComplete
+D:\jdxt\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.dll
+D:\jdxt\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.pdb

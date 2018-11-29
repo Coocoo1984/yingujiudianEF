@@ -3,21 +3,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevelopBase.Data
 {
-    public abstract class DbcontextBase:DbContext
+    public abstract class DbcontextBase : DbContext
     {
-        private string _connectionString="";
+        private string _connectionString = "";
         protected string ConnectionString
         {
-            get=>_connectionString;
+            get => _connectionString;
         }
         public DbcontextBase(string connectionString)
         {
-            if(string.IsNullOrEmpty(connectionString))
+            if (string.IsNullOrEmpty(connectionString))
             {
                 throw new ArgumentNullException();
             }
-            _connectionString=connectionString;
-            
+            _connectionString = connectionString;
+
         }
     }
 }

@@ -25,6 +25,6 @@ namespace PurocumentLib.Entity
         public virtual DateTime? Audit2Time { get; set; }
         public virtual int? PurchasingOrderStateID { get; set; }
         public virtual int? PurchasingPlanDetailID { get; set; }
-        public virtual int? PurchasiongOrderStateID { get; internal set; }
+        //public virtual int? PurchasiongOrderStateID { get; internal set; }
     }
 }

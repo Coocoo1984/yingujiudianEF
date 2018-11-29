@@ -40,3 +40,12 @@ C:\Users\HeYan\Source\Repos\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\
 C:\Users\HeYan\Source\Repos\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfo.cs
 C:\Users\HeYan\Source\Repos\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.dll
 C:\Users\HeYan\Source\Repos\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.pdb
+D:\jdxt\yingujiudianEF\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.deps.json
+D:\jdxt\yingujiudianEF\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.dll
+D:\jdxt\yingujiudianEF\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.pdb
+D:\jdxt\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.csprojAssemblyReference.cache
+D:\jdxt\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.csproj.CoreCompileInputs.cache
+D:\jdxt\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfoInputs.cache
+D:\jdxt\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfo.cs
+D:\jdxt\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.dll
+D:\jdxt\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.pdb

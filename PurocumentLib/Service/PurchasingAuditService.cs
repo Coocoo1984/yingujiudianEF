@@ -15,13 +15,13 @@ namespace PurocumentLib.Service
         public PurchasingAuditService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
-        
+
         //采购计划审核（初审）
         public void PlanAudit(int planId, int userID, bool isPass, string Desc)
         {
-            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            var plan=dbcontext.PurchasingPlan.Single(s=>s.ID==planId);
-            if(plan==null)
+            var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var plan = dbcontext.PurchasingPlan.Single(s => s.ID == planId);
+            if (plan == null)
             {
                 throw new Exception("采购计划不存在");
             }
@@ -59,7 +59,7 @@ namespace PurocumentLib.Service
             }
 
             DateTime dateTimeNow = DateTime.Now;
-            int status = isPass ? (int)EnumPurchasingPlanState.PlanAudit1Pass : (int)EnumPurchasingPlanState.PlanAudit1Rejected;
+            int status = isPass ? (int)EnumPurchasingPlanState.PlanAudit2Pass : (int)EnumPurchasingPlanState.PlanAudit2Rejected;
             int auditType = isPass ? (int)EnumAuditType.PlanAudit1Pass : (int)EnumAuditType.PlanAudit1Rejected;
 
             List<PurchasingOrder> insertListPOs = new List<PurchasingOrder>();
@@ -99,13 +99,27 @@ namespace PurocumentLib.Service
 
                 int itemCount = 0;
                 decimal? total = 0;
-
+                PurchasingOrder po = new PurchasingOrder
+                {
+                    Code = StrPOPrefix + DateTime.Now.ToString(StrPOSuffixFormat),//[2][17]
+                    PurchasingPlanID = plan.ID,
+                    PurchasingOrderStatusID = 1,//写死
+                    VendorID = vendorID.Value,
+                    DepartmentID = plan.DepartmentID,
+                    Tel = entityD?.Tel,
+                    Addr = entityD?.Address,
+                    BizTypeID = plan.BizTypeID,
+                    CreateUsrID = userID,
+                    CreateTime = dateTimeNow,
+                    Total = total,
+                    ItemCount = itemCount
+                };
                 foreach (var vendorPPD in verdorPPDs)
                 {
                     //生成每个供应商分配的采购明细
                     PurchasingOrderDetail pod = new PurchasingOrderDetail
                     {
-                        //PurchasingOrder = po,
+                        PurchasingOrder = po,
                         PurchasingOrderStateID = 1,//写死
                         GoodsClassID = vendorPPD.GoodsClassID,
                         GoodsID = vendorPPD.GoodsID,
@@ -118,13 +132,13 @@ namespace PurocumentLib.Service
                         CreateTime = dateTimeNow,
                         UpdateUsrID = userID,
                         UpdateTime = dateTimeNow,
-                        PurchasiongOrderStateID = status,//冗余的字段
+                        //PurchasiongOrderStateID = status,//冗余的字段
                         PurchasingPlanDetailID = vendorPPD.ID
                     };
                     insertListPODs.Add(pod); //订单明细
 
-                    total += pod.Subtotal;//累计每种商品的小计金额
-                    itemCount++;//明细数量
+                    po.Total += pod.Subtotal;//累计每种商品的小计金额
+                    po.ItemCount++;//明细数量
 
                     //更新采购计划、采购计划明细状态
                     vendorPPD.Status = status;//复审通过
@@ -133,21 +147,7 @@ namespace PurocumentLib.Service
 
                 }
 
-                PurchasingOrder po = new PurchasingOrder
-                {
-                    Code = StrPOPrefix + DateTime.Now.ToString(StrPOSuffixFormat),//[2][17]
-                    PurchasingPlanID = plan.ID,
-                    PurchasingOrderStatusID = 1,//写死
-                    VendorID = vendorID.Value,
-                    DepartmentID = plan.DepartmentID,
-                    Tel = entityD.Tel,
-                    Addr = entityD.Address,
-                    BizTypeID = plan.BizTypeID,
-                    CreateUsrID = userID,
-                    CreateTime = dateTimeNow,
-                    Total = total,
-                    ItemCount = itemCount
-                };
+
                 insertListPOs.Add(po);  // 订单
 
             }
