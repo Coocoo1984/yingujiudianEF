@@ -70,3 +70,15 @@ D:\jdxt\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.Asse
 D:\jdxt\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csproj.CopyComplete
 D:\jdxt\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.dll
 D:\jdxt\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.pdb
+E:\jd\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\PurocumentLib.deps.json
+E:\jd\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\PurocumentLib.dll
+E:\jd\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\PurocumentLib.pdb
+E:\jd\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\DevelopBase.dll
+E:\jd\yingujiudianEF\PurocumentLib\bin\Debug\netstandard2.0\DevelopBase.pdb
+E:\jd\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csprojAssemblyReference.cache
+E:\jd\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csproj.CoreCompileInputs.cache
+E:\jd\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.AssemblyInfoInputs.cache
+E:\jd\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.AssemblyInfo.cs
+E:\jd\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.csproj.CopyComplete
+E:\jd\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.dll
+E:\jd\yingujiudianEF\PurocumentLib\obj\Debug\netstandard2.0\PurocumentLib.pdb

@@ -241,9 +241,9 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.UpdateUserID).HasColumnName("update_usr_id");
                 builder.Property(p => p.UpdateTime).HasColumnName("update_time");
                 builder.Property(p => p.ItemCount).HasColumnName("item_count");
-                builder.Property(p => p.ItemCount).HasColumnName("total");
+                builder.Property(p => p.Total).HasColumnName("total");
                 builder.Property(p => p.PurchasingOrderStatusID).HasColumnName("purchasing_order_state_id");
-                //builder.HasMany(p => p.Details).WithOne(p => p.PurchasingOrder).HasForeignKey(p => p.PurchasingOrderID);
+                builder.HasMany(p => p.Details).WithOne(p => p.PurchasingOrder).HasForeignKey(p => p.PurchasingOrderID);
             });
             modelBuilder.Entity<PurchasingOrderDetail>(builder =>
             {

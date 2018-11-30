@@ -49,3 +49,12 @@ D:\jdxt\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.Assembly
 D:\jdxt\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfo.cs
 D:\jdxt\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.dll
 D:\jdxt\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.pdb
+E:\jd\yingujiudianEF\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.deps.json
+E:\jd\yingujiudianEF\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.dll
+E:\jd\yingujiudianEF\DevelopBase\bin\Debug\netstandard2.0\DevelopBase.pdb
+E:\jd\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.csproj.CoreCompileInputs.cache
+E:\jd\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfoInputs.cache
+E:\jd\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.AssemblyInfo.cs
+E:\jd\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.dll
+E:\jd\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.pdb
+E:\jd\yingujiudianEF\DevelopBase\obj\Debug\netstandard2.0\DevelopBase.csprojAssemblyReference.cache

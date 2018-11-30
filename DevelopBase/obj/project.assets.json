@@ -595,10 +595,11 @@
   },
   "libraries": {
     "Microsoft.EntityFrameworkCore/2.1.4": {
-      "sha512": "72l8hbaJ5cXxZLCFeo46MDnvU8XJiDRNh1YQPzAlqVAlQrUwSVojYbJyOE7vbWqsb8rRqQYJ6NsmgPdUv/NKzw==",
+      "sha512": "Rt2SIF3LPQfBzQYbhOv8LwQKy7UkZh+zJcls5eLTOlbPahLXH7IWCkk3mQpzTvljG55vkhzNcOjzrVLcO0uICA==",
       "type": "package",
       "path": "microsoft.entityframeworkcore/2.1.4",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.dll",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.xml",
@@ -607,10 +608,11 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.Abstractions/2.1.4": {
-      "sha512": "5Vc1zdCq7p+E/8ndJnTKHebJeqSC/1gb4hXDPi7UHdqURAxWl3lZV5+79x/dSfO/P6n/sEz5fURYGOMDoreXUA==",
+      "sha512": "3djJy9gM2PZQFz6NHPSVzAN8azBu7afehDLwGkCR8yCMVhNzkkVdT/JZMfsSzuNZ302wIFWbzEYSAEI6lBddMA==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.abstractions/2.1.4",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Abstractions.dll",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Abstractions.xml",
@@ -619,10 +621,11 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.Analyzers/2.1.4": {
-      "sha512": "cYjXickepORM4UmNdqdZ3l74xhG5OHWMDxsFlqHJGm0qxLAHv5GAI2dKkkGslrjyaPYnfRW3JhAWubBWBt0XUg==",
+      "sha512": "VEyuULTq48tbPjwLXo9j5WdObg0ViHYI4CwvdaYG23r13wIP2MJqpn4Nc9HpUQPPxGDqL2FO9HRvSY3Xufgtcw==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.analyzers/2.1.4",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "analyzers/dotnet/cs/Microsoft.EntityFrameworkCore.Analyzers.dll",
         "microsoft.entityframeworkcore.analyzers.2.1.4.nupkg.sha512",
@@ -1210,10 +1213,11 @@
       ]
     },
     "System.Diagnostics.DiagnosticSource/4.5.1": {
-      "sha512": "m86SgxAIi5j0iGzx2y1LrcMcopIYfinfcojyQ9CcNRy3MZvi0dVuDlMj2M7kV6MMGSunqZ+OnQ+rQbxWafFBaw==",
+      "sha512": "zCno/m44ymWhgLFh7tELDG9587q0l/EynPM0m4KgLaWQbz/TEKvNRX2YT5ip2qXW/uayifQ2ZqbnErsKJ4lYrQ==",
       "type": "package",
       "path": "system.diagnostics.diagnosticsource/4.5.1",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
@@ -2538,23 +2542,27 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\jdxt\\yingujiudianEF\\DevelopBase\\DevelopBase.csproj",
+      "projectUniqueName": "E:\\jd\\yingujiudianEF\\DevelopBase\\DevelopBase.csproj",
       "projectName": "DevelopBase",
-      "projectPath": "D:\\jdxt\\yingujiudianEF\\DevelopBase\\DevelopBase.csproj",
+      "projectPath": "E:\\jd\\yingujiudianEF\\DevelopBase\\DevelopBase.csproj",
       "packagesPath": "C:\\Users\\liuqingxin\\.nuget\\packages\\",
-      "outputPath": "D:\\jdxt\\yingujiudianEF\\DevelopBase\\obj\\",
+      "outputPath": "E:\\jd\\yingujiudianEF\\DevelopBase\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\liuqingxin\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\liuqingxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "http://nuget.belab.com.cn/nuget": {},
+        "https://api.nuget.org/v3/index.json": {},
+        "https://www.myget.org/F/pomelo/api/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.0": {
