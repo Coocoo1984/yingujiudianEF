@@ -70,6 +70,29 @@ namespace PurocumentLib.Service
             return modle;
         }
 
+        public DepartmentModel GetByName(string name)
+        {
+            var dbContext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var entity=dbContext.Department.SingleOrDefault(s=>s.Name==name);
+            if(entity==null)
+            {
+                return null;
+            }
+            var modle=new DepartmentModel()
+            {
+                ID=entity.ID,
+                Name=entity.Name,
+                Code=entity.Code,
+                Mobile=entity.Mobile,
+                Mobile1=entity.Mobile1,
+                Tel=entity.Tel,
+                Tel1=entity.Tel1,
+                Address=entity.Address,
+                Address1=entity.Address1
+            };
+            return modle;
+        }
+
         public void Update(DepartmentModel model)
         {
             var dbContext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();

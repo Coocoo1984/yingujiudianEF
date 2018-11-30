@@ -20,7 +20,15 @@ namespace PurocumentLib.Message.Handler
                 throw new ArgumentNullException();
             }
             var service=ServiceProvider.GetService<IVendorService>();
-            var model= service.Load(request.ID);
+            VendorModel model = null;
+            if(request.ID !=0)
+            {
+                model = service.Load(request.ID);
+            }
+            else if(string.IsNullOrWhiteSpace(request.Name))
+            {
+                model = service.GetByName(request.Name);
+            }
             return new ResponseGeneric<VendorModel>(){Result=1,ResultInfo="",Data=model};
         }
     }

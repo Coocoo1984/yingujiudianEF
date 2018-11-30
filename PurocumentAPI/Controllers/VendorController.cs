@@ -53,11 +53,11 @@ namespace PurocumentAPI.Controllers
             }
 
         }
-        public async Task<IActionResult> Get(string id)
+        public async Task<IActionResult> Get(string name)
         {
             var request = new GetVendorRequest()
             {
-                ID = id
+                Name = name
             };
             try
             {

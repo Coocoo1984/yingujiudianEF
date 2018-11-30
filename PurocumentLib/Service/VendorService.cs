@@ -75,10 +75,41 @@ namespace PurocumentLib.Service
             dbcontext.SaveChanges();
         }
 
-        public VendorModel Load(string id)
+        public VendorModel Load(int id)
         {
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            var entity = dbcontext.Vendor.Include(e => e.RsVendors).SingleOrDefault(s => s.Code == id);//dbcontext.Vendor.Include(i => i.RsVendors).SingleOrDefault(s => s.ID == id);//
+            var entity = dbcontext.Vendor.Include(i => i.RsVendors).SingleOrDefault(s => s.ID == id);
+            //dbcontext.Vendor.Include(e => e.RsVendors).SingleOrDefault(s => s.Code == id);
+            if (entity == null)
+            {
+                return null;
+            }
+            return new VendorModel()
+            {
+                ID = entity.ID,
+                Code = entity.Code,
+                Name = entity.Name,
+                Tel = entity.Tel,
+                Tel1 = entity.Tel1,
+                Mobile = entity.Mobile,
+                Mobile1 = entity.Mobile1,
+                Address = entity.Address,
+                Address1 = entity.Address1,
+                RsVendors = entity.RsVendors.Select(en => new RsVendorModel
+                {
+                    ID = en.ID,
+                    VendorID = en.VendorID,
+                    BizTypeID = en.BizTypeID,
+                    GoodsClassID = en.GoodsClassID,
+                    GoodsID = en.GoodsID ?? 0
+                })
+            };
+        }
+
+        public VendorModel GetByName(string name)
+        {
+            var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var entity = dbcontext.Vendor.Include(e => e.RsVendors).SingleOrDefault(s => s.Name == name);
             if (entity == null)
             {
                 return null;

@@ -11,5 +11,6 @@ namespace PurocumentLib.Service
         void Add(DepartmentModel model);
         void Update(DepartmentModel model);
         DepartmentModel Load(int id);
+        DepartmentModel GetByName(string name);
     }
 }

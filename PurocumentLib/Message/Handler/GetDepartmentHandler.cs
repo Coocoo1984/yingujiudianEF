@@ -18,8 +18,16 @@ namespace PurocumentLib.Message.Handler
                 throw new ArgumentNullException();
             }
             var service=ServiceProvider.GetService<IDepartmentService>();
-            var model= service.Load(request.ID);
-            return new ResponseGeneric<Model.DepartmentModel>(){Result=1,ResultInfo="",Data=model};
+            Model.DepartmentModel model = null;
+            if (request.ID == 0)
+            {
+                model = service.Load(request.ID);
+            }
+            else if (!string.IsNullOrWhiteSpace(request.Name))
+            {
+                model = service.GetByName(request.Name);
+            }
+            return new ResponseGeneric<Model.DepartmentModel>() { Result = 1, ResultInfo = "", Data = model };
         }
     }
 }
