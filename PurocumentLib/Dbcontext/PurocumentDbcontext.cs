@@ -266,7 +266,7 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.Audit2UsrID).HasColumnName("audit2_usr_id");
                 builder.Property(p => p.Audit2Time).HasColumnName("audit2_time");
                 builder.Property(p => p.PurchasingOrderID).HasColumnName("purchasing_order_id");
-                builder.Property(p => p.PurchasingOrderStateID).HasColumnName("purchasiong_order_state_id");
+                builder.Property(p => p.PurchasingOrderStateID).HasColumnName("purchasing_order_state_id");
                 //builder.Property(p => p.PurchasiongOrderStateID).HasColumnName("purchasiong_order_state_id");
                 builder.Property(p => p.PurchasingPlanDetailID).HasColumnName("purchasing_plan_detail_id");
             });

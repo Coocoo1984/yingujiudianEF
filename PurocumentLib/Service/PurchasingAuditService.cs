@@ -59,14 +59,17 @@ namespace PurocumentLib.Service
             }
 
             DateTime dateTimeNow = DateTime.Now;
-            int status = isPass ? (int)EnumPurchasingPlanState.PlanAudit2Pass : (int)EnumPurchasingPlanState.PlanAudit2Rejected;
-            int auditType = isPass ? (int)EnumAuditType.PlanAudit1Pass : (int)EnumAuditType.PlanAudit1Rejected;
+            int planStatus = isPass ? (int)EnumPurchasingPlanState.PlanAudit2Pass : (int)EnumPurchasingPlanState.PlanAudit2Rejected;
+            int planAuditType = isPass ? (int)EnumAuditType.PlanAudit2Pass : (int)EnumAuditType.PlanAudit2Rejected;
+
+            int orderStatus = isPass ? (int)EnumPurchasingOrderState.AwaitVendorConfirm : (int)EnumPurchasingOrderState.AwaitVendorConfirm;
+            //int orderAuditType = isPass ? (int)EnumAuditType.pl : (int)EnumAuditType.PlanAudit1Rejected;
 
             List<PurchasingOrder> insertListPOs = new List<PurchasingOrder>();
             List<PurchasingOrderDetail> insertListPODs = new List<PurchasingOrderDetail>();
 
             //保存审核结果和修改计划状态
-            plan.Status = status;
+            plan.Status = planStatus;
             plan.UpdateTime = dateTimeNow;
             plan.UpdateUserID = userID;
             dbcontext.Update(plan);
@@ -76,7 +79,7 @@ namespace PurocumentLib.Service
                 PlanID = plan.ID,
                 UserID = userID,
                 CreateTime = dateTimeNow,
-                Result = auditType,
+                Result = planAuditType,//审核状态 若复审通过及订单生成 故仅生成一条
                 Desc = Desc
             };
             dbcontext.Add(insertPA);
@@ -103,7 +106,7 @@ namespace PurocumentLib.Service
                 {
                     Code = StrPOPrefix + DateTime.Now.ToString(StrPOSuffixFormat),//[2][17]
                     PurchasingPlanID = plan.ID,
-                    PurchasingOrderStatusID = 1,//写死
+                    PurchasingOrderStatusID = orderStatus,//订单状态
                     VendorID = vendorID.Value,
                     DepartmentID = plan.DepartmentID,
                     Tel = entityD?.Tel,
@@ -120,7 +123,7 @@ namespace PurocumentLib.Service
                     PurchasingOrderDetail pod = new PurchasingOrderDetail
                     {
                         PurchasingOrder = po,
-                        PurchasingOrderStateID = 1,//写死
+                        PurchasingOrderStateID = orderStatus,//订单状态
                         GoodsClassID = vendorPPD.GoodsClassID,
                         GoodsID = vendorPPD.GoodsID,
                         Count = vendorPPD.PurchasingCount,
@@ -141,7 +144,7 @@ namespace PurocumentLib.Service
                     po.ItemCount++;//明细数量
 
                     //更新采购计划、采购计划明细状态
-                    vendorPPD.Status = status;//复审通过
+                    vendorPPD.Status = planStatus;//采购状态
 
                     dbcontext.Update(vendorPPD);   /// 更新PPD
 

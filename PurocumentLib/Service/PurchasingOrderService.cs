@@ -137,7 +137,7 @@ namespace PurocumentLib.Service
             {
                 item.ActualCount = ListOrderDetailIDAndActualCount.FirstOrDefault(i => i.ID == item.ID).ActualCount;
                 item.ActualSubtotal = item.Price * item.ActualCount;
-                item.PurchasingOrderStateID = auditType;
+                item.PurchasingOrderStateID = status;
                 item.UpdateUsrID = userID;
                 item.UpdateTime = dateTimeNow;
             }
