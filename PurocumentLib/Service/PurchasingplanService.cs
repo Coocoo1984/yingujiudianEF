@@ -77,7 +77,8 @@ namespace PurocumentLib.Service
                 UpdateTime=plan.CreateTime,
                 CreateUserID=plan.CreateUser,
                 UpdateUserID=plan.CreateUser,
-                ItemCount = plan.Details.Count()
+                ItemCount = plan.Details.Count(),
+                DepartmentID = plan.DepartmentID
             };
             var dbcontext= ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             dbcontext.Add(entity);
