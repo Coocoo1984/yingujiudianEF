@@ -109,7 +109,7 @@ namespace PurocumentLib.Service
         public VendorModel GetByName(string name)
         {
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            var entity = dbcontext.Vendor.Include(e => e.RsVendors).SingleOrDefault(s => s.Name == name);
+            var entity = dbcontext.Vendor.Include(e => e.RsVendors).FirstOrDefault(s => s.Name == name);
             if (entity == null)
             {
                 return null;

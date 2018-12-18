@@ -25,7 +25,7 @@ namespace PurocumentLib.Message.Handler
             {
                 model = service.Load(request.ID);
             }
-            else if(string.IsNullOrWhiteSpace(request.Name))
+            else if(!string.IsNullOrWhiteSpace(request.Name))
             {
                 model = service.GetByName(request.Name);
             }

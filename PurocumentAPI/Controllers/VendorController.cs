@@ -52,7 +52,7 @@ namespace PurocumentAPI.Controllers
                 return new JsonResult(new ResponseBase() { Result = -1, ResultInfo = ex.Message });
             }
 
-        }
+        } 
         public async Task<IActionResult> Get(string name)
         {
             var request = new GetVendorRequest()

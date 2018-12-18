@@ -19,7 +19,7 @@ namespace PurocumentLib.Message.Handler
             }
             var service=ServiceProvider.GetService<IDepartmentService>();
             Model.DepartmentModel model = null;
-            if (request.ID == 0)
+            if (request.ID != 0)
             {
                 model = service.Load(request.ID);
             }
