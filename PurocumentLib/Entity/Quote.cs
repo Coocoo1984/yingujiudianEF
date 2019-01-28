@@ -12,7 +12,6 @@ namespace PurocumentLib.Entity
         public int BizTypeID{get;set;}
         public ICollection<QuoteDetail> Details{get;set;}
         public int CreateUserID{get;set;}
-
         public DateTime CreatDateTime{get;set;}
         public int? UpdateUserID{get;set;}
         public DateTime? UpdateDateTime{get;set;}

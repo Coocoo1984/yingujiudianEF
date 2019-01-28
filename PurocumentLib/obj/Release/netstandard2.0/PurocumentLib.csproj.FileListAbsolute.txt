@@ -22,3 +22,10 @@ C:\Users\HeYan\Source\Repos\yingujiudianEF3\PurocumentLib\obj\Release\netstandar
 C:\Users\HeYan\Source\Repos\yingujiudianEF3\PurocumentLib\obj\Release\netstandard2.0\PurocumentLib.csproj.CopyComplete
 C:\Users\HeYan\Source\Repos\yingujiudianEF3\PurocumentLib\obj\Release\netstandard2.0\PurocumentLib.dll
 C:\Users\HeYan\Source\Repos\yingujiudianEF3\PurocumentLib\obj\Release\netstandard2.0\PurocumentLib.pdb
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentLib\bin\Release\netstandard2.0\DevelopBase.dll
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentLib\bin\Release\netstandard2.0\DevelopBase.pdb
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentLib\obj\Release\netstandard2.0\PurocumentLib.csprojAssemblyReference.cache
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentLib\obj\Release\netstandard2.0\PurocumentLib.csproj.CoreCompileInputs.cache
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentLib\obj\Release\netstandard2.0\PurocumentLib.AssemblyInfoInputs.cache
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentLib\obj\Release\netstandard2.0\PurocumentLib.AssemblyInfo.cs
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentLib\obj\Release\netstandard2.0\PurocumentLib.pdb

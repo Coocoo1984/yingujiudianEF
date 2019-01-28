@@ -7,6 +7,8 @@ using PurocumentLib.Entity;
 using DevelopBase.Services;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+
 namespace PurocumentLib.Service
 {
     public class QuoteService : ServiceBase, IQuoteService
@@ -17,52 +19,69 @@ namespace PurocumentLib.Service
 
         public void Add(QuoteModel model)
         {
-            if(model==null)
+            if (model == null)
             {
                 throw new ArgumentNullException();
             }
-            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            var entity=new Quote()
-            {
-                Code=model.Code,
-                Name=model.Name,
-                CreatDateTime=DateTime.Now,
-                CreateUserID=model.CreateUserID,
-                Desc=model.Desc
-            };
-            var detials=from a in model.Details
-                        join b in dbcontext.Goods on a.GoodsID equals b.ID
-                        select new QuoteDetail(){
-                                    GoodsID=a.GoodsID,
-                                    GoodsClassID=b.ClassID,
-                                    Price=a.Price,
-                                    Quote=entity
-                                };
+            var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+
+            //失效上一条历史报价 业务类型一致、供应商一致、报价状态为 有效
+            var originalQuote = dbcontext.Quotes.Include(i => i.Details).SingleOrDefault(
+                                    s => s.BizTypeID == model.BizTypeID
+                                    && s.VendorID == model.VendorID
+                                    && s.ID < model.ID
+                                    && s.Disable == false);
             
+            if (originalQuote != null)
+            {
+                originalQuote.Disable = true;
+                dbcontext.Add(originalQuote);
+            }
+
+            var entity = new Quote()
+            {
+                Code = model.Code,
+                Name = model.Name,
+                CreatDateTime = DateTime.Now,
+                CreateUserID = model.CreateUserID,
+                Desc = model.Desc,
+                Disable = false
+            };
+            var detials = from a in model.Details
+                          join b in dbcontext.Goods on a.GoodsID equals b.ID
+                          select new QuoteDetail()
+                          {
+                              GoodsID = a.GoodsID,
+                              GoodsClassID = b.ClassID,
+                              Price = a.Price,
+                              Quote = entity
+                          };
+
             dbcontext.Add(entity);
             dbcontext.AddRange(detials);
             dbcontext.SaveChanges();
         }
+
         public QuoteModel Load(int id)
         {
             var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             //获取主表
-            var master=(from a in dbcontext.Quotes.Where(w=>w.ID==id)
-                        join b in dbcontext.Vendor on a.VendorID equals b.ID
-                        join c in dbcontext.BizTypes on a.BizTypeID equals c.ID
-                        select new QuoteModel()
-                        {
-                            ID=a.ID,
-                            Code=a.Code,
-                            Name=a.Name,
-                            Desc=a.Desc,
-                            VendorID=a.VendorID,
-                            VendorName=b.Name,
-                            BizTypeID=a.BizTypeID,
-                            BizTypeName=c.Name,
-                            Disable=a.Disable,
-                        }).FirstOrDefault();
-            if(master==null)
+            var result = (from a in dbcontext.Quotes.Where(w => w.ID == id)
+                          join b in dbcontext.Vendor on a.VendorID equals b.ID
+                          join c in dbcontext.BizTypes on a.BizTypeID equals c.ID
+                          select new QuoteModel()
+                          {
+                              ID = a.ID,
+                              Code = a.Code,
+                              Name = a.Name,
+                              Desc = a.Desc,
+                              VendorID = a.VendorID,
+                              VendorName = b.Name,
+                              BizTypeID = a.BizTypeID,
+                              BizTypeName = c.Name,
+                              Disable = a.Disable,
+                          }).FirstOrDefault();
+            if(result == null)
             {
                 throw new Exception("报价单不存在");
             }
@@ -74,10 +93,11 @@ namespace PurocumentLib.Service
                            GoodsID=a.ID,
                            GoodsName=c==null?"":c.Name
                        };
-            master.Details=details;
-            return master;
+            result.Details=details;
+            return result;
         }
 
+        
         public void Update(QuoteModel model)
         {
             var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();

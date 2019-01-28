@@ -2,8 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\PurocumentAPI",
-    "\\PurocumentLib",
-    "\\PurocumentLib\\Message\\Handler"
+    "\\PurocumentLib"
   ],
   "PreviewInSolutionExplorer": false
 }

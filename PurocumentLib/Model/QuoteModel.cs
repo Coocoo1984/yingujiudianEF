@@ -14,7 +14,6 @@ namespace PurocumentLib.Model
         public string BizTypeName{get;set;}
         public IEnumerable<QuoteDetailModel> Details{get;set;}
         public int CreateUserID{get;set;}
-
         public DateTime CreatDateTime{get;set;}
         public int UpdateUserID{get;set;}
         public DateTime UpdateDateTime{get;set;}
