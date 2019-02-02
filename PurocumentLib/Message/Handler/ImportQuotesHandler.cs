@@ -50,7 +50,7 @@ namespace PurocumentLib.Message.Handler
         }
 
         /// <summary>
-        /// 读取sheet 内的数据进入实体
+        /// 读取sheet 内的数据 生成实体集合 若报价单元格为空则跳过
         /// </summary>
         /// <param name="worksheet"></param>
         /// <returns></returns>
@@ -69,11 +69,12 @@ namespace PurocumentLib.Message.Handler
                     var QuoteDetailModels = new List<QuoteDetailModel>();
                     for (int row = 4; row <= rowCount; row++)
                     {
+                        if (worksheet.Cells[row, 7].Value == null) break;
                         QuoteDetailModel detail = new QuoteDetailModel
                         {
                             GoodsName = worksheet.Cells[row, 4].Value.ToString(),
                             Price = Convert.ToDecimal(worksheet.Cells[row, 7].Value)
-                        };
+                    };
                         QuoteDetailModels.Add(detail);
                     }
                     return QuoteDetailModels;

@@ -44,6 +44,7 @@ namespace PurocumentLib.Service
                 Name = model.Name,
                 CreatDateTime = DateTime.Now,
                 CreateUserID = model.CreateUserID,
+                UpdateDateTime = DateTime.Now,
                 Desc = model.Desc,
                 Disable = false
             };
@@ -106,15 +107,15 @@ namespace PurocumentLib.Service
             {
                 throw new Exception("报价单不存在");
             }
-            var entity=new Quote()
+            var entity = new Quote()
             {
-                Code=model.Code,
-                Name=model.Name,
-                CreatDateTime=master.CreatDateTime,
-                CreateUserID=master.CreateUserID,
-                Desc=model.Desc,
-                UpdateDateTime=DateTime.Now,
-                UpdateUserID=model.UpdateUserID
+                Code = model.Code,
+                Name = model.Name,
+                CreatDateTime = master.CreatDateTime,
+                CreateUserID = master.CreateUserID,
+                Desc = model.Desc,
+                UpdateDateTime = DateTime.Now,
+                UpdateUserID = model.UpdateUserID
             };
             dbcontext.Update(entity);
             var modelGoods=model.Details.Select(s=>s.GoodsID).ToList();

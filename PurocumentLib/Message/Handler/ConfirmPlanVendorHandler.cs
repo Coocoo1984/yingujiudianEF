@@ -17,9 +17,17 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new ArgumentNullException();
             }
-            var service=ServiceProvider.GetService<IPurchasingplanService>();
-            service.ConfirmVendor(request.PlanID, request.VendorID, request.GoodsClassID);
-            return new ResponseBase(){Result=1,ResultInfo=""};
+            var service = ServiceProvider.GetService<IPurchasingplanService>();
+            if (request.GoodsClassID ==0)
+            {
+                service.ConfirmVendor(request.PlanID, request.VendorID, request.GoodsClassID);
+            }
+            else
+            { 
+                
+                service.ConfirmVendor(request.PlanID, request.VendorID, request.GoodsClassID);
+            }
+            return new ResponseBase() { Result = 1, ResultInfo = "" };
         }
     }
 }
