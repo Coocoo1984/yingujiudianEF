@@ -93,16 +93,16 @@ namespace PurocumentLib.Service
                 throw new Exception("商品数量无效");
             }
             //创建主表
-            var entity=new Entity.PurchasingPlan()
+            var entity = new Entity.PurchasingPlan()
             {
-                Code = StrPPPrefix+DateTime.Now.ToString(StrPPSuffixFormat),//[2][17]
-                Desc =plan.Desc,
-                BizTypeID=plan.BizType,
-                Status=plan.Status,
-                CreateTime=plan.CreateTime,
-                UpdateTime=plan.CreateTime,
-                CreateUserID=plan.CreateUser,
-                UpdateUserID=plan.CreateUser,
+                Code = StrPPPrefix + DateTime.Now.ToString(StrPPSuffixFormat),//[2][17]
+                Desc = plan.Desc,
+                BizTypeID = plan.BizType,
+                Status = (int)EnumPurchasingPlanState.PlanDraft,//草稿新增  之前改漏了 BUG//plan.Status,
+                CreateTime = plan.CreateTime,
+                UpdateTime = plan.CreateTime,
+                CreateUserID = plan.CreateUser,
+                UpdateUserID = plan.CreateUser,
                 ItemCount = plan.Details.Count(),
                 DepartmentID = plan.DepartmentID
             };
@@ -148,85 +148,93 @@ namespace PurocumentLib.Service
             return master;
         }
         //供应商提交计划 待初审
-        public void SubmitPlan(IEnumerable<int> ids,int userID)
+        public void SubmitPlan(IEnumerable<int> ids, int userID)
         {
-            if(ids==null)
+            if (ids == null)
             {
                 throw new ArgumentNullException();
             }
-            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            if(dbcontext.PurchasingPlan.Count(c=>ids.Contains(c.ID) && c.Status!=1)>0)
+            var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            ///之前改审核状态改漏了 值是对的 避免使用魔幻数值 if(dbcontext.PurchasingPlan.Count(c=>ids.Contains(c.ID) && c.Status!=1)>0)
+            if (dbcontext.PurchasingPlan.Count(c => ids.Contains(c.ID) && c.Status != (int)EnumPurchasingPlanState.PlanDraft) > 0)
             {
                 throw new Exception("采购计划状态不正确");
             }
-            var plans=dbcontext.PurchasingPlan.Where(w=>ids.Contains(w.ID)).ToList();
-            foreach(var item in plans)
+            var plans = dbcontext.PurchasingPlan.Where(w => ids.Contains(w.ID)).ToList();
+            foreach (var item in plans)
             {
-                item.Status=item.Status+1;
-                item.UpdateUserID=userID;
-                item.UpdateTime=DateTime.Now;
+                item.Status = item.Status + 1;
+                item.UpdateUserID = userID;
+                item.UpdateTime = DateTime.Now;
             }
             dbcontext.UpdateRange(plans);
             dbcontext.SaveChanges();
         }
 
- 
-
-
         public void UpdatePlan(Model.PurchasingPlan plan)
         {
-            if(plan==null)
+            if (plan == null)
             {
                 throw new ArgumentNullException();
             }
-            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            var entity=dbcontext.PurchasingPlan.Include(i=>i.Details).SingleOrDefault(s=>s.ID==plan.ID);
-            if(entity==null)
+            var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var entity = dbcontext.PurchasingPlan.Include(i => i.Details).SingleOrDefault(s => s.ID == plan.ID);
+            if (entity == null)
             {
                 throw new Exception("采购计划不存在");
             }
-            var modifyStatus=new int[]{1,3,7};
-            if(entity.Status!=1)
+            //BUG 只有在草稿/初审驳回/复审驳回 3种状态下可以修改;其他（为作废预留）状态下应该复制一条原采购计划的内容进行新增（暂时未实现） //var modifyStatus=new int[]{1,3,7};
+            var modifyStatus = new int[] {
+                (int)EnumPurchasingPlanState.PlanDraft,
+                (int)EnumPurchasingPlanState.PlanAudit1Rejected,
+                (int)EnumPurchasingPlanState.PlanAudit2Rejected
+            };
+
+            if (modifyStatus.Contains(entity.Status))
+            {
+                entity.Desc = plan.Desc;
+                entity.UpdateTime = DateTime.Now;
+                entity.UpdateUserID = plan.UpdateUser;
+                entity.ItemCount = plan.Details.Count();
+
+                //修改商品信息
+                var saveGoods = entity.Details.Select(s => s.GoodsID).ToList();
+                var submitGoods = plan.Details.Select(s => s.GoodsID).ToList();
+                //新增
+                var addGoods = submitGoods.Where(w => !saveGoods.Contains(w));
+                var addDetails = from a in plan.Details.Where(w => addGoods.Contains(w.GoodsID))
+                                 join b in dbcontext.Goods on a.GoodsID equals b.ID
+                                 select new Entity.PurchasingPlanDetail()
+                                 {
+                                     PurchasingPlanID = entity.ID,
+                                     GoodsID = a.GoodsID,
+                                     GoodsClassID = b.ClassID,
+                                     PurchasingCount = a.PurchasingPlanCount
+                                 };
+                dbcontext.AddRange(addDetails);
+                //删除
+                var removeGoods = saveGoods.Where(w => !submitGoods.Contains(w));
+                var removeDetails = entity.Details.Where(w => removeGoods.Contains(w.GoodsID));
+                dbcontext.RemoveRange(removeDetails);
+                //修改
+                var combinGoods = addGoods.Concat(removeGoods);
+                var updateDetails = from a in plan.Details.Where(w => combinGoods.Contains(w.GoodsID))
+                                    join b in dbcontext.Goods on a.GoodsID equals b.ID
+                                    select new Entity.PurchasingPlanDetail()
+                                    {
+                                        PurchasingPlanID = entity.ID,
+                                        GoodsID = a.GoodsID,
+                                        GoodsClassID = b.ClassID,
+                                        PurchasingCount = a.PurchasingPlanCount
+                                    };
+                dbcontext.UpdateRange(updateDetails);
+                dbcontext.SaveChanges();
+            }
+            else
             {
                 throw new Exception("采购计划不可修改");
-            }
-            entity.Desc=plan.Desc;
-            entity.UpdateTime=DateTime.Now;
-            entity.UpdateUserID=plan.UpdateUser;
-            entity.ItemCount = plan.Details.Count();
 
-            //修改商品信息
-            var saveGoods=entity.Details.Select(s=>s.GoodsID).ToList();
-            var submitGoods=plan.Details.Select(s=>s.GoodsID).ToList();
-            //新增
-            var addGoods =submitGoods.Where(w=>!saveGoods.Contains(w));
-            var addDetails=from a in  plan.Details.Where(w=>addGoods.Contains(w.GoodsID)) 
-                           join b in dbcontext.Goods on a.GoodsID equals b.ID
-                            select new Entity.PurchasingPlanDetail()
-                            {
-                                PurchasingPlanID=entity.ID,
-                                GoodsID=a.GoodsID,
-                                GoodsClassID=b.ClassID,
-                                PurchasingCount=a.PurchasingPlanCount
-                            };
-            dbcontext.AddRange(addDetails);
-            //删除
-            var removeGoods=saveGoods.Where(w=>!submitGoods.Contains(w));
-            var removeDetails=entity.Details.Where(w=>removeGoods.Contains(w.GoodsID));
-            dbcontext.RemoveRange(removeDetails);
-            //修改
-            var combinGoods=addGoods.Concat(removeGoods);
-            var updateDetails=from a in plan.Details.Where(w=>combinGoods.Contains(w.GoodsID))
-                              join b in dbcontext.Goods on a.GoodsID equals b.ID
-                              select new Entity.PurchasingPlanDetail()
-                            {
-                                PurchasingPlanID=entity.ID,
-                                GoodsID=a.GoodsID,
-                                GoodsClassID=b.ClassID,
-                                PurchasingCount=a.PurchasingPlanCount
-                            };
-            dbcontext.UpdateRange(updateDetails);
-            dbcontext.SaveChanges();
+            }
         }
     }
 }
