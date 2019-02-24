@@ -178,6 +178,19 @@ namespace PurocumentLib.Service
                 throw new ArgumentNullException();
             }
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+
+            if(plan.Status == (int)EnumPurchasingPlanState.Cancelled)
+            {
+                //删除草稿及明细
+                var deleteEntity = dbcontext.PurchasingPlan.Include(i => i.Details).SingleOrDefault(s => s.ID == plan.ID);
+                if (deleteEntity == null)
+                {
+                    throw new Exception("采购计划不存在");
+                }
+                dbcontext.Remove(deleteEntity);///
+                dbcontext.SaveChanges();
+            }
+
             var entity = dbcontext.PurchasingPlan.Include(i => i.Details).SingleOrDefault(s => s.ID == plan.ID);
             if (entity == null)
             {
@@ -211,11 +224,11 @@ namespace PurocumentLib.Service
                                      GoodsClassID = b.ClassID,
                                      PurchasingCount = a.PurchasingPlanCount
                                  };
-                dbcontext.AddRange(addDetails);
+                dbcontext.AddRange(addDetails);///
                 //删除
                 var removeGoods = saveGoods.Where(w => !submitGoods.Contains(w));
                 var removeDetails = entity.Details.Where(w => removeGoods.Contains(w.GoodsID));
-                dbcontext.RemoveRange(removeDetails);
+                dbcontext.RemoveRange(removeDetails);///
                 //修改
                 var combinGoods = addGoods.Concat(removeGoods);
                 var updateDetails = from a in plan.Details.Where(w => combinGoods.Contains(w.GoodsID))
@@ -227,7 +240,8 @@ namespace PurocumentLib.Service
                                         GoodsClassID = b.ClassID,
                                         PurchasingCount = a.PurchasingPlanCount
                                     };
-                dbcontext.UpdateRange(updateDetails);
+                dbcontext.UpdateRange(updateDetails);///
+                dbcontext.Update(entity);///
                 dbcontext.SaveChanges();
             }
             else

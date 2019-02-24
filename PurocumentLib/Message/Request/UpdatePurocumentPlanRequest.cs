@@ -9,5 +9,6 @@ namespace PurocumentLib.Message.Request
         public string Desc{get;set;}
         public int UserID{get;set;}
         public IEnumerable<Model.PurchasingPlanDetail> Details{get;set;}
+        public int CancelID { get; set; }
     }
 }

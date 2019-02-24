@@ -5,9 +5,9 @@ namespace DevelopBase.Services
     public abstract class ServiceBase
     {
         public static readonly string StrPOPrefix = "PO";
-        public static readonly string StrPOSuffixFormat = "yyyyMMddHHmmssfff";
+        public static readonly string StrPOSuffixFormat = "yyyyMMddHHmmss";//毫秒几乎无异议
         public static readonly string StrPPPrefix = "PP";
-        public static readonly string StrPPSuffixFormat = "yyyyMMddHHmmssfff";
+        public static readonly string StrPPSuffixFormat = "yyyyMMddHHmmss";//毫秒几乎无异议
         public static readonly string StrDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 
         /// <summary>
@@ -49,6 +49,11 @@ namespace DevelopBase.Services
             /// 其他
             /// </summary>
             OrderAwaitVendorConfirm = 7,
+
+            /// <summary>
+            /// 废除
+            /// </summary>
+            Cancelled = 10,
 
         }
 
