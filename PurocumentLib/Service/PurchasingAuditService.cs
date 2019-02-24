@@ -93,7 +93,13 @@ namespace PurocumentLib.Service
             var entityPP = dbcontext.PurchasingPlan.Include(i => i.Details).SingleOrDefault(s => s.ID == plan.ID);
 
             //按供应商分组,循环操作
-            var vendorIDs = entityPP.Details.Select(s => s.VendorID).ToList();
+            var vendorIDs = entityPP.Details.Where(s => s.VendorID.HasValue).Select(s => s.VendorID).ToList();
+            //特殊情况下供应商尚未报价
+            if (vendorIDs == null || vendorIDs.Count == 0)
+            {
+                throw new Exception("不存在或未选定供应商");
+            }
+
             //按供应商的循环操作
             foreach (var vendorID in vendorIDs)
             {

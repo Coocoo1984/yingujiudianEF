@@ -18,15 +18,19 @@ namespace PurocumentLib.Message.Handler
                 throw new ArgumentNullException();
             }
             var service = ServiceProvider.GetService<IPurchasingplanService>();
-            if (request.GoodsClassID ==0)
-            {
-                service.ConfirmVendor(request.PlanID, request.VendorID, request.GoodsClassID);
-            }
-            else
-            { 
-                
-                service.ConfirmVendor(request.PlanID, request.VendorID, request.GoodsClassID);
-            }
+            //1对1选择供应商
+            service.ConfirmVendor(request.PlanID, request.VendorID);
+
+            ////if (request.GoodsClassID ==0)
+            ////{
+            ////    //1对1选择供应商
+            ////    service.ConfirmVendor(request.PlanID, request.VendorID);
+            ////}
+            ////else
+            ////{ 
+            ////    //原有按照商品小类选择供应商
+            ////    service.ConfirmVendor(request.PlanID, request.VendorID, request.GoodsClassID);
+            ////}
             return new ResponseBase() { Result = 1, ResultInfo = "" };
         }
     }
