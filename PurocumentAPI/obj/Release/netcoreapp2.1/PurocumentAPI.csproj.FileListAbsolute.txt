@@ -29,3 +29,10 @@ C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentAPI\obj\Release\n
 C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentAPI\obj\Release\netcoreapp2.1\PurocumentAPI.AssemblyInfo.cs
 C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentAPI\obj\Release\netcoreapp2.1\PurocumentAPI.RazorTargetAssemblyInfo.cache
 C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentAPI\obj\Release\netcoreapp2.1\PurocumentAPI.pdb
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentAPI\bin\Release\netcoreapp2.1\PurocumentAPI.deps.json
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentAPI\bin\Release\netcoreapp2.1\PurocumentAPI.runtimeconfig.json
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentAPI\bin\Release\netcoreapp2.1\PurocumentAPI.runtimeconfig.dev.json
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentAPI\bin\Release\netcoreapp2.1\PurocumentAPI.dll
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentAPI\bin\Release\netcoreapp2.1\PurocumentAPI.pdb
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentAPI\obj\Release\netcoreapp2.1\PurocumentAPI.csproj.CopyComplete
+C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentAPI\obj\Release\netcoreapp2.1\PurocumentAPI.dll

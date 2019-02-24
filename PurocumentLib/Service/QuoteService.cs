@@ -46,6 +46,7 @@ namespace PurocumentLib.Service
                 CreateUserID = model.CreateUserID,
                 UpdateDateTime = DateTime.Now,
                 Desc = model.Desc,
+                ItemCount = model.Details.Count(),
                 Disable = false
             };
             var detials = from a in model.Details
@@ -80,6 +81,7 @@ namespace PurocumentLib.Service
                               VendorName = b.Name,
                               BizTypeID = a.BizTypeID,
                               BizTypeName = c.Name,
+                              ItemCount = a.ItemCount,
                               Disable = a.Disable,
                           }).FirstOrDefault();
             if(result == null)
@@ -115,14 +117,15 @@ namespace PurocumentLib.Service
                 CreateUserID = master.CreateUserID,
                 Desc = model.Desc,
                 UpdateDateTime = DateTime.Now,
-                UpdateUserID = model.UpdateUserID
+                UpdateUserID = model.UpdateUserID,
+                ItemCount = model.Details.Count()
             };
-            dbcontext.Update(entity);
+            dbcontext.Update(entity);///
             var modelGoods=model.Details.Select(s=>s.GoodsID).ToList();
             var entityGoods=entity.Details.Select(s=>s.GoodsID).ToList();
             //删除商品
             var removeGoods=entity.Details.Where(w=>!modelGoods.Contains(w.GoodsID)).ToList();
-            dbcontext.RemoveRange(removeGoods);
+            dbcontext.RemoveRange(removeGoods);///
             //新增
             var addGoods=from a in model.Details.Where(w=>!entityGoods.Contains(w.GoodsID))
                          join b in dbcontext.Goods on a.GoodsID equals b.ID
@@ -131,7 +134,7 @@ namespace PurocumentLib.Service
                                 GoodsClassID=b.ClassID,
                                 Price=a.Price
                             };
-            dbcontext.AddRange(addGoods);
+            dbcontext.AddRange(addGoods);///
             //修改
             var updateGoods=addGoods.Select(s=>s.GoodsID).Concat(removeGoods.Select(s=>s.GoodsID));
             var updateDetails=from a in model.Details.Where(w=>updateGoods.Contains(w.GoodsID))
@@ -141,7 +144,7 @@ namespace PurocumentLib.Service
                                 GoodsClassID=b.ClassID,
                                 Price=a.Price
                             };
-            dbcontext.UpdateRange(updateDetails);
+            dbcontext.UpdateRange(updateDetails);///
             dbcontext.SaveChanges();
         }
     }

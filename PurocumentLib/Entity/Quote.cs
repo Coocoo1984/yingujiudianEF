@@ -15,6 +15,7 @@ namespace PurocumentLib.Entity
         public DateTime CreatDateTime{get;set;}
         public int? UpdateUserID{get;set;}
         public DateTime? UpdateDateTime{get;set;}
+        public virtual int ItemCount { get; set; }
         public bool Disable{get;set;}
 
     }
