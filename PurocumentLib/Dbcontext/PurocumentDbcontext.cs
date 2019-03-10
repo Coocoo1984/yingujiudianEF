@@ -211,6 +211,7 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.CreatDateTime).HasColumnName("create_time");
                 builder.Property(p => p.UpdateUserID).HasColumnName("update_usr_id");
                 builder.Property(p => p.UpdateDateTime).HasColumnName("update_time");
+                builder.Property(p => p.UpdateDateTime).HasColumnName("item_count");
                 builder.Property(p => p.Disable).HasColumnName("disable");
                 builder.HasMany(p => p.Details).WithOne(p => p.Quote).HasForeignKey(f => f.QuoteID);
             });
