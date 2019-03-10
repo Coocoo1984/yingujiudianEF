@@ -18,14 +18,15 @@ namespace PurocumentLib.Message.Handler
             {
                 throw new ArgumentNullException();
             }
-            var model=new QuoteModel()
+            var model = new QuoteModel()
             {
-                ID=request.ID,
-                Code=request.Code,
-                Name=request.Name,
-                Desc=request.Desc,
-                Details=request.Details,
-                UpdateUserID=request.UpdateUserID
+                ID = request.ID,
+                Code = request.Code,
+                Name = request.Name,
+                Desc = request.Desc,
+                Details = request.Details,
+                VendorID = request.VendorID,
+                UpdateUserID = request.UpdateUserID
             };
             var service=ServiceProvider.GetService<IQuoteService>();
             service.Update(model);

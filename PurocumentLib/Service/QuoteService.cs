@@ -42,6 +42,7 @@ namespace PurocumentLib.Service
             {
                 Code = model.Code,
                 Name = model.Name,
+                VendorID = model.VendorID,
                 CreatDateTime = DateTime.Now,
                 CreateUserID = model.CreateUserID,
                 UpdateDateTime = DateTime.Now,

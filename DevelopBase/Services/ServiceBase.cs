@@ -9,6 +9,8 @@ namespace DevelopBase.Services
         public static readonly string StrPPPrefix = "PP";
         public static readonly string StrPPSuffixFormat = "yyyyMMddHHmmss";//毫秒几乎无异议
         public static readonly string StrDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+        public static readonly string StrQPrefix = "Q";
+        public static readonly string StrQSuffixFormat = "yyyyMMddHHmmss";//毫秒几乎无异议
 
         /// <summary>
         /// 采购计划阶段状态定义
