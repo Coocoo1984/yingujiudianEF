@@ -10,5 +10,6 @@ namespace PurocumentLib.Entity
         public int GoodsID{get;set;}
         public decimal Price{get;set;}
         public int GoodsClassID{get;set;}
+        public bool Disable { get; set; }
     }
 }

@@ -223,6 +223,7 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.GoodsID).HasColumnName("goods_id");
                 builder.Property(p => p.Price).HasColumnName("unit_price");
                 builder.Property(p => p.GoodsClassID).HasColumnName("goods_class_id");
+                builder.Property(p => p.Disable).HasColumnName("disable");
             });
             modelBuilder.Entity<PurchasingOrder>(builder =>
             {
