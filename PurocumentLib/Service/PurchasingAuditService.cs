@@ -65,14 +65,13 @@ namespace PurocumentLib.Service
             int orderStatus = isPass ? (int)EnumPurchasingOrderState.AwaitVendorConfirm : (int)EnumPurchasingOrderState.AwaitVendorConfirm;
             //int orderAuditType = isPass ? (int)EnumAuditType.pl : (int)EnumAuditType.PlanAudit1Rejected;
 
-            List<PurchasingOrder> insertListPOs = new List<PurchasingOrder>();
-            List<PurchasingOrderDetail> insertListPODs = new List<PurchasingOrderDetail>();
+
 
             //保存审核结果和修改计划状态
             plan.Status = planStatus;
             plan.UpdateTime = dateTimeNow;
             plan.UpdateUserID = userID;
-            dbcontext.Update(plan);
+            dbcontext.Update(plan);///
 
             PurchasingAudit insertPA = new PurchasingAudit
             {
@@ -82,87 +81,95 @@ namespace PurocumentLib.Service
                 Result = planAuditType,//审核状态 若复审通过及订单生成 故仅生成一条
                 Desc = Desc
             };
-            dbcontext.Add(insertPA);
+            dbcontext.Add(insertPA);///
 
             ///下面这段代码写得乱 性能应该也不高 Linq to EF语法不熟悉 后面要改
 
-            //采购计划的部门
-            var entityD = dbcontext.Department.SingleOrDefault(s => s.ID == plan.DepartmentID);
-
-            //采购计划明细
-            var entityPP = dbcontext.PurchasingPlan.Include(i => i.Details).SingleOrDefault(s => s.ID == plan.ID);
-
-            //按供应商分组,循环操作
-            var vendorIDs = entityPP.Details.Where(s => s.VendorID.HasValue).Select(s => s.VendorID).ToList();
-            //特殊情况下供应商尚未报价
-            if (vendorIDs == null || vendorIDs.Count == 0)
+            if (isPass)  //审核通过
             {
-                throw new Exception("不存在或未选定供应商");
-            }
 
-            //按供应商的循环操作
-            foreach (var vendorID in vendorIDs)
-            {
-                //按供应商的订单明细集合
-                var verdorPPDs = entityPP.Details.Where(w => vendorIDs.Contains(w.VendorID));
+                List<PurchasingOrder> insertListPOs = new List<PurchasingOrder>();
+                List<PurchasingOrderDetail> insertListPODs = new List<PurchasingOrderDetail>();
 
-                int itemCount = 0;
-                decimal? total = 0;
-                PurchasingOrder po = new PurchasingOrder
+                //采购计划的部门
+                var entityD = dbcontext.Department.SingleOrDefault(s => s.ID == plan.DepartmentID);
+
+                //采购计划明细
+                var entityPP = dbcontext.PurchasingPlan.Include(i => i.Details).SingleOrDefault(s => s.ID == plan.ID);
+
+                //按供应商分组,循环操作
+                var vendorIDs = entityPP.Details.Where(s => s.VendorID.HasValue).Select(s => s.VendorID).Distinct().ToList();//之前未去重，导致严重逻辑错误
+                //特殊情况下供应商尚未报价
+                if (vendorIDs == null || vendorIDs.Count == 0)
                 {
-                    Code = StrPOPrefix + DateTime.Now.ToString(StrPOSuffixFormat),//[2][17]
-                    PurchasingPlanID = plan.ID,
-                    PurchasingOrderStatusID = orderStatus,//订单状态
-                    VendorID = vendorID.Value,
-                    DepartmentID = plan.DepartmentID,
-                    Tel = entityD?.Tel,
-                    Addr = entityD?.Address,
-                    BizTypeID = plan.BizTypeID,
-                    CreateUsrID = userID,
-                    CreateTime = dateTimeNow,
-                    Total = total,
-                    ItemCount = itemCount
-                };
-                foreach (var vendorPPD in verdorPPDs)
-                {
-                    //生成每个供应商分配的采购明细
-                    PurchasingOrderDetail pod = new PurchasingOrderDetail
-                    {
-                        PurchasingOrder = po,
-                        PurchasingOrderStateID = orderStatus,//订单状态
-                        GoodsClassID = vendorPPD.GoodsClassID,
-                        GoodsID = vendorPPD.GoodsID,
-                        Count = vendorPPD.PurchasingCount,
-                        Price = vendorPPD.Price,
-                        Subtotal = vendorPPD.PurchasingCount * vendorPPD.Price,
-                        ActualCount = 0,
-                        ActualSubtotal = 0,
-                        CreateUsrID = userID,
-                        CreateTime = dateTimeNow,
-                        UpdateUsrID = userID,
-                        UpdateTime = dateTimeNow,
-                        //PurchasiongOrderStateID = status,//冗余的字段
-                        PurchasingPlanDetailID = vendorPPD.ID
-                    };
-                    insertListPODs.Add(pod); //订单明细
-
-                    po.Total += pod.Subtotal;//累计每种商品的小计金额
-                    po.ItemCount++;//明细数量
-
-                    //更新采购计划、采购计划明细状态
-                    vendorPPD.Status = planStatus;//采购状态
-
-                    dbcontext.Update(vendorPPD);   /// 更新PPD
-
+                    throw new Exception("不存在或未选定供应商");
                 }
 
+                //按供应商的循环操作
+                foreach (var vendorID in vendorIDs)
+                {
+                    //按供应商的订单明细集合
+                    var verdorPPDs = entityPP.Details.Where(w => vendorIDs.Contains(w.VendorID));
 
-                insertListPOs.Add(po);  // 订单
+                    int itemCount = 0;
+                    decimal? total = 0;
+                    //一个供应商生成一个订单（因采购计划能为一种业务类型 要么食材 要么办公用品 故这里不按照业务类型再做拆分 数据库设计其实是支持的）
+                    PurchasingOrder po = new PurchasingOrder
+                    {
+                        Code = StrPOPrefix + DateTime.Now.ToString(StrPOSuffixFormat),//[2][17]
+                        PurchasingPlanID = plan.ID,
+                        PurchasingOrderStatusID = orderStatus,//订单状态
+                        VendorID = vendorID.Value,
+                        DepartmentID = plan.DepartmentID,
+                        Tel = entityD?.Tel,
+                        Addr = entityD?.Address,
+                        BizTypeID = plan.BizTypeID,
+                        CreateUsrID = userID,
+                        CreateTime = dateTimeNow,
+                        Total = total,
+                        ItemCount = itemCount
+                    };
+                    foreach (var vendorPPD in verdorPPDs)
+                    {
+                        //生成每个供应商分配的采购明细
+                        PurchasingOrderDetail pod = new PurchasingOrderDetail
+                        {
+                            PurchasingOrder = po,
+                            PurchasingOrderStateID = orderStatus,//订单状态
+                            GoodsClassID = vendorPPD.GoodsClassID,
+                            GoodsID = vendorPPD.GoodsID,
+                            Count = vendorPPD.PurchasingCount,
+                            Price = vendorPPD.Price,
+                            Subtotal = vendorPPD.PurchasingCount * vendorPPD.Price.Value,//这里之前没有结果
+                            ActualCount = 0,
+                            ActualSubtotal = 0,
+                            CreateUsrID = userID,
+                            CreateTime = dateTimeNow,
+                            UpdateUsrID = userID,
+                            UpdateTime = dateTimeNow,
+                            //PurchasiongOrderStateID = status,//冗余的字段
+                            PurchasingPlanDetailID = vendorPPD.ID
+                        };
+                        insertListPODs.Add(pod); //订单明细
 
+                        po.Total += pod.Subtotal;//累计每种商品的小计金额
+                        po.ItemCount++;//明细数量
+
+                        //更新采购计划、采购计划明细状态
+                        vendorPPD.Status = planStatus;//采购状态
+
+                        dbcontext.Update(vendorPPD);   /// 更新PPD
+
+                    }
+
+                    insertListPOs.Add(po);///  // 订单
+
+                }
+                dbcontext.AddRange(insertListPOs);
+                dbcontext.AddRange(insertListPODs);
             }
 
-            dbcontext.AddRange(insertListPOs);
-            dbcontext.AddRange(insertListPODs);
+
 
             dbcontext.SaveChanges();
         }

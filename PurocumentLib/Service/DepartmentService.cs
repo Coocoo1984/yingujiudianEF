@@ -31,17 +31,18 @@ namespace PurocumentLib.Service
             {
                 throw new Exception("部门编码无效");
             }
-            var entity=new Department()
+            var entity = new Department()
             {
-                Code=model.Code,
-                Name=model.Name,
-                WechatID=model.WechatID,
-                Address=model.Address,
-                Address1=model.Address1,
-                Tel=model.Tel,
-                Tel1=model.Tel1,
-                Mobile=model.Mobile,
-                Mobile1=model.Mobile1
+                Code = model.Code,
+                Name = model.Name,
+                WechatID = model.WechatID,
+                Disable = false,
+                Address = model.Address,
+                Address1 = model.Address1,
+                Tel = model.Tel,
+                Tel1 = model.Tel1,
+                Mobile = model.Mobile,
+                Mobile1 = model.Mobile1
             };
             dbContext.Add(entity);
             dbContext.SaveChanges();
@@ -55,17 +56,18 @@ namespace PurocumentLib.Service
             {
                 return null;
             }
-            var modle=new DepartmentModel()
+            var modle = new DepartmentModel()
             {
-                ID=entity.ID,
-                Name=entity.Name,
-                Code=entity.Code,
-                Mobile=entity.Mobile,
-                Mobile1=entity.Mobile1,
-                Tel=entity.Tel,
-                Tel1=entity.Tel1,
-                Address=entity.Address,
-                Address1=entity.Address1
+                ID = entity.ID,
+                Name = entity.Name,
+                Code = entity.Code,
+                Disable = entity.Disable,
+                Mobile = entity.Mobile,
+                Mobile1 = entity.Mobile1,
+                Tel = entity.Tel,
+                Tel1 = entity.Tel1,
+                Address = entity.Address,
+                Address1 = entity.Address1
             };
             return modle;
         }

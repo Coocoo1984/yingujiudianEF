@@ -15,5 +15,6 @@ namespace PurocumentLib.Entity
         public string Mobile1{get;set;}
         public string Address{get;set;}
         public string Address1{get;set;}
+        public bool Disable { get; set; }
     }
 }

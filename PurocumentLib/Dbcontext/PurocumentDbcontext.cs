@@ -102,6 +102,7 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.Tel1).HasColumnName("tel1");
                 builder.Property(p => p.Mobile).HasColumnName("mobile");
                 builder.Property(p => p.Mobile1).HasColumnName("mobile1");
+                builder.Property(p => p.Disable).HasColumnName("disable");
             });
             modelBuilder.Entity<Role>(builder =>
             {
@@ -144,6 +145,7 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.Tel1).HasColumnName("tel1");
                 builder.Property(p => p.Mobile).HasColumnName("mobile");
                 builder.Property(p => p.Mobile1).HasColumnName("mobile1");
+                builder.Property(p => p.Disable).HasColumnName("disable");
                 builder.HasMany(p => p.RsVendors).WithOne(p => p.Vendor).HasForeignKey(p => p.VendorID);
             });
             modelBuilder.Entity<RsVendor>(builder =>

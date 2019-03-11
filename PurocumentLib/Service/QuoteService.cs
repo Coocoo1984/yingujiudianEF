@@ -40,7 +40,7 @@ namespace PurocumentLib.Service
 
             var entity = new Quote()
             {
-                Code = model.Code,
+                Code = StrQPrefix + DateTime.Now.ToString(StrQSuffixFormat),
                 Name = model.Name,
                 VendorID = model.VendorID,
                 BizTypeID = model.BizTypeID,

@@ -17,7 +17,7 @@ namespace PurocumentAPI.Controllers
             }
             _serviceProvider = serviceProvider;
         }
-        //采购计划复审 复审成功后生成订单
+        //采购计划复审 复审通过后生成订单
         public async Task<IActionResult> PlanAudit([FromBody]PlanAudit2Request request)
         {
             try

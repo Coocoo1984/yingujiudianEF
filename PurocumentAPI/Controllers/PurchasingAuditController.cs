@@ -17,7 +17,7 @@ namespace PurocumentAPI.Controllers
             }
             _serviceProvider=serviceProvider;
         }
-        //采购计划审核
+        //采购计划审核(初审)
         public async Task<IActionResult> PlanAudit([FromBody]PlanAuditRequest request)
         {
             try

@@ -8,6 +8,7 @@ namespace PurocumentLib.Model
         public string Code{get;set;}
         public string Name{get;set;}
         public string Desc{get;set;}
+        public bool Disable { get; set; }
         public string Tel{get;set;}
         public string Tel1{get;set;}
         public string Mobile{get;set;}

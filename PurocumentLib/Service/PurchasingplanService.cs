@@ -24,16 +24,24 @@ namespace PurocumentLib.Service
             var details=dbcontext.PurchasingPlanDetail.Where(w=>w.PurchasingPlanID==id && w.GoodsClassID==goodsClassID).ToList();
             var goodsIds=details.Select(s=>s.GoodsID);
             //查询供应商报价单
-            var quoteDetails=from a in dbcontext.QuoteDetails.Include(i=>i.Quote).Where(w=>w.Quote.VendorID==vendorID && goodsIds.Contains(w.GoodsID))
-                             group a by a.GoodsID into temp
-                             select new {GoodsId=temp.Key,QuoteDetailID=temp.OrderByDescending(o=>o.Quote.CreatDateTime).First().ID};
+            var quoteDetails = from a in dbcontext.QuoteDetails.Include(i => i.Quote).Where(w => w.Quote.VendorID == vendorID && goodsIds.Contains(w.GoodsID))
+                               group a by a.GoodsID into temp
+                               select new
+                               {
+                                   GoodsId = temp.Key,
+                                   QuoteDetailID = temp.OrderByDescending(o => o.Quote.CreatDateTime).First().ID
+                               };
             //获取单价
-            var quoteResult=from a in details
-                            join b in quoteDetails on a.GoodsID equals b.GoodsId
-                            join c in dbcontext.QuoteDetails on b.QuoteDetailID equals c.ID
-                            select new {GoodsID=a.GoodsID,Count=a.PurchasingCount,Price=c.Price};
+            var quoteResult = from a in details
+                              join b in quoteDetails on a.GoodsID equals b.GoodsId
+                              join c in dbcontext.QuoteDetails on b.QuoteDetailID equals c.ID
+                              select new
+                              {
+                                  GoodsID = a.GoodsID,
+                                  Count = a.PurchasingCount,
+                                  Price = c.Price
+                              };
             return quoteResult.ToList().Sum(s=>s.Price*s.Count);
-            
         }
 
         public void ConfirmVendor(int id, int vendorID, int goodsClassID)
@@ -42,17 +50,29 @@ namespace PurocumentLib.Service
             var details=dbcontext.PurchasingPlanDetail.Where(w=>w.PurchasingPlanID==id && w.GoodsClassID==goodsClassID).ToList();
             var goodsIds=details.Select(s=>s.GoodsID);
             //查询供应商报价单 之前的代码缺少 Quote生效的条件判断
-            var quoteDetails = from a in dbcontext.QuoteDetails.Include(i => i.Quote).Where(w => w.Quote.VendorID == vendorID && w.Quote.Disable == false && goodsIds.Contains(w.GoodsID))
+            var quoteDetailIDsByGoodsID = from a in dbcontext.QuoteDetails.Include(i => i.Quote).Where(w => w.Quote.VendorID == vendorID && w.Quote.Disable == false && goodsIds.Contains(w.GoodsID))
                                group a by a.GoodsID into temp
-                               select new { GoodsId = temp.Key, QuoteDetailID = temp.OrderByDescending(o => o.Quote.CreatDateTime).First().ID };
+                               select new {
+                                   GoodsId = temp.Key,
+                                   QuoteDetailID = temp.OrderByDescending(o => o.Quote.CreatDateTime).First().ID
+                               };
+            var quoteDetails = from a in dbcontext.QuoteDetails.Include(i => i.Quote).Where(w => w.Quote.VendorID == vendorID && w.Quote.Disable == false && goodsIds.Contains(w.GoodsID))
+                               select new
+                               {
+                                   GoodsId = a.GoodsID,
+                                   QuoteDetailID = a.ID,
+                                   Price = a.Price
+                               };//修复缺陷
             var updateDetails = from a in details
-                                join b in quoteDetails.ToList() on a.GoodsID equals b.GoodsId
+                                join b in quoteDetailIDsByGoodsID.ToList() on a.GoodsID equals b.GoodsId
+                                join c in quoteDetails.ToList() on a.GoodsID equals c.GoodsId
                                 select new Entity.PurchasingPlanDetail()
                                 {
                                     ID = a.ID,
                                     PurchasingPlanID = a.PurchasingPlanID,
                                     GoodsID = a.GoodsID,
                                     PurchasingCount = a.PurchasingCount,
+                                    Price = c.Price,//修复缺陷
                                     GoodsClassID = a.GoodsClassID,
                                     QuoteDetailID = b.QuoteDetailID,
                                     VendorID = vendorID
@@ -68,8 +88,12 @@ namespace PurocumentLib.Service
             var goodsIds = details.Select(s => s.GoodsID);
             //查询供应商报价单
             var quoteDetails = from a in dbcontext.QuoteDetails.Include(i => i.Quote).Where(w => w.Quote.VendorID == vendorID && w.Quote.Disable == false && goodsIds.Contains(w.GoodsID))
-                               group a by a.GoodsID into temp
-                               select new { GoodsId = temp.Key, QuoteDetailID = temp.OrderByDescending(o => o.Quote.CreatDateTime).First().ID };
+                               select new
+                               {
+                                   GoodsId = a.GoodsID,
+                                   QuoteDetailID = a.ID,
+                                   Price = a.Price
+                               };//修复缺陷
             var updateDetails = from a in details
                                 join b in quoteDetails.ToList() on a.GoodsID equals b.GoodsId
                                 select new Entity.PurchasingPlanDetail()
@@ -78,6 +102,7 @@ namespace PurocumentLib.Service
                                     PurchasingPlanID = a.PurchasingPlanID,
                                     GoodsID = a.GoodsID,
                                     PurchasingCount = a.PurchasingCount,
+                                    Price = b.Price,//修复缺陷
                                     GoodsClassID = a.GoodsClassID,
                                     QuoteDetailID = b.QuoteDetailID,
                                     VendorID = vendorID
@@ -108,15 +133,15 @@ namespace PurocumentLib.Service
             };
             var dbcontext= ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             dbcontext.Add(entity);
-            var details=from a in plan.Details
-                        join b in dbcontext.Goods on a.GoodsID equals b.ID
-            select new Entity.PurchasingPlanDetail()
-            {
-                GoodsID=a.GoodsID,
-                PurchasingCount=a.PurchasingPlanCount,
-                GoodsClassID=b.ClassID,
-                PurchasingPlan=entity
-            };
+            var details = from a in plan.Details
+                          join b in dbcontext.Goods on a.GoodsID equals b.ID
+                          select new Entity.PurchasingPlanDetail()
+                          {
+                              GoodsID = a.GoodsID,
+                              PurchasingCount = a.PurchasingPlanCount,
+                              GoodsClassID = b.ClassID,
+                              PurchasingPlan = entity
+                          };
             dbcontext.AddRange(details);
             dbcontext.SaveChanges();
 
