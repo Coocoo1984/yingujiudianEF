@@ -20,6 +20,7 @@ namespace PurocumentLib.Message.Handler
             }
             var model = new QuoteModel()
             {
+                BizTypeID = request.BizTypeID,
                 Code = request.Code,
                 Name = request.Name,
                 Desc = request.Desc,
@@ -30,7 +31,7 @@ namespace PurocumentLib.Message.Handler
             };
             var service=ServiceProvider.GetService<IQuoteService>();
             service.Add(model);
-            return new ResponseBase(){Result=1,ResultInfo=""};
+            return new ResponseBase() { Result = 1, ResultInfo = "" };
         }
     }
 }
