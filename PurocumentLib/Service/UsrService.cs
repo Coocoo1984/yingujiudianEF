@@ -81,6 +81,35 @@ namespace PurocumentLib.Service
             return model;
         }
 
+        public UsrModel Load(string wecharid)
+        {
+            var dbContext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var entity = dbContext.Usr.SingleOrDefault(s => s.WechatID == wecharid);
+            if (entity == null)
+            {
+                return null;
+            }
+            var model = new UsrModel()
+            {
+                ID = entity.ID,
+                WechatID = entity.WechatID,
+                Code = entity.Code,
+                Name = entity.Name,
+                Desc = entity.Desc,
+                Tel = entity.Tel,
+                Tel1 = entity.Tel1,
+                Mobile = entity.Mobile,
+                Mobile1 = entity.Mobile1,
+                Addr = entity.Addr,
+                Addr1 = entity.Addr1,
+                DepartmentID = entity.DepartmentID,
+                VendorID = entity.VendorID,
+                RoleID = entity.RoleID,
+                Disable = entity.Disable
+            };
+            return model;
+        }
+
         public void Update(UsrModel model)
         {
             var dbContext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
@@ -106,6 +135,15 @@ namespace PurocumentLib.Service
             entity.Code = model.Code;
             entity.WechatID = model.WechatID;
             entity.Name = model.Name;
+            entity.Tel = model.Tel;
+            entity.Tel1 = model.Tel1;
+            entity.Mobile = model.Mobile;
+            entity.Mobile1 = model.Mobile1;
+            entity.RoleID = model.RoleID;
+            entity.DepartmentID = model.DepartmentID;
+            entity.Desc = model.Desc;
+            entity.VendorID = model.VendorID;
+            entity.Disable = model.Disable;
             dbContext.Update(entity);
             dbContext.SaveChanges();
         }

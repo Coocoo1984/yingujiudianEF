@@ -25,6 +25,7 @@ namespace PurocumentLib.Service
         void Add(UsrModel usr);
         void Update(UsrModel usr);
         UsrModel Load(int id);
+        UsrModel Load(string wechatid);
         void Disable(IEnumerable<int> ids);
     }
 }

@@ -30,7 +30,7 @@ namespace PurocumentAPI.Controllers
                 return new JsonResult(new ResponseBase() { Result = -1, ResultInfo = ex.Message });
             }
         }
-        //角色修改
+        //用户修改
         [HttpPost]
         public async Task<IActionResult> Update([FromBody]UpdateUsrRequest request)
         {
@@ -45,12 +45,30 @@ namespace PurocumentAPI.Controllers
             }
 
         }
-        //获取角色信息
+        //获取用户信息
         public async Task<IActionResult> Get(int id)
         {
             var request = new GetUsrRequest()
             {
                 ID = id
+            };
+            try
+            {
+                var response = await _serviceProvider.HandlerAsync(request);
+                return new JsonResult(response);
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new ResponseBase() { Result = -1, ResultInfo = ex.Message });
+            }
+        }
+
+        //获取用户信息
+        public async Task<IActionResult> Get(string wechatid)
+        {
+            var request = new GetUsrRequest()
+            {
+                WechatID = wechatid
             };
             try
             {
