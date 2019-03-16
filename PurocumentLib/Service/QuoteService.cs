@@ -29,7 +29,7 @@ namespace PurocumentLib.Service
             var originalQuote = dbcontext.Quotes.Include(i => i.Details).SingleOrDefault(
                                     s => s.BizTypeID == model.BizTypeID
                                     && s.VendorID == model.VendorID
-                                    && s.ID < model.ID
+                                    //&& s.ID < model.ID
                                     && s.Disable == false);
             
             if (originalQuote != null)

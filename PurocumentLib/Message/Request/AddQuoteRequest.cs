@@ -13,6 +13,6 @@ namespace PurocumentLib.Message.Request
         public int VendorID{get;set;}
         public int BizTypeID{get;set;}
         public IEnumerable<QuoteDetailModel> Details{get;set;}
-        public int CreateUserID{get;set;}
+        public int UserID{get;set;}
     }
 }
