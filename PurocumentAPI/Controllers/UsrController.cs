@@ -64,7 +64,7 @@ namespace PurocumentAPI.Controllers
         }
 
         //获取用户信息
-        public async Task<IActionResult> Get(string wechatid)
+        public async Task<IActionResult> GetByWechat(string wechatid)
         {
             var request = new GetUsrRequest()
             {

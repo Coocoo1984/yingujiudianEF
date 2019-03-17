@@ -16,8 +16,8 @@ namespace PurocumentLib.Model
         public string Addr { get; set; }
         public string Addr1 { get; set; }
         public int DepartmentID { get; set; }
-        public int VendorID { get; set; }
-        public int RoleID { get; set; }
+        public int? VendorID { get; set; }
+        public int? RoleID { get; set; }
         public bool Disable { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace PurocumentLib.Message.Handler
             }
             var model = new UsrModel()
             {
+                ID = request.ID,
                 WechatID = request.WechatID,
                 Code = request.Code,
                 Name = request.Name,
@@ -32,7 +33,10 @@ namespace PurocumentLib.Message.Handler
                 Tel = request.Tel,
                 Tel1 = request.Tel1,
                 Mobile = request.Mobile,
-                Mobile1 = request.Mobile1
+                Mobile1 = request.Mobile1,
+                DepartmentID = request.DepartmentID,
+                VendorID = request.VendorID,
+                RoleID = request.RoleID
             };
             var service = ServiceProvider.GetService<IUsrService>();
             service.Update(model);
