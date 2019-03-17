@@ -27,7 +27,7 @@ namespace PurocumentLib.Service
             {
                 throw new Exception("用户编码无效");
             }
-            if (dbContext.Role.Count(c => c.Code == model.Code) > 0)
+            if (dbContext.Usr.Count(c => c.Code == model.Code) > 0)
             {
                 throw new Exception("用户编码无效");
             }
