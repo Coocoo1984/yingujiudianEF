@@ -35,7 +35,7 @@ namespace PurocumentLib.Service
             if (originalQuote != null)
             {
                 originalQuote.Disable = true;
-                dbcontext.Add(originalQuote);
+                dbcontext.Update(originalQuote);
             }
 
             var entity = new Quote()
