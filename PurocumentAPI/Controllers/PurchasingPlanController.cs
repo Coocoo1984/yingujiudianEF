@@ -30,6 +30,7 @@ namespace PurocumentAPI.Controllers
             }
         }
         //修改采购计划
+        [HttpPost]
         public async Task<IActionResult> Update([FromBody]UpdatePurocumentPlanRequest request)
         {
             try

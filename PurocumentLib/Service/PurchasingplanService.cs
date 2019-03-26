@@ -232,43 +232,86 @@ namespace PurocumentLib.Service
 
                 if (modifyStatus.Contains(entity.Status))
                 {
+                    var saveGoods = entity.Details.Select(s => s.GoodsID).ToList();//数据库中的商品列表 e.g. 1 2 3 
+                    var submitGoods = plan.Details.Select(s => s.GoodsID).ToList();//请求中的的商品列表 e.g.   2 3 4
+
+                    //修改
+                    var updateGoods = saveGoods.Intersect(submitGoods);//求交集 e.g. 2 3
+                    if (updateGoods != null || updateGoods.Count() > 0)
+                    {
+                        ////var updateDetails = from a in entity.Details.Where(w => updateGoods.Contains(w.GoodsID))
+                        ////                    join b in plan.Details on a.GoodsID equals b.GoodsID
+                        ////                    join c in dbcontext.Goods on a.GoodsID equals c.ID
+                        ////                    select new Entity.PurchasingPlanDetail()
+                        ////                    {
+                        ////                        PurchasingPlanID = entity.ID,
+                        ////                        GoodsID = a.GoodsID,
+                        ////                        GoodsClassID = c.ClassID,
+                        ////                        PurchasingCount = b.PurchasingPlanCount
+                        ////                    };
+                        
+                        var detailsList = from a in entity.Details.Where(w => updateGoods.Contains(w.GoodsID))
+                                              join b in plan.Details on a.GoodsID equals b.GoodsID
+                                              join c in dbcontext.Goods on a.GoodsID equals c.ID
+                                              select new {
+                                                  PurchasingPlanID = a.ID,
+                                                  PurchasingCount = b.PurchasingPlanCount
+                                              };
+                        var updateDetailsIds = detailsList.Select(s => s.PurchasingPlanID);
+
+                        var updateDetailsObjs = entity.Details.Where(w => updateDetailsIds.Contains(w.ID));
+                        foreach(var obj in updateDetailsObjs)
+                        {
+                            obj.PurchasingCount = detailsList.Where(w => w.PurchasingPlanID.Equals(obj.ID)).Select(s=>s.PurchasingCount).Single();
+                        }
+                                            
+
+                        dbcontext.UpdateRange(updateDetailsObjs);///
+                    }
+
                     entity.Desc = plan.Desc;
                     entity.UpdateTime = DateTime.Now;
                     entity.UpdateUserID = plan.UpdateUser;
                     entity.ItemCount = plan.Details.Count();
-
-                    //修改商品信息
-                    var saveGoods = entity.Details.Select(s => s.GoodsID).ToList();
-                    var submitGoods = plan.Details.Select(s => s.GoodsID).ToList();
-                    //新增
-                    var addGoods = submitGoods.Where(w => !saveGoods.Contains(w));
-                    var addDetails = from a in plan.Details.Where(w => addGoods.Contains(w.GoodsID))
-                                     join b in dbcontext.Goods on a.GoodsID equals b.ID
-                                     select new Entity.PurchasingPlanDetail()
-                                     {
-                                         PurchasingPlanID = entity.ID,
-                                         GoodsID = a.GoodsID,
-                                         GoodsClassID = b.ClassID,
-                                         PurchasingCount = a.PurchasingPlanCount
-                                     };
-                    dbcontext.AddRange(addDetails);///
-                    //删除
-                    var removeGoods = saveGoods.Where(w => !submitGoods.Contains(w));
-                    var removeDetails = entity.Details.Where(w => removeGoods.Contains(w.GoodsID));
-                    dbcontext.RemoveRange(removeDetails);///
-                    //修改
-                    var combinGoods = addGoods.Concat(removeGoods);
-                    var updateDetails = from a in plan.Details.Where(w => combinGoods.Contains(w.GoodsID))
-                                        join b in dbcontext.Goods on a.GoodsID equals b.ID
-                                        select new Entity.PurchasingPlanDetail()
-                                        {
-                                            PurchasingPlanID = entity.ID,
-                                            GoodsID = a.GoodsID,
-                                            GoodsClassID = b.ClassID,
-                                            PurchasingCount = a.PurchasingPlanCount
-                                        };
-                    dbcontext.UpdateRange(updateDetails);///
+                    switch (entity.Status)
+                    {
+                        case (int)EnumPurchasingPlanState.PlanDraft://草稿修改 不更改状态值
+                            break;
+                        case (int)EnumPurchasingPlanState.PlanAudit1Rejected://初审驳回后修改 更改为等待初审
+                            entity.Status = (int)EnumPurchasingPlanState.PlanAwaitAudit1;
+                            break;
+                        case (int)EnumPurchasingPlanState.PlanAudit2Rejected://复审驳回后修改 更改为等待复审(初审通过)
+                            entity.Status = (int)EnumPurchasingPlanState.PlanAudit1Pass;
+                            break;
+                    }
                     dbcontext.Update(entity);///
+
+                    //删除
+                    var removeGoods = saveGoods.Except(submitGoods);// e.g. 1
+                    if (removeGoods != null || removeGoods.Count() > 0)
+                    {
+                        //saveGoods.Where(w => !submitGoods.Contains(w));数据库中 含有 请求不包含的商品 这种写法太绕了
+                        var removeDetails = entity.Details.Where(w => removeGoods.Contains(w.GoodsID));
+                        dbcontext.RemoveRange(removeDetails);///
+                    }
+
+                    //新增
+                    var addGoods = submitGoods.Except(saveGoods);// e.g. 4
+                    //submitGoods.Where(w => !saveGoods.Contains(w));请求中 含有 数据库中无的 明细的商品 这种写法太绕了
+                    if (addGoods != null || addGoods.Count() > 0)
+                    {
+                        var addDetails = from a in plan.Details.Where(w => addGoods.Contains(w.GoodsID))
+                                         join b in dbcontext.Goods on a.GoodsID equals b.ID
+                                         select new Entity.PurchasingPlanDetail()
+                                         {
+                                             PurchasingPlanID = entity.ID,
+                                             GoodsID = a.GoodsID,
+                                             GoodsClassID = b.ClassID,
+                                             PurchasingCount = a.PurchasingPlanCount
+                                         };
+                        dbcontext.AddRange(addDetails);///
+                    }
+
                     dbcontext.SaveChanges();
                 }
                 else
