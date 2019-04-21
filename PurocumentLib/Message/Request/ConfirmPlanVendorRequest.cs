@@ -5,6 +5,7 @@ namespace PurocumentLib.Message.Request
     //确认采购计划商品类别供应商
     public class ConfirmPlanVendorRequest:RequestBase
     {
+        public string WechatID { get; set; }
         //采购计划ID
         public int PlanID{get;set;}
         //供应商ID

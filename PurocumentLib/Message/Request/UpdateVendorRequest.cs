@@ -7,6 +7,7 @@ namespace PurocumentLib.Message.Request
 {
     public class UpdateVendorRequest:RequestBase
     {
+        public string WechatID { get; set; }
         //public IEnumerable<int> BizTypIDs { get; set; }
         public IEnumerable<int> GoodsClassIDs { get; set; }
 

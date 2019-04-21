@@ -6,6 +6,7 @@ namespace PurocumentLib.Message.Request
 {
     public class CreatePurocumentPlanRequest:RequestBase
     {
+        public string WechatID { get; set; }
         public int DepartmentID { get; set; }
         public int BizTypeID { get; set; }
         public IEnumerable<PurocumentPlanDetail> Details { get; set; }
@@ -15,6 +16,7 @@ namespace PurocumentLib.Message.Request
     }
     public class PurocumentPlanDetail
     {
+        public string WechatID { get; set; }
         public int GoodsID { get; set; }
         public int PurocumentCount { get; set; }
     }

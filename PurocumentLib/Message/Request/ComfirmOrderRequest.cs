@@ -10,6 +10,7 @@ namespace PurocumentLib.Message.Request
     /// </summary>
     public class ComfirmOrderRequest : RequestBase
     {
+        public string WechatID { get; set; }
         public int OrderID { get; set; }
         public bool Result { get; set; }
         public int UserID { get; set; }

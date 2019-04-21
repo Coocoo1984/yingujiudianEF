@@ -5,6 +5,7 @@ namespace PurocumentLib.Message.Request
 {
     public class DisableVendorsRequest:RequestBase
     {
+        public string WechatID { get; set; }
         public IEnumerable<int> VendorIDs;
     }
 }

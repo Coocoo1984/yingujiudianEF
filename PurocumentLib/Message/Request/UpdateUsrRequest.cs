@@ -19,7 +19,7 @@ namespace PurocumentLib.Message.Request
         public int DepartmentID { get; set; }
         public int VendorID { get; set; }
         public int RoleID { get; set; }
-        public int Disable { get; set; }
+        public bool Disable { get; set; }
 
     }
 }

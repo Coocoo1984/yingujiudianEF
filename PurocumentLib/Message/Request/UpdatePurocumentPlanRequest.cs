@@ -5,6 +5,7 @@ namespace PurocumentLib.Message.Request
 {
     public class UpdatePurocumentPlanRequest:RequestBase
     {
+        public string WechatID { get; set; }
         public int ID{get;set;}
         public string Desc{get;set;}
         public int UserID{get;set;}

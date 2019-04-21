@@ -8,6 +8,7 @@ namespace PurocumentLib.Message.Request
     //新增供应商
     public class AddVendorRequest:RequestBase
     {
+        public string WechatID { get; set; }
         //public IEnumerable<int> BizTypIDs { get; set; }
         public IEnumerable<int> GoodsClassIDs { get; set; }
         public string Code{get;set;}

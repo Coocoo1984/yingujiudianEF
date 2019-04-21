@@ -4,6 +4,7 @@ namespace PurocumentLib.Message.Request
 {
     public class AddGoodsClassRequest:RequestBase
     {
+        public string WechatID { get; set; }
         public string Code{get;set;}
         public string Name
         {
