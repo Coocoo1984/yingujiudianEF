@@ -48,9 +48,24 @@ namespace DevelopBase.Services
             PlanAudit2Pass = 6,
 
             /// <summary>
-            /// 其他
+            /// 三审驳回
             /// </summary>
-            OrderAwaitVendorConfirm = 7,
+            PlanAudit3Rejected = 7,
+
+            /// <summary>
+            /// 三审通过
+            /// </summary>
+            PlanAudit3Pass = 8,
+
+            /// <summary>
+            /// 供应商驳回
+            /// </summary>
+            OrderVendorRejected = 9,
+
+            /// <summary>
+            /// 供应商确认
+            /// </summary>
+            OrderVendorConfirm = 10,
 
             /// <summary>
             /// 废除
@@ -95,9 +110,9 @@ namespace DevelopBase.Services
             ConfirmReceipt = 6,
 
             /// <summary>
-            /// 其他
+            /// 退货
             /// </summary>
-            Other = 7,
+            ChargeBack = 7,
         }
 
         /// <summary>
@@ -126,34 +141,49 @@ namespace DevelopBase.Services
             PlanAudit2Pass = 4,
 
             /// <summary>
+            /// 三审驳回
+            /// </summary>
+            PlanAudit3Rejected = 5,
+
+            /// <summary>
+            /// 三审通过
+            /// </summary>
+            PlanAudit3Pass = 6,
+
+            /// <summary>
             /// 订单被供应商否定
             /// </summary>
-            VendorNegative = 5,
+            VendorNegative = 7,
 
             /// <summary>
             /// 订单被供应商已确认
             /// </summary>
-            VendorConfirmed = 6,
+            VendorConfirmed = 8,
 
             /// <summary>
             /// 供应商已发货
             /// </summary>
-            VendorShipped = 7,
+            VendorShipped = 9,
 
             /// <summary>
             /// 需求部门收货中
             /// </summary>
-            DeparmentCheckIn = 8,
+            DeparmentCheckIn = 10,
 
             /// <summary>
             /// 需求部门已完整收货
             /// </summary>
-            ConfirmReceipt = 9,
+            ConfirmReceipt = 11,
 
             /// <summary>
-            /// 其他
+            /// 需求部门发起退货
             /// </summary>
-            Other = 10,
+            DepartmentChargeBack = 12,
+
+            /// <summary>
+            /// 供应商确认退货
+            /// </summary>
+            VendorChargeBackComfirm = 13,
         }
 
         private IServiceProvider _serviceProvider;

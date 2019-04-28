@@ -48,6 +48,39 @@ namespace PurocumentLib.Service
             dbcontext.SaveChanges();
         }
 
+        //采购计划审核（复审）
+        public void PlanAudit2(int planId, int userID, bool isPass, string Desc)
+        {
+            var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var plan = dbcontext.PurchasingPlan.Single(s => s.ID == planId);
+            if (plan == null)
+            {
+                throw new Exception("采购计划不存在");
+            }
+
+            DateTime dateTimeNow = DateTime.Now;
+            int status = isPass ? (int)EnumPurchasingPlanState.PlanAudit2Pass : (int)EnumPurchasingPlanState.PlanAudit2Rejected;
+            int auditType = isPass ? (int)EnumAuditType.PlanAudit2Pass : (int)EnumAuditType.PlanAudit2Rejected;
+
+            //保存审核结果和修改计划状态
+            plan.Status = status;
+            plan.UpdateTime = dateTimeNow;
+            plan.UpdateUserID = userID;
+
+            dbcontext.Update(plan);
+
+            var record = new PurchasingAudit()
+            {
+                PlanID = planId,
+                Result = auditType,
+                UserID = userID,
+                CreateTime = DateTime.Now
+            };
+            dbcontext.Add(record);
+            dbcontext.SaveChanges();
+        }
+
+
         //提交复审 生成与供应商的订单及订单明细
         public void ComfirmPlanAndSubmitOrder(int planId, int userID, bool isPass, string Desc)
         {
@@ -59,12 +92,10 @@ namespace PurocumentLib.Service
             }
 
             DateTime dateTimeNow = DateTime.Now;
-            int planStatus = isPass ? (int)EnumPurchasingPlanState.PlanAudit2Pass : (int)EnumPurchasingPlanState.PlanAudit2Rejected;
-            int planAuditType = isPass ? (int)EnumAuditType.PlanAudit2Pass : (int)EnumAuditType.PlanAudit2Rejected;
+            int planStatus = isPass ? (int)EnumPurchasingPlanState.PlanAudit3Pass : (int)EnumPurchasingPlanState.PlanAudit3Rejected;
+            int planAuditType = isPass ? (int)EnumAuditType.PlanAudit3Pass : (int)EnumAuditType.PlanAudit3Rejected;
 
             int orderStatus = isPass ? (int)EnumPurchasingOrderState.AwaitVendorConfirm : (int)EnumPurchasingOrderState.AwaitVendorConfirm;
-            //int orderAuditType = isPass ? (int)EnumAuditType.pl : (int)EnumAuditType.PlanAudit1Rejected;
-
 
 
             //保存审核结果和修改计划状态
@@ -87,7 +118,6 @@ namespace PurocumentLib.Service
 
             if (isPass)  //审核通过
             {
-
                 List<PurchasingOrder> insertListPOs = new List<PurchasingOrder>();
                 List<PurchasingOrderDetail> insertListPODs = new List<PurchasingOrderDetail>();
 
@@ -168,8 +198,6 @@ namespace PurocumentLib.Service
                 dbcontext.AddRange(insertListPOs);
                 dbcontext.AddRange(insertListPODs);
             }
-
-
 
             dbcontext.SaveChanges();
         }

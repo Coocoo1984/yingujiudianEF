@@ -34,6 +34,8 @@ namespace PurocumentLib.Dbcontext
         IQueryable<PurchasingAudit> PurchasingAudits{get;}
         //供应商报价单
         IQueryable<Quote> Quotes{get;}
+        //采购中心报价单审核
+        IQueryable<Quote> QuoteAudit { get; }
         //报价单明细
         IQueryable<QuoteDetail> QuoteDetails{get;}
         //订单
