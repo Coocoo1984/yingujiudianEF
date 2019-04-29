@@ -37,6 +37,8 @@ namespace PurocumentLib.Dbcontext
 
         public IQueryable<QuoteDetail> QuoteDetails => Set<QuoteDetail>().AsNoTracking();
 
+        public IQueryable<QuoteAudit> QuoteAudits => Set<QuoteAudit>().AsNoTracking();
+
         public IQueryable<PurchasingOrder> PurchasingOrder => Set<PurchasingOrder>().AsNoTracking();
 
         public IQueryable<PurchasingOrderDetail> PurchasingOrderDetail => Set<PurchasingOrderDetail>().AsNoTracking();
@@ -226,6 +228,17 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.Price).HasColumnName("unit_price");
                 builder.Property(p => p.GoodsClassID).HasColumnName("goods_class_id");
                 builder.Property(p => p.Disable).HasColumnName("disable");
+            });
+            modelBuilder.Entity<QuoteAudit>(builder =>
+            {
+                builder.ToTable("quote_audit").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.QuoteID).HasColumnName("quote_id");
+                builder.Property(p => p.CreateUsrID).HasColumnName("creat_usr_id");
+                builder.Property(p => p.CreateUsrWechatID).HasColumnName("creat_usr_wechat_id");
+                builder.Property(p => p.CreateTime).HasColumnName("create_time");
+                builder.Property(p => p.Result).HasColumnName("audit_type");
+                builder.Property(p => p.Desc).HasColumnName("audit_type");
             });
             modelBuilder.Entity<PurchasingOrder>(builder =>
             {
