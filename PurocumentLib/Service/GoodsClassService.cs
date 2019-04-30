@@ -87,45 +87,45 @@ namespace PurocumentLib.Service
 
         public void Update(GoodsClassModel model)
         {
-            if(model==null)
+            if (model == null)
             {
                 throw new ArgumentNullException();
             }
-            if(string.IsNullOrEmpty(model.Code))
+            if (string.IsNullOrEmpty(model.Code))
             {
                 throw new Exception("编码无效");
             }
-            if(string.IsNullOrEmpty(model.Name))
+            if (string.IsNullOrEmpty(model.Name))
             {
                 throw new Exception("类别名称无效");
             }
-            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             //验证编码
-            if(dbcontext.GoodsClass.Count(c=>c.Code==model.Code && c.ID!=model.ID)>0)
+            if (dbcontext.GoodsClass.Count(c => c.Code == model.Code && c.ID != model.ID) > 0)
             {
                 throw new Exception("编码无效已使用");
             }
-            var entity=dbcontext.GoodsClass.SingleOrDefault(s=>s.ID==model.ID);
-            if(entity==null)
+            var entity = dbcontext.GoodsClass.SingleOrDefault(s => s.ID == model.ID);
+            if (entity == null)
             {
                 throw new Exception("类别信息不存在");
             }
-            entity.Code=model.Code;
-            entity.Name=model.Name;
-            entity.Desc=model.Desc;
-            entity.BizTypeID=model.BizTypeID;
+            entity.Code = model.Code;
+            entity.Name = model.Name;
+            entity.Desc = model.Desc;
+            entity.BizTypeID = model.BizTypeID;
             dbcontext.Update(entity);
             dbcontext.SaveChanges();
         }
 
         public bool ValidateGoodsClassID(IEnumerable<int> classIDs)
         {
-            if(classIDs==null)
+            if (classIDs == null)
             {
                 return false;
             }
-            var dbcontext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            if(dbcontext.GoodsClass.Count(c=>classIDs.Contains(c.ID) && c.Disable==false)==classIDs.Count())
+            var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            if (dbcontext.GoodsClass.Count(c => classIDs.Contains(c.ID) && c.Disable == false) == classIDs.Count())
             {
                 return true;
             }

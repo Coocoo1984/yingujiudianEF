@@ -18,16 +18,16 @@ namespace PurocumentLib.Service
 
         public void Add(DepartmentModel model)
         {
-            if(string.IsNullOrEmpty(model.Name))
+            if (string.IsNullOrEmpty(model.Name))
             {
                 throw new Exception("部门名称无效");
             }
-            var dbContext=ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            if(string.IsNullOrEmpty(model.Code))
+            var dbContext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+            if (string.IsNullOrEmpty(model.Code))
             {
                 throw new Exception("部门编码无效");
             }
-            if(dbContext.Department.Count(c=>c.Code==model.Code)>0)
+            if (dbContext.Department.Count(c => c.Code == model.Code) > 0)
             {
                 throw new Exception("部门编码无效");
             }
