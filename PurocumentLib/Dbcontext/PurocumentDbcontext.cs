@@ -235,10 +235,10 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.ID).HasColumnName("id");
                 builder.Property(p => p.QuoteID).HasColumnName("quote_id");
                 builder.Property(p => p.CreateUsrID).HasColumnName("creat_usr_id");
-                builder.Property(p => p.CreateUsrWechatID).HasColumnName("creat_usr_wechat_id");
-                builder.Property(p => p.CreateTime).HasColumnName("create_time");
+                builder.Property(p => p.CreateUsrWechatID).HasColumnName("create_usr_wechat_id");
+                builder.Property(p => p.AuditTime).HasColumnName("audit_time");
                 builder.Property(p => p.Result).HasColumnName("audit_type");
-                builder.Property(p => p.Desc).HasColumnName("audit_type");
+                builder.Property(p => p.Desc).HasColumnName("audit_desc");
             });
             modelBuilder.Entity<PurchasingOrder>(builder =>
             {

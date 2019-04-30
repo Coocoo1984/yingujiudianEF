@@ -10,7 +10,7 @@ namespace PurocumentLib.Entity
         public int QuoteID { get; set; }
         public int CreateUsrID { get; set; }
         public string CreateUsrWechatID { get; set; }
-        public DateTime CreateTime { get; set; }
+        public DateTime AuditTime { get; set; }
         public int Result { get; set; }
         public string Desc { get; set; }
 
