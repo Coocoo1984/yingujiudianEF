@@ -17,6 +17,8 @@ namespace PurocumentLib.Entity
         public DateTime? UpdateDateTime{get;set;}
         public virtual int ItemCount { get; set; }
         public bool Disable{get;set;}
+        public int Status { get; set; }
+
 
     }
 }

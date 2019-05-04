@@ -217,6 +217,7 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.UpdateDateTime).HasColumnName("update_time");
                 builder.Property(p => p.ItemCount).HasColumnName("item_count");
                 builder.Property(p => p.Disable).HasColumnName("disable");
+                builder.Property(p => p.Status).HasColumnName("quote_state_id");
                 builder.HasMany(p => p.Details).WithOne(p => p.Quote).HasForeignKey(f => f.QuoteID);
             });
             modelBuilder.Entity<QuoteDetail>(builder =>
@@ -284,7 +285,6 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.Audit2Time).HasColumnName("audit2_time");
                 builder.Property(p => p.PurchasingOrderID).HasColumnName("purchasing_order_id");
                 builder.Property(p => p.PurchasingOrderStateID).HasColumnName("purchasing_order_state_id");
-                //builder.Property(p => p.PurchasiongOrderStateID).HasColumnName("purchasiong_order_state_id");
                 builder.Property(p => p.PurchasingPlanDetailID).HasColumnName("purchasing_plan_detail_id");
             });
 

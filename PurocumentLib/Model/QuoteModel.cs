@@ -4,6 +4,12 @@ namespace PurocumentLib.Model
 {
     public class QuoteModel
     {
+        public QuoteModel()
+        {
+            CreatDateTime = System.DateTime.Now;
+            Status = 2;//´ýÉóºË
+        }
+
         public int ID{get;set;}
         public string Code{get;set;}
         public string Name{get;set;}
@@ -19,6 +25,7 @@ namespace PurocumentLib.Model
         public DateTime UpdateDateTime{get;set;}
         public int ItemCount { get; set; }
         public bool Disable{get;set;}
+        public int Status { get; set; }
 
     }
 }

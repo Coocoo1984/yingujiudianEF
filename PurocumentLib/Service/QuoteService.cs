@@ -29,11 +29,11 @@ namespace PurocumentLib.Service
             var originalQuote = dbcontext.Quotes.Include(i => i.Details).SingleOrDefault(
                                     s => s.BizTypeID == model.BizTypeID
                                     && s.VendorID == model.VendorID
-                                    //&& s.ID < model.ID
                                     && s.Disable == false);
             
             if (originalQuote != null)
             {
+                //失效上一条有效记录
                 originalQuote.Disable = true;
                 dbcontext.Update(originalQuote);
             }

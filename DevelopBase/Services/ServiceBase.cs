@@ -181,9 +181,34 @@ namespace DevelopBase.Services
             DepartmentChargeBack = 12,
 
             /// <summary>
+            /// 采购部门发起退货审核(一次审核)
+            /// </summary>
+            ChargeBackAudit = 13,
+
+            /// <summary>
             /// 供应商确认退货
             /// </summary>
-            VendorChargeBackComfirm = 13,
+            VendorChargeBackComfirm = 14,
+        }
+
+
+        /// <summary>
+        /// 报价状态定义
+        /// </summary>
+        public enum QuoteState
+        {
+            //草稿
+            QuoteDraft = 1,
+            //待初审
+            QuoteAwaitAudit1 = 2,
+            //初审驳回
+            QuoteAudit1Rejected = 3,
+            //初审通过
+            QuoteAudit1Pass = 4,
+            //复审驳回
+            QuoteAudit2Rejected = 5,
+            //复审通过
+            QuoteAudit2Pass = 6
         }
 
         private IServiceProvider _serviceProvider;
