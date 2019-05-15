@@ -17,22 +17,6 @@ namespace PurocumentAPI.Controllers
             }
             _serviceProvider = serviceProvider;
         }
-        //采购计划复审 复审通过后生成订单
-        public async Task<IActionResult> PlanAudit([FromBody]PlanAudit2Request request)
-        {
-            try
-            {
-                if (request == null)
-                {
-                    throw new ArgumentNullException();
-                }
-                var response = await _serviceProvider.HandlerAsync(request);
-                return new JsonResult(response);
-            }
-            catch (Exception ex)
-            {
-                return new JsonResult(new ResponseBase() { Result = -1, ResultInfo = ex.Message });
-            }
-        }
+
     }
 }

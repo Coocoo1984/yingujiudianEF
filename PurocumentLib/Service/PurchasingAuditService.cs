@@ -28,7 +28,7 @@ namespace PurocumentLib.Service
 
             DateTime dateTimeNow = DateTime.Now;
             int status = isPass ? (int)EnumPurchasingPlanState.PlanAudit1Pass : (int)EnumPurchasingPlanState.PlanAudit1Rejected;
-            int auditType = isPass ? (int)EnumAuditType.PlanAudit1Pass : (int)EnumAuditType.PlanAudit1Rejected;
+            int auditType = isPass ? (int)EnumPurchasingAuditType.PlanAudit1Pass : (int)EnumPurchasingAuditType.PlanAudit1Rejected;
 
             //保存审核结果和修改计划状态
             plan.Status = status;
@@ -60,7 +60,7 @@ namespace PurocumentLib.Service
 
             DateTime dateTimeNow = DateTime.Now;
             int status = isPass ? (int)EnumPurchasingPlanState.PlanAudit2Pass : (int)EnumPurchasingPlanState.PlanAudit2Rejected;
-            int auditType = isPass ? (int)EnumAuditType.PlanAudit2Pass : (int)EnumAuditType.PlanAudit2Rejected;
+            int auditType = isPass ? (int)EnumPurchasingAuditType.PlanAudit2Pass : (int)EnumPurchasingAuditType.PlanAudit2Rejected;
 
             //保存审核结果和修改计划状态
             plan.Status = status;
@@ -81,7 +81,7 @@ namespace PurocumentLib.Service
         }
 
 
-        //提交复审 生成与供应商的订单及订单明细
+        //提交三审 生成与供应商的订单及订单明细
         public void ComfirmPlanAndSubmitOrder(int planId, int userID, bool isPass, string Desc)
         {
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
@@ -93,7 +93,7 @@ namespace PurocumentLib.Service
 
             DateTime dateTimeNow = DateTime.Now;
             int planStatus = isPass ? (int)EnumPurchasingPlanState.PlanAudit3Pass : (int)EnumPurchasingPlanState.PlanAudit3Rejected;
-            int planAuditType = isPass ? (int)EnumAuditType.PlanAudit3Pass : (int)EnumAuditType.PlanAudit3Rejected;
+            int planAuditType = isPass ? (int)EnumPurchasingAuditType.PlanAudit3Pass : (int)EnumPurchasingAuditType.PlanAudit3Rejected;
 
             int orderStatus = isPass ? (int)EnumPurchasingOrderState.AwaitVendorConfirm : (int)EnumPurchasingOrderState.AwaitVendorConfirm;
 

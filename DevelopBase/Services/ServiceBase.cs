@@ -118,7 +118,7 @@ namespace DevelopBase.Services
         /// <summary>
         /// 采购的环节操作定义
         /// </summary>
-        public enum EnumAuditType
+        public enum EnumPurchasingAuditType
         {
             /// <summary>
             /// 初审驳回
@@ -210,6 +210,31 @@ namespace DevelopBase.Services
             //复审通过
             QuoteAudit2Pass = 6
         }
+
+        public enum QuoteAuditType
+        {
+            /// <summary>
+            /// 初审驳回
+            /// </summary>
+            PlanAudit1Rejected = 1,
+
+            /// <summary>
+            /// 初审通过
+            /// </summary>
+            PlanAudit1Pass = 2,
+
+            /// <summary>
+            /// 复审驳回
+            /// </summary>
+            PlanAudit2Rejected = 3,
+
+            /// <summary>
+            /// 复审通过，报价生效
+            /// </summary>
+            PlanAudit2Pass = 4,
+
+        }
+
 
         private IServiceProvider _serviceProvider;
         protected IServiceProvider ServiceProvider{get=>_serviceProvider;}

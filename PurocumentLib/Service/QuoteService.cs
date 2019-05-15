@@ -49,6 +49,7 @@ namespace PurocumentLib.Service
                 UpdateDateTime = DateTime.Now,
                 Desc = model.Desc,
                 ItemCount = model.Details.Count(),
+                Status  = (int)QuoteState.QuoteAwaitAudit1,//增加状态字段 初始值为待审核
                 Disable = false
             };
             var detials = from a in model.Details

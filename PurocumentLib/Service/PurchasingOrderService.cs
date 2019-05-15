@@ -29,7 +29,7 @@ namespace PurocumentLib.Service
 
             DateTime dateTimeNow = DateTime.Now;
             int status = (int)EnumPurchasingOrderState.VendorConfirmed;//isPass ? (int)PurchasingOrderStateEnum.VendorConfirmed : (int)PurchasingOrderStateEnum.Other;
-            int auditType = (int)EnumAuditType.VendorConfirmed;//isPass ? (int)AuditTypeEnum.VendorConfirmed : (int)AuditTypeEnum.Other;
+            int auditType = (int)EnumPurchasingAuditType.VendorConfirmed;//isPass ? (int)AuditTypeEnum.VendorConfirmed : (int)AuditTypeEnum.Other;
 
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && c.PurchasingOrderStatusID != (int)EnumPurchasingOrderState.AwaitVendorConfirm) > 0)
@@ -68,7 +68,7 @@ namespace PurocumentLib.Service
 
             DateTime dateTimeNow = DateTime.Now;
             int status = (int)EnumPurchasingOrderState.VendorShipped;//isPass ? (int)PurchasingOrderStateEnum.VendorShipped : (int)PurchasingOrderStateEnum.Other;
-            int auditType = (int)EnumAuditType.VendorShipped;//isPass ? (int)AuditTypeEnum.VendorShipped : (int)AuditTypeEnum.Other;
+            int auditType = (int)EnumPurchasingAuditType.VendorShipped;//isPass ? (int)AuditTypeEnum.VendorShipped : (int)AuditTypeEnum.Other;
 
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && c.PurchasingOrderStatusID != (int)EnumPurchasingOrderState.VendorConfirmed) > 0)
@@ -108,10 +108,10 @@ namespace PurocumentLib.Service
 
             DateTime dateTimeNow = DateTime.Now;
             int status = (int)EnumPurchasingOrderState.DeparmentCheckIn;
-            int auditType = (int)EnumAuditType.DeparmentCheckIn;
+            int auditType = (int)EnumPurchasingAuditType.DeparmentCheckIn;
 
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && (c.PurchasingOrderStatusID.Equals((int)EnumAuditType.VendorShipped) || c.PurchasingOrderStatusID.Equals((int)EnumAuditType.DeparmentCheckIn))) > 0)
+            if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && (c.PurchasingOrderStatusID.Equals((int)EnumPurchasingAuditType.VendorShipped) || c.PurchasingOrderStatusID.Equals((int)EnumPurchasingAuditType.DeparmentCheckIn))) > 0)
             {
                 throw new Exception("订单状态不正确");
             }
@@ -170,7 +170,7 @@ namespace PurocumentLib.Service
 
             DateTime dateTimeNow = DateTime.Now;
             int status = (int)EnumPurchasingOrderState.ConfirmReceipt;//isPass ? (int)PurchasingOrderStateEnum.ConfirmReceipt : (int)PurchasingOrderStateEnum.ConfirmReceipt;
-            int auditType = (int)EnumAuditType.VendorShipped;//isPass ? (int)AuditTypeEnum.VendorShipped : (int)AuditTypeEnum.Other;
+            int auditType = (int)EnumPurchasingAuditType.VendorShipped;//isPass ? (int)AuditTypeEnum.VendorShipped : (int)AuditTypeEnum.Other;
 
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
             if (dbcontext.PurchasingOrder.Count(c => orderId.Equals(c.ID) && !c.PurchasingOrderStatusID.Equals((int)EnumPurchasingOrderState.DeparmentCheckIn)) > 0)

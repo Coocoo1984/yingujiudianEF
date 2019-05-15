@@ -20,7 +20,7 @@ namespace PurocumentLib.Message.Handler
             }
             var service=ServiceProvider.GetService<IPurchasingAuditService>();
             service.PlanAudit(request.PlanID,request.UserID,request.Result,request.Desc);
-            return new ResponseBase(){Result=1,ResultInfo=""};
+            return new ResponseBase() { Result = 1, ResultInfo = "" };
         }
     }
 }
