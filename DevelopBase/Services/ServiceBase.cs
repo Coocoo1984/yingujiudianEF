@@ -216,22 +216,22 @@ namespace DevelopBase.Services
             /// <summary>
             /// 初审驳回
             /// </summary>
-            PlanAudit1Rejected = 1,
+            Audit1Rejected = 1,
 
             /// <summary>
             /// 初审通过
             /// </summary>
-            PlanAudit1Pass = 2,
+            Audit1Pass = 2,
 
             /// <summary>
             /// 复审驳回
             /// </summary>
-            PlanAudit2Rejected = 3,
+            Audit2Rejected = 3,
 
             /// <summary>
             /// 复审通过，报价生效
             /// </summary>
-            PlanAudit2Pass = 4,
+            Audit2Pass = 4,
 
         }
 

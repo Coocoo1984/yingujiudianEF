@@ -27,7 +27,7 @@ namespace PurocumentLib.Service
 
             DateTime dateTimeNow = DateTime.Now;
             int status = isPass ? (int)QuoteState.QuoteAudit1Pass : (int)QuoteState.QuoteAudit1Rejected;
-            int auditType = isPass ? (int)QuoteAuditType.PlanAudit1Pass : (int)QuoteAuditType.PlanAudit1Rejected;
+            int auditType = isPass ? (int)QuoteAuditType.Audit1Pass : (int)QuoteAuditType.Audit1Rejected;
 
             //保存审核结果和修改计划状态
             quote.Status = status;
@@ -58,7 +58,7 @@ namespace PurocumentLib.Service
 
             DateTime dateTimeNow = DateTime.Now;
             int status = isPass ? (int)QuoteState.QuoteAudit2Pass : (int)QuoteState.QuoteAudit2Rejected;
-            int auditType = isPass ? (int)QuoteAuditType.PlanAudit2Pass : (int)QuoteAuditType.PlanAudit2Rejected;
+            int auditType = isPass ? (int)QuoteAuditType.Audit2Pass : (int)QuoteAuditType.Audit2Rejected;
 
             //保存审核结果和修改计划状态
             quote.Status = status;

@@ -239,7 +239,7 @@ namespace PurocumentLib.Dbcontext
                 builder.ToTable("quote_audit").HasKey(k => k.ID);
                 builder.Property(p => p.ID).HasColumnName("id");
                 builder.Property(p => p.QuoteID).HasColumnName("quote_id");
-                builder.Property(p => p.CreateUsrID).HasColumnName("creat_usr_id");
+                builder.Property(p => p.CreateUsrID).HasColumnName("create_usr_id");
                 builder.Property(p => p.CreateUsrWechatID).HasColumnName("create_usr_wechat_id");
                 builder.Property(p => p.AuditTime).HasColumnName("audit_time");
                 builder.Property(p => p.Result).HasColumnName("audit_type");
