@@ -302,7 +302,7 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.CreateTime).HasColumnName("create_time");
                 builder.Property(p => p.Remark).HasColumnName("remark");
                 builder.Property(p => p.Disable).HasColumnName("disable");
-                builder.HasMany(p => p.Details).WithOne(p => p.).HasForeignKey(p => p.DepotID);
+                builder.HasMany(p => p.Details).WithOne(p => p.Depot).HasForeignKey(p => p.DepotID);
             });
             modelBuilder.Entity<DepotDetail>(builder =>
             {
