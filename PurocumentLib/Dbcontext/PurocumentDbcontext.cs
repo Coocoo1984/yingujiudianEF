@@ -43,6 +43,10 @@ namespace PurocumentLib.Dbcontext
 
         public IQueryable<PurchasingOrderDetail> PurchasingOrderDetail => Set<PurchasingOrderDetail>().AsNoTracking();
 
+        public IQueryable<Depot> Depot => Set<Depot>().AsNoTracking();
+
+        public IQueryable<DepotDetail> DepotDetail => Set<DepotDetail>().AsNoTracking();
+
         public PurocumentDbcontext(string connectionString) : base(connectionString)
         {
         }
@@ -286,6 +290,31 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.PurchasingOrderID).HasColumnName("purchasing_order_id");
                 builder.Property(p => p.PurchasingOrderStateID).HasColumnName("purchasing_order_state_id");
                 builder.Property(p => p.PurchasingPlanDetailID).HasColumnName("purchasing_plan_detail_id");
+            });
+            modelBuilder.Entity<Depot>(builder =>
+            {
+                builder.ToTable("depot").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.Code).HasColumnName("code");
+                builder.Property(p => p.Name).HasColumnName("name");
+                builder.Property(p => p.DepartmentID).HasColumnName("department_id");
+                builder.Property(p => p.CreateUsrID).HasColumnName("create_usr_id");
+                builder.Property(p => p.CreateTime).HasColumnName("create_time");
+                builder.Property(p => p.Remark).HasColumnName("remark");
+                builder.Property(p => p.Disable).HasColumnName("disable");
+                builder.HasMany(p => p.Details).WithOne(p => p.).HasForeignKey(p => p.DepotID);
+            });
+            modelBuilder.Entity<DepotDetail>(builder =>
+            {
+                builder.ToTable("depot_detail").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id").ValueGeneratedOnAdd();
+                builder.Property(p => p.GoodsClassID).HasColumnName("goods_class_id");
+                builder.Property(p => p.GoodsID).HasColumnName("goods_id");
+                builder.Property(p => p.Count).HasColumnName("count");
+                builder.Property(p => p.CreateUsrID).HasColumnName("create_usr_id");
+                builder.Property(p => p.UpdateUsrID).HasColumnName("update_usr_id");
+                builder.Property(p => p.CreateTime).HasColumnName("create_time");
+                builder.Property(p => p.UpdateTime).HasColumnName("update_time");
             });
 
 

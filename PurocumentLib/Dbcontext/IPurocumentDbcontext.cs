@@ -42,6 +42,10 @@ namespace PurocumentLib.Dbcontext
         IQueryable<PurchasingOrder> PurchasingOrder { get; }
         //订单明细
         IQueryable<PurchasingOrderDetail> PurchasingOrderDetail { get; }
+        //库存盘点
+        IQueryable<Depot> Depot { get; }
+        //库存盘点明细
+        IQueryable<DepotDetail> DepotDetail { get; }
 
     }
 }

@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Compile Remove="Entity\PlanVendor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DevelopBase\DevelopBase.csproj" />
   </ItemGroup>
 
