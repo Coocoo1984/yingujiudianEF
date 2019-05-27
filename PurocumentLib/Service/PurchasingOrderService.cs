@@ -48,6 +48,7 @@ namespace PurocumentLib.Service
                 PlanID = order.PurchasingPlanID,
                 UserID = userID,
                 CreateTime = dateTimeNow,
+                Desc = Desc,
                 Result = auditType
             };
             dbcontext.Add(pa);
@@ -87,6 +88,7 @@ namespace PurocumentLib.Service
                 PlanID = order.PurchasingPlanID,
                 UserID = userID,
                 CreateTime = dateTimeNow,
+                Desc = Desc,
                 Result = auditType
             };
             dbcontext.Add(pa);
@@ -148,6 +150,7 @@ namespace PurocumentLib.Service
                 PlanID = order.PurchasingPlanID,
                 UserID = userID,
                 CreateTime = dateTimeNow,
+                Desc = Desc,
                 Result = auditType
             };
             dbcontext.Add(pa);
@@ -189,6 +192,7 @@ namespace PurocumentLib.Service
                 PlanID = order.PurchasingPlanID,
                 UserID = userID,
                 CreateTime = dateTimeNow,
+                Desc = Desc,
                 Result = auditType
             };
             dbcontext.Add(pa);

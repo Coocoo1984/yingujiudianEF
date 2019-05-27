@@ -41,6 +41,7 @@ namespace PurocumentLib.Service
                 QuoteID = quoteId,
                 Result = auditType,
                 CreateUsrID = userID,
+                Desc = Desc,
                 AuditTime = DateTime.Now
             };
             dbcontext.Add(record);
@@ -72,6 +73,7 @@ namespace PurocumentLib.Service
                 QuoteID = quoteId,
                 Result = auditType,
                 CreateUsrID = userID,
+                Desc = Desc,
                 AuditTime = DateTime.Now
             };
             dbcontext.Add(record);

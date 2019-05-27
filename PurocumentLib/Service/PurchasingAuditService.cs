@@ -42,6 +42,7 @@ namespace PurocumentLib.Service
                 PlanID = planId,
                 Result = auditType,
                 UserID = userID,
+                Desc = Desc,
                 CreateTime = DateTime.Now
             };
             dbcontext.Add(record);
@@ -74,6 +75,7 @@ namespace PurocumentLib.Service
                 PlanID = planId,
                 Result = auditType,
                 UserID = userID,
+                Desc = Desc,
                 CreateTime = DateTime.Now
             };
             dbcontext.Add(record);
