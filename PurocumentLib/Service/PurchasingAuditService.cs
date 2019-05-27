@@ -158,6 +158,8 @@ namespace PurocumentLib.Service
                         BizTypeID = plan.BizTypeID,
                         CreateUsrID = userID,
                         CreateTime = dateTimeNow,
+                        UpdateUserID = userID,
+                        UpdateTime = dateTimeNow,
                         Total = total,
                         ItemCount = itemCount
                     };
