@@ -19,6 +19,9 @@ namespace PurocumentLib.Message.Handler
         {
             try
             {
+                var permissionService = ServiceProvider.GetService<IPermissionService>();
+                permissionService.CheckPermission(request.WechatID, "CreatePurocumentPlanRequest");
+
                 var departmentService = ServiceProvider.GetService<IDepartmentService>();
                 if (!departmentService.ValidateDepartment(new int[] { request.DepartmentID }))
                 {

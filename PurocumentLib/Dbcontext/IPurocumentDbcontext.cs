@@ -46,6 +46,11 @@ namespace PurocumentLib.Dbcontext
         IQueryable<Depot> Depot { get; }
         //库存盘点明细
         IQueryable<DepotDetail> DepotDetail { get; }
+        //权限定义
+        IQueryable<Permission> Permission { get; }
+        //用户权限
+        IQueryable<RsPermission> RsPermission { get; }
+
 
     }
 }

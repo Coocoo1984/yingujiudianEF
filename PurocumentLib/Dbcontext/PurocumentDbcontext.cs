@@ -47,6 +47,10 @@ namespace PurocumentLib.Dbcontext
 
         public IQueryable<DepotDetail> DepotDetail => Set<DepotDetail>().AsNoTracking();
 
+        public IQueryable<Permission> Permission => Set<Permission>().AsNoTracking();
+
+        public IQueryable<RsPermission> RsPermission => Set<RsPermission>().AsNoTracking();
+
         public PurocumentDbcontext(string connectionString) : base(connectionString)
         {
         }
@@ -316,7 +320,53 @@ namespace PurocumentLib.Dbcontext
                 builder.Property(p => p.CreateTime).HasColumnName("create_time");
                 builder.Property(p => p.UpdateTime).HasColumnName("update_time");
             });
+            modelBuilder.Entity<Permission>(entity =>
+            {
+                entity.ToTable("permission").HasKey(k => k.Id);
 
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Code)
+                    .HasColumnName("code")
+                    .HasColumnType("text(24)")
+                    .HasDefaultValueSql("''");
+
+                entity.Property(e => e.Desc)
+                    .HasColumnName("desc")
+                    .HasColumnType("text(48)")
+                    .HasDefaultValueSql("''");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasColumnType("text(48)")
+                    .HasDefaultValueSql("''");
+
+                entity.HasMany(e => e.RsPermission).WithOne(e => e.Permission).HasForeignKey(e => e.PermissionId);
+            });
+
+            modelBuilder.Entity<RsPermission>(entity =>
+            {
+                entity.ToTable("rs_permission").HasKey(k => k.Id);
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.UsrWechatId)
+                    .HasColumnName("usr_wechat_id")
+                    .HasColumnType("text(64)")
+                    .HasDefaultValueSql("''");
+
+                entity.Property(e => e.Disable)
+                    .HasColumnName("disable")
+                    .HasColumnType("INT(1)")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.PermissionId).HasColumnName("permission_id");
+            });
 
             base.OnModelCreating(modelBuilder);
         }
