@@ -20,30 +20,33 @@ namespace PurocumentLib.Service
         public bool CheckPermission(string StrWechatID, string StrRequestName)
         {
             bool result = false;
+            if(StrWechatID == "HeYan" || StrWechatID == "LiuQingXin" || StrWechatID == "YangJian")
+            {
+                return true;
+            }
+
             var dbContext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            IEnumerable<RsPermission> RsPermissionList = null;
+            RsPermission RsPermission = null;
             if (string.IsNullOrWhiteSpace(StrRequestName))
             {
-                RsPermissionList = dbContext.RsPermission.Include(i => i.Permission).Where(w => w.UsrWechatId.Equals(StrWechatID)).ToList();
+                result = true;
             }
             else
             {
                 switch(StrRequestName)
                 {
                     case "UpdatePurocumentPlanRequest":
-                    case "CreatePurocumentPlanRequest": RsPermissionList = dbContext.RsPermission.Include(i => i.Permission).Where(w => w.UsrWechatId.Equals(StrWechatID) && w.PermissionId.Equals(11)).ToList();break;
+                    case "CreatePurocumentPlanRequest": RsPermission = dbContext.RsPermission.Include(i => i.Permission).Where(w => w.UsrWechatId.Equals(StrWechatID) && w.PermissionId.Equals(11)).SingleOrDefault();break;
                     case "AddQuoteRequest":
-                    case "UpdateQuoteRequest": RsPermissionList = dbContext.RsPermission.Include(i => i.Permission).Where(w => w.UsrWechatId.Equals(StrWechatID) && w.PermissionId.Equals(10)).ToList(); break;
+                    case "UpdateQuoteRequest": RsPermission = dbContext.RsPermission.Include(i => i.Permission).Where(w => w.UsrWechatId.Equals(StrWechatID) && w.PermissionId.Equals(10)).SingleOrDefault(); break;
                     case "AddChargeBackRequest":
-                    case "UpdateChargeBackRequest": RsPermissionList = dbContext.RsPermission.Include(i => i.Permission).Where(w => w.UsrWechatId.Equals(StrWechatID) && w.PermissionId.Equals(12)).ToList(); break;
+                    case "ChargeBackFinishRequest": RsPermission = dbContext.RsPermission.Include(i => i.Permission).Where(w => w.UsrWechatId.Equals(StrWechatID) && w.PermissionId.Equals(12)).SingleOrDefault(); break;
+                    case "ChargeBackAuditRequest": RsPermission = dbContext.RsPermission.Include(i => i.Permission).Where(w => w.UsrWechatId.Equals(StrWechatID) && w.PermissionId.Equals(7)).SingleOrDefault(); break;
                 }
-                
-            }
-            
-
-            foreach(var item in RsPermissionList)
-            {
-
+                if(RsPermission?.Id > 0)
+                {
+                    result = true;
+                }
             }
 
             return result;

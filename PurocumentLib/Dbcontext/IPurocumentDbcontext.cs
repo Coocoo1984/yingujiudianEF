@@ -50,6 +50,11 @@ namespace PurocumentLib.Dbcontext
         IQueryable<Permission> Permission { get; }
         //用户权限
         IQueryable<RsPermission> RsPermission { get; }
+        //退货
+        IQueryable<ChargeBack> ChargeBack { get; }
+        //退货明细
+        IQueryable<ChargeBackDetail> ChargeBackDetail { get; }
+
 
 
     }

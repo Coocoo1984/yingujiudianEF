@@ -51,6 +51,10 @@ namespace PurocumentLib.Dbcontext
 
         public IQueryable<RsPermission> RsPermission => Set<RsPermission>().AsNoTracking();
 
+        public IQueryable<ChargeBack> ChargeBack => Set<ChargeBack>().AsNoTracking();
+
+        public IQueryable<ChargeBackDetail> ChargeBackDetail => Set<ChargeBackDetail>().AsNoTracking();
+
         public PurocumentDbcontext(string connectionString) : base(connectionString)
         {
         }
@@ -367,6 +371,33 @@ namespace PurocumentLib.Dbcontext
 
                 entity.Property(e => e.PermissionId).HasColumnName("permission_id");
             });
+
+            modelBuilder.Entity<ChargeBack>(builder =>
+            {
+                builder.ToTable("charge_back").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id");
+                builder.Property(p => p.Code).HasColumnName("code");
+                builder.Property(p => p.PurchasingOrderID).HasColumnName("purchasing_order_id");
+                builder.Property(p => p.CreateUsrID).HasColumnName("create_usr_id");
+                builder.Property(p => p.CreateTime).HasColumnName("create_time");
+                builder.Property(p => p.UpdateUserID).HasColumnName("update_usr_id");
+                builder.Property(p => p.UpdateTime).HasColumnName("update_time");
+                builder.Property(p => p.ItemCount).HasColumnName("item_count");
+                builder.Property(p => p.Total).HasColumnName("total");
+                builder.Property(p => p.PurchasingOrderStatusID).HasColumnName("purchasing_order_state_id");
+                builder.HasMany(p => p.Details).WithOne(p => p.ChargeBack).HasForeignKey(p => p.ChargeBackID);
+            });
+            modelBuilder.Entity<ChargeBackDetail>(builder =>
+            {
+                builder.ToTable("charge_back_detail").HasKey(k => k.ID);
+                builder.Property(p => p.ID).HasColumnName("id").ValueGeneratedOnAdd();
+                builder.Property(p => p.Count).HasColumnName("count");
+                builder.Property(p => p.Price).HasColumnName("unit_price");
+                builder.Property(p => p.Subtotal).HasColumnName("subtotal");
+                builder.Property(p => p.ChargeBackID).HasColumnName("charge_back_id");
+                builder.Property(p => p.PurchasingOrderDetailID).HasColumnName("purchasing_order_detail_id");
+            });
+
 
             base.OnModelCreating(modelBuilder);
         }

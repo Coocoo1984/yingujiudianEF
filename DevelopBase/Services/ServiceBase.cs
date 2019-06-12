@@ -4,6 +4,8 @@ namespace DevelopBase.Services
 {
     public abstract class ServiceBase
     {
+        public static string NoPermissionString = "没有访问权限";
+
         public static readonly string StrPOPrefix = "PO";
         public static readonly string StrPOSuffixFormat = "yyyyMMddHHmmss";//毫秒几乎无异议
         public static readonly string StrPPPrefix = "PP";
@@ -110,9 +112,14 @@ namespace DevelopBase.Services
             ConfirmReceipt = 6,
 
             /// <summary>
-            /// 退货
+            /// 需求部门发起退货
             /// </summary>
             ChargeBack = 7,
+
+            /// <summary>
+            /// 需求部分发起退货
+            /// </summary>
+            //ChargeBack = 7,
         }
 
         /// <summary>
