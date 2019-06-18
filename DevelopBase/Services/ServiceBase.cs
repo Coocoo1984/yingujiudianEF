@@ -13,6 +13,8 @@ namespace DevelopBase.Services
         public static readonly string StrDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
         public static readonly string StrQPrefix = "Q";
         public static readonly string StrQSuffixFormat = "yyyyMMddHHmmss";//毫秒几乎无异议
+        public static readonly string StrCBPrefix = "CB";
+        public static readonly string StrCBSuffixFormat = "yyyyMMddHHmmss";//毫秒几乎无异议
 
         /// <summary>
         /// 采购计划阶段状态定义
@@ -114,12 +116,27 @@ namespace DevelopBase.Services
             /// <summary>
             /// 需求部门发起退货
             /// </summary>
-            ChargeBack = 7,
+            DepartmentChargeBack = 7,
 
             /// <summary>
-            /// 需求部分发起退货
+            /// 采购中心驳回退货
             /// </summary>
-            //ChargeBack = 7,
+            ChargeBackAuditRejected = 8,
+
+            /// <summary>
+            /// 采购中心退货审核通过
+            /// </summary>
+            ChargeBackAudit = 9,
+
+            /// <summary>
+            /// 供应商确认退货
+            /// </summary>
+            VendorChargeBackComfirm = 10,
+
+            /// <summary>
+            /// 需求部门确认退货完成
+            /// </summary>
+            ChargeBackFinish = 11,
         }
 
         /// <summary>
@@ -188,14 +205,25 @@ namespace DevelopBase.Services
             DepartmentChargeBack = 12,
 
             /// <summary>
-            /// 采购部门发起退货审核(一次审核)
+            /// 采购中心驳回退货
             /// </summary>
-            ChargeBackAudit = 13,
+            ChargeBackAuditRejected = 13,
+
+            /// <summary>
+            /// 采购中心退货审核通过
+            /// </summary>
+            ChargeBackAudit = 14,
 
             /// <summary>
             /// 供应商确认退货
             /// </summary>
-            VendorChargeBackComfirm = 14,
+            VendorChargeBackComfirm = 15,
+
+            /// <summary>
+            /// 需求部门确认退货完成
+            /// </summary>
+            ChargeBackFinish = 16,
+
         }
 
 

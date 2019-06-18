@@ -9,12 +9,12 @@ using DevelopBase.Message;
 
 namespace PurocumentAPI.Controllers
 {
-    public class DepartmentController:ControllerBase
+    public class DepartmentController : ControllerBase
     {
-        private IServiceProvider _serviceProvider=null;
+        private IServiceProvider _serviceProvider = null;
         public DepartmentController(IServiceProvider serviceProvider)
         {
-            _serviceProvider=serviceProvider;
+            _serviceProvider = serviceProvider;
         }
         //部门新增
         [HttpPost]
@@ -22,12 +22,12 @@ namespace PurocumentAPI.Controllers
         {
             try
             {
-                var response=await _serviceProvider.HandlerAsync(request);
+                var response = await _serviceProvider.HandlerAsync(request);
                 return new JsonResult(response);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
+                return new JsonResult(new ResponseBase() { Result = -1, ResultInfo = ex.Message });
             }
         }
         //部门修改
@@ -36,30 +36,30 @@ namespace PurocumentAPI.Controllers
         {
             try
             {
-                var response=await _serviceProvider.HandlerAsync(request);
+                var response = await _serviceProvider.HandlerAsync(request);
                 return new JsonResult(response);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
+                return new JsonResult(new ResponseBase() { Result = -1, ResultInfo = ex.Message });
             }
 
         }
         //获取部门信息
         public async Task<IActionResult> Get(int id)
         {
-            var request=new GetDepartmentRequest()
+            var request = new GetDepartmentRequest()
             {
-                ID=id
+                ID = id
             };
             try
             {
-                var response=await _serviceProvider.HandlerAsync(request);
+                var response = await _serviceProvider.HandlerAsync(request);
                 return new JsonResult(response);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
+                return new JsonResult(new ResponseBase() { Result = -1, ResultInfo = ex.Message });
             }
         }
 
@@ -72,12 +72,12 @@ namespace PurocumentAPI.Controllers
             };
             try
             {
-                var response=await _serviceProvider.HandlerAsync(request);
+                var response = await _serviceProvider.HandlerAsync(request);
                 return new JsonResult(response);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return new JsonResult(new ResponseBase(){Result=-1,ResultInfo=ex.Message});
+                return new JsonResult(new ResponseBase() { Result = -1, ResultInfo = ex.Message });
             }
         }
     }

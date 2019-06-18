@@ -13,6 +13,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="bin\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>

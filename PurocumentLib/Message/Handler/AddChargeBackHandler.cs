@@ -33,19 +33,21 @@ namespace PurocumentLib.Message.Handler
                 {
                     throw new Exception("部门错误");
                 }
-                ////var model = new ChargeBack()
-                ////{
-                ////    BizType = request.BizTypeID,
-                ////    DepartmentID = request.DepartmentID,
-                ////    CreateUser = request.CreateUserID,
-                ////    Details = request.Details.GroupBy(g => g.GoodsID).Select(s => new PurchasingPlanDetail()
-                ////    {
-                ////        GoodsID = s.Key,
-                ////        PurchasingPlanCount = s.Sum(g => g.PurocumentCount)//?
-                ////    })
-                ////};
-                ////var purchaasingPlanService = ServiceProvider.GetService<IPurchasingplanService>();
-                ////purchaasingPlanService.CreatePlan(model);
+                var model = new Model.ChargeBackModel()
+                {
+                    PurchasingOrderID = request.OrderID,
+                    CreateUsrID = request.CreateUserID,
+                    CreateTime = request.CreateTime,
+                    UpdateUserID = request.CreateUserID,
+                    UpdateTime = request.CreateTime,
+                    Details = request.Details.Select(s => new ChargeBackDetailModel()
+                    {
+                        PurchasingOrderDetailID = s.PurchasingOrderDetailId,
+                        Count = s.Count
+                    })
+                };
+                var purchaasingPlanService = ServiceProvider.GetService<IChargeBackService>();
+                purchaasingPlanService.Add(model);
                 return new ResponseBase() { Result = 1, ResultInfo = "" };
             }
             catch (Exception ex)

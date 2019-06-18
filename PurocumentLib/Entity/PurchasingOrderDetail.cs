@@ -9,8 +9,8 @@ namespace PurocumentLib.Entity
         public virtual PurchasingOrder PurchasingOrder { get; set; }
         public virtual int GoodsID { get; set; }
         public virtual int? GoodsClassID { get; set; }
-        public virtual decimal? Count { get; set; }
-        public virtual decimal? Price { get; set; }
+        public virtual decimal Count { get; set; }
+        public virtual decimal Price { get; set; }
         public virtual decimal? Subtotal { get; set; }
         public virtual decimal? ActualCount { get; set; }
         public virtual decimal? ActualSubtotal { get; set; }

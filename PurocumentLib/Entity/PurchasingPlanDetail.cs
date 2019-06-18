@@ -12,7 +12,7 @@ namespace PurocumentLib.Entity
         public virtual int PurchasingCount{get;set;}
         public virtual int? VendorID{get;set;}
         public virtual int? QuoteDetailID{get;set;}
-        public virtual decimal? Price { get; set; }
+        public virtual decimal Price { get; set; }
         public virtual int? CreateUsrID { get; set; }
         public virtual DateTime? CreateTime{get;set;}
         public virtual int? UpdateUsrID { get; set; }

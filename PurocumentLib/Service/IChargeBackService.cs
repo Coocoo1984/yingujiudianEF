@@ -8,11 +8,11 @@ namespace PurocumentLib.Service
     public interface IChargeBackService : IService
     {
         //创建退货计划
-        void Add(Model.PurchasingPlan plan);
+        void Add(Model.ChargeBackModel chargeBack);
         //修改  
-        void Update(Model.PurchasingPlan plan);
+        void Update(Model.ChargeBackDetailModel chargeBackDetail);
         //加载
-        PurchasingPlan Load(int id);
+        ChargeBackModel Load(int id);
         //采购中心审核退货计划
         void Audit(int planId, int userID, bool isPass, string Desc);
         //供应商确认退货

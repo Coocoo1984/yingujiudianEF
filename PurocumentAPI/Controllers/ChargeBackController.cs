@@ -9,16 +9,12 @@ using DevelopBase.Message;
 
 namespace PurocumentAPI.Controllers
 {
-    public class ChargeBackController : Controller
+    public class ChargeBackController : ControllerBase
     {
         private IServiceProvider _serviceProvider = null;
 
         public ChargeBackController(IServiceProvider serviceProvider)
         {
-            if (serviceProvider == null)
-            {
-                throw new ArgumentNullException();
-            }
             _serviceProvider = serviceProvider;
         }
 

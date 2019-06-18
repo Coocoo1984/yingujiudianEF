@@ -174,7 +174,7 @@ namespace PurocumentLib.Service
                             GoodsID = vendorPPD.GoodsID,
                             Count = vendorPPD.PurchasingCount,
                             Price = vendorPPD.Price,
-                            Subtotal = vendorPPD.PurchasingCount * vendorPPD.Price.Value,//这里之前没有结果
+                            Subtotal = vendorPPD.PurchasingCount * vendorPPD.Price,//这里之前没有结果
                             ActualCount = 0,
                             ActualSubtotal = 0,
                             CreateUsrID = userID,

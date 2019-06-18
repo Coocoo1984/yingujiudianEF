@@ -29,7 +29,7 @@ namespace PurocumentLib.Message.Handler
                 }
 
                 var service = ServiceProvider.GetService<IChargeBackService>();
-                //service.Finish(request.ChargeBackID, request.UserID, request.Result, request.Desc);
+                service.VendorComfirm(request.ChargeBackID, request.UserID, request.Result, request.Desc);
                 return new ResponseBase() { Result = 1, ResultInfo = "" };
             }
             catch (Exception ex)

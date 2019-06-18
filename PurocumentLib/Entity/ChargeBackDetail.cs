@@ -10,9 +10,9 @@ namespace PurocumentLib.Entity
         public virtual string Code { get; set; }
         public virtual int ChargeBackID { get; set; }
         public virtual ChargeBack ChargeBack { get; set; }
-        public virtual decimal? Count { get; set; }
-        public virtual decimal? Price { get; set; }
-        public virtual decimal? Subtotal { get; set; }
+        public virtual decimal Count { get; set; }
+        public virtual decimal Price { get; set; }
+        public virtual decimal Subtotal { get; set; }
         public virtual int PurchasingOrderDetailID { get; set; }
 
         public virtual int CreateUsrID { get; set; }
