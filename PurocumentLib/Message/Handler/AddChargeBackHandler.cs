@@ -40,7 +40,7 @@ namespace PurocumentLib.Message.Handler
                     CreateTime = request.CreateTime,
                     UpdateUserID = request.CreateUserID,
                     UpdateTime = request.CreateTime,
-                    Details = request.Details.Select(s => new ChargeBackDetailModel()
+                    Details = request.Details.Where(w => w.PurchasingOrderDetailId > 0 && w.Count > 0).Select(s => new ChargeBackDetailModel()
                     {
                         PurchasingOrderDetailID = s.PurchasingOrderDetailId,
                         Count = s.Count

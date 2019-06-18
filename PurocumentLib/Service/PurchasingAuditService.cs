@@ -181,7 +181,6 @@ namespace PurocumentLib.Service
                             CreateTime = dateTimeNow,
                             UpdateUsrID = userID,
                             UpdateTime = dateTimeNow,
-                            //PurchasiongOrderStateID = status,//冗余的字段
                             PurchasingPlanDetailID = vendorPPD.ID
                         };
                         insertListPODs.Add(pod); //订单明细

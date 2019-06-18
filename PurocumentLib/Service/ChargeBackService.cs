@@ -24,52 +24,57 @@ namespace PurocumentLib.Service
                 throw new Exception("退货商品数量无效");
             }
 
-            var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
-            var order = dbcontext.PurchasingOrder.Include(i=>i.Details).SingleOrDefault(s => s.ID.Equals(chargeBack.PurchasingOrderID));
-            if (order == null || order.ID <1)
+            try
             {
-                throw new Exception("订单不存在");
+                var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
+                var order = dbcontext.PurchasingOrder.Include(i => i.Details).SingleOrDefault(s => s.ID.Equals(chargeBack.PurchasingOrderID));
+                if (order == null || order.ID < 1)
+                {
+                    throw new Exception("订单不存在");
+                }
+
+                //创建主表
+                var entity = new Entity.ChargeBack()
+                {
+                    Code = StrCBPrefix + DateTime.Now.ToString(StrCBSuffixFormat),
+                    PurchasingOrderID = order.ID,
+                    PurchasingOrderStatusID = (int)EnumPurchasingOrderState.DepartmentChargeBack,
+                    CreateTime = chargeBack.CreateTime,
+                    UpdateTime = chargeBack.CreateTime,
+                    CreateUsrID = chargeBack.CreateUsrID,
+                    UpdateUserID = chargeBack.CreateUsrID,
+                    ItemCount = chargeBack.Details.Count(),
+                    Total = Convert.ToDecimal(0)
+                };
+
+                var details = from a in chargeBack.Details
+                              join b in order.Details on a.PurchasingOrderDetailID equals b.ID
+                              select new Entity.ChargeBackDetail()
+                              {
+                                  PurchasingOrderDetailID = a.PurchasingOrderDetailID,
+                                  Count = a.Count,
+                                  Price = b.Price,
+                                  Subtotal = a.Count * b.Price,
+                                  ChargeBack = entity
+                              };
+                entity.Total = details.Sum(d => d.Subtotal);
+                entity.Details = details.ToList();
+
+                dbcontext.Add(entity);
+                //dbcontext.AddRange(details);
+
+                //更新订单状态
+                order.PurchasingOrderStatusID = (int)EnumPurchasingOrderState.DepartmentChargeBack;
+                order.UpdateUserID = chargeBack.CreateUsrID;
+                order.UpdateTime = chargeBack.CreateTime;
+                dbcontext.Update(order);
+
+                dbcontext.SaveChanges();
             }
-
-            decimal total;
-            var values = from d in chargeBack.Details select d;
-            total = values.Sum(d => d.Count * d.Price);
-
-            //创建主表
-            var entity = new Entity.ChargeBack()
+            catch (Exception ex)
             {
-                Code = StrCBPrefix + DateTime.Now.ToString(StrCBSuffixFormat),
-                PurchasingOrderStatusID = (int)EnumPurchasingOrderState.DepartmentChargeBack,
-                CreateTime = chargeBack.CreateTime,
-                UpdateTime = chargeBack.CreateTime,
-                CreateUsrID = chargeBack.CreateUsrID,
-                UpdateUserID = chargeBack.CreateUsrID,
-                ItemCount = chargeBack.Details.Count(),
-                Total = total
-            };
-
-
-            dbcontext.Add(entity);
-            var details = from a in chargeBack.Details
-                          join b in order.Details on a.PurchasingOrderDetailID equals b.ID
-                          select new Entity.ChargeBackDetail()
-                          {
-                              PurchasingOrderDetailID = a.PurchasingOrderDetailID,
-                              Count = a.Count,
-                              Price = b.Price,
-                              Subtotal = a.Count * b.Price,
-                              ChargeBack = entity
-                          };
-            dbcontext.AddRange(details);
-
-            //更新订单状态
-            var Order = dbcontext.PurchasingOrder.SingleOrDefault(s => s.ID.Equals(chargeBack.PurchasingOrderID));
-            Order.PurchasingOrderStatusID = (int)EnumPurchasingOrderState.DepartmentChargeBack;
-            Order.UpdateUserID = chargeBack.CreateUsrID;
-            Order.UpdateTime = chargeBack.CreateTime;
-            dbcontext.Update(Order);
-
-            dbcontext.SaveChanges();
+                throw new Exception(ex.InnerException.Message);
+            }
         }
 
         public void Audit(int chargeBackId, int userID, bool isPass, string Desc)
