@@ -5,16 +5,27 @@ namespace DevelopBase.Services
     public abstract class ServiceBase
     {
         public static string NoPermissionString = "没有访问权限";
-
+        //订单 Purchase Order
         public static readonly string StrPOPrefix = "PO";
         public static readonly string StrPOSuffixFormat = "yyyyMMddHHmmss";//毫秒几乎无异议
+        //采购计划 Purchase Plan
         public static readonly string StrPPPrefix = "PP";
         public static readonly string StrPPSuffixFormat = "yyyyMMddHHmmss";//毫秒几乎无异议
         public static readonly string StrDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+        //报价  Quote
         public static readonly string StrQPrefix = "Q";
         public static readonly string StrQSuffixFormat = "yyyyMMddHHmmss";//毫秒几乎无异议
+        //退货 Charge Back
         public static readonly string StrCBPrefix = "CB";
         public static readonly string StrCBSuffixFormat = "yyyyMMddHHmmss";//毫秒几乎无异议
+
+        private IServiceProvider _serviceProvider;
+        protected IServiceProvider ServiceProvider { get => _serviceProvider; }
+        public ServiceBase(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider ?? throw new ArgumentNullException();
+        }
+
 
         /// <summary>
         /// 采购计划阶段状态定义
@@ -271,15 +282,6 @@ namespace DevelopBase.Services
         }
 
 
-        private IServiceProvider _serviceProvider;
-        protected IServiceProvider ServiceProvider{get=>_serviceProvider;}
-        public ServiceBase(IServiceProvider serviceProvider)
-        {
-            if(serviceProvider==null)
-            {
-                throw new ArgumentNullException();
-            }
-            _serviceProvider=serviceProvider;
-        }
+
     }
 }
