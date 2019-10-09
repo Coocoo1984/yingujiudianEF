@@ -1,7 +1,25 @@
+using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace DevelopBase.Services
 {
+    public class TextMesage : StringContent
+    {
+        public TextMesage(object obj) :
+                    base(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json")
+        { }
+
+
+        ////public string userids { get; set; } //"UserID1|UserID2|UserID3" 成员ID列表（消息接收者，多个接收者用‘|’分隔，最多支持1000个）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送
+        ////public string title { get; set; }//标题，不超过128个字节，超过会自动截断（支持id转译）
+        ////public string time { get; set; }
+        ////public string content { get; set; }
+        ////public string url { get; set; }
+    }
+
     public abstract class ServiceBase
     {
         public static string NoPermissionString = "没有访问权限";
@@ -18,6 +36,27 @@ namespace DevelopBase.Services
         //退货 Charge Back
         public static readonly string StrCBPrefix = "CB";
         public static readonly string StrCBSuffixFormat = "yyyyMMddHHmmss";//毫秒几乎无异议
+
+        public static IHttpClientFactory IHttpClientFactory = new ServiceCollection().AddHttpClient().BuildServiceProvider().GetService<IHttpClientFactory>();
+
+        public static readonly string MessageHttpMethod = "get";
+        public static readonly string MessageUri = "http://127.0.0.1:4000/weixin/message/send";//消息推送地址
+
+
+        public enum EnumRole
+        {
+            采购员 = 3,
+            采购主管 = 4,
+            采购总监 = 5,
+            需求部门采购负责人 = 1,
+            需求部门库管 = 2,
+            供应商 = 6,
+            系统管理员 = 7,
+            总经理 = 8,
+            测试 = 9,
+            未设置 = 10,
+        }
+
 
         private IServiceProvider _serviceProvider;
         protected IServiceProvider ServiceProvider { get => _serviceProvider; }

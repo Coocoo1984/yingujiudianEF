@@ -8,6 +8,7 @@ using PurocumentLib.Dbcontext;
 using DevelopBase.Common;
 using Microsoft.EntityFrameworkCore;
 using PurocumentLib.Entity;
+using System.Net.Http;
 
 namespace PurocumentLib.Service
 {
@@ -186,14 +187,44 @@ namespace PurocumentLib.Service
                 throw new Exception("采购计划状态不正确");
             }
             var plans = dbcontext.PurchasingPlan.Where(w => ids.Contains(w.ID)).ToList();
+
+            string strCode = string.Empty;//为了通知
+            int intDeparmentID = 0;//为了通知
+            string strDateTime = string.Empty;//为了通知
+
             foreach (var item in plans)
             {
                 item.Status = item.Status + 1;
                 item.UpdateUserID = userID;
                 item.UpdateTime = DateTime.Now;
+
+                strCode += item.Code + ' ';//为了通知
+                intDeparmentID = item.DepartmentID;//为了通知
+                strDateTime = item.UpdateTime.ToShortTimeString();
             }
             dbcontext.UpdateRange(plans);
             dbcontext.SaveChanges();
+
+
+            var toUsrs = dbcontext.Usr.Where(w => 
+                w.RoleID.Equals(EnumRole.测试) && 
+                w.RoleID.Equals(EnumRole.采购员
+            )).ToList();
+
+            Usr usr = dbcontext.Usr.SingleOrDefault(s=>s.ID.Equals(userID));
+            Department department = dbcontext.Department.SingleOrDefault(s => s.ID.Equals(intDeparmentID));
+
+            string toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
+            string title = "待初审采购计划";
+            string content = $"计划编号:{strCode}&nbsp部门:{department.Name}&nbsp提交人:{usr.Name}";
+            string url = string.Empty;
+            MessageService.Post(
+                toUsrID,
+                title,
+                strDateTime,
+                content,
+                url
+            );
         }
 
         public void UpdatePlan(Model.PurchasingPlan plan)
