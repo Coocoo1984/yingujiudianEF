@@ -6,6 +6,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\Juan\Source\Repos\Coocoo1984\yingujiudianEF\PurocumentAPI\bin\Release\netcoreapp2.1\publish\</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Users\HeYan\Source\Repos\yingujiudianEF2\PurocumentAPI\bin\Release\netcoreapp2.1\publish\</_PublishTargetUrl>
   </PropertyGroup>
 </Project>
