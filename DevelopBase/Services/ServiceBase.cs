@@ -39,8 +39,8 @@ namespace DevelopBase.Services
 
         public static IHttpClientFactory IHttpClientFactory = new ServiceCollection().AddHttpClient().BuildServiceProvider().GetService<IHttpClientFactory>();
 
-        public static readonly string MessageHttpMethod = "get";
-        public static readonly string MessageUri = "http://127.0.0.1:4000/weixin/message/send";//消息推送地址
+        public static readonly string MessageUri = "https://qyapi.weixin.qq.com/cgi-bin/weixin/message/send";//消息推送地址
+        public static readonly string GetTockenUri = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=ww3589f3907e9ad0e5&corpsecret=zVNtrajjOJgi0C7PC7Xzw7mpvJI3340j-LZhsE9bx2s";//
 
 
         public enum EnumRole

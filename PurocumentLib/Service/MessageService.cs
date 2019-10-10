@@ -24,15 +24,26 @@ namespace PurocumentLib.Service
         public static async void Post(string touser, string title, string time, string content,string url)
         {
             HttpContent contentObj = new TextMesage( new  {
-                userids = touser,
-                title = title,
-                time  = time,
-                content  = content,
-                url = url,
+                touser = touser,
+                msgtype = "textcard",
+                agentid = "1000008",
+                textcard = new {
+                    title = title,
+                    description = "'<div class=\"gray\">'" +time + "'</div> <div class=\"normal\">'" + content + "</div>",
+                    url = url,
+                }
             });
+
+            System.Console.WriteLine($"HttpContent:{contentObj.ToString()}");
+
             var client = ServiceBase.IHttpClientFactory.CreateClient();
+
+            ////var response = client.GetAsync(ServiceBase.GetTockenUri).ConfigureAwait(false);
+            ////string result = await response.Content.ReadAsStringAsync();
+          
             await client.PostAsync(ServiceBase.MessageUri, contentObj);
         }
+
 
     }
 }
