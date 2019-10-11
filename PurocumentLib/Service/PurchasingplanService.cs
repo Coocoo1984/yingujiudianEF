@@ -173,7 +173,7 @@ namespace PurocumentLib.Service
             };
             return master;
         }
-        //供应商提交计划 待初审
+        //采购需求部门确认提交计划 待初审
         public void SubmitPlan(IEnumerable<int> ids, int userID)
         {
             if (ids == null)
@@ -207,18 +207,19 @@ namespace PurocumentLib.Service
 
 
             var toUsrs = dbcontext.Usr.Where(w => 
-                w.RoleID.Equals(EnumRole.测试) || 
-                w.RoleID.Equals(EnumRole.采购员
+                w.RoleID.Equals(EnumRole.测试)
+                || w.RoleID.Equals(EnumRole.采购员
             )).ToList();
 
             Usr usr = dbcontext.Usr.SingleOrDefault(s=>s.ID.Equals(userID));
             Department department = dbcontext.Department.SingleOrDefault(s => s.ID.Equals(intDeparmentID));
 
             string toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
+
             System.Console.WriteLine(toUsrID);
 
             string title = "待初审采购计划";
-            string content = $"计划编号:{strCode}&nbsp部门:{department.Name}&nbsp提交人:{usr.Name}";
+            string content = $"编号:{strCode}&nbsp部门:{department.Name}&nbsp提交人:{usr.Name}";
             MessageService.Post(
                 toUsrID,
                 title,
