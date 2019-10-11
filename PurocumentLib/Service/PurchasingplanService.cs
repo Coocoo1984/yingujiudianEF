@@ -200,14 +200,14 @@ namespace PurocumentLib.Service
 
                 strCode += item.Code + ' ';//为了通知
                 intDeparmentID = item.DepartmentID;//为了通知
-                strDateTime = item.UpdateTime.ToShortTimeString();
+                strDateTime = item.UpdateTime.ToString(strMessageTimeFormat);
             }
             dbcontext.UpdateRange(plans);
             dbcontext.SaveChanges();
 
 
             var toUsrs = dbcontext.Usr.Where(w => 
-                w.RoleID.Equals(EnumRole.测试) && 
+                w.RoleID.Equals(EnumRole.测试) || 
                 w.RoleID.Equals(EnumRole.采购员
             )).ToList();
 
@@ -215,15 +215,15 @@ namespace PurocumentLib.Service
             Department department = dbcontext.Department.SingleOrDefault(s => s.ID.Equals(intDeparmentID));
 
             string toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
+            System.Console.WriteLine(toUsrID);
+
             string title = "待初审采购计划";
             string content = $"计划编号:{strCode}&nbsp部门:{department.Name}&nbsp提交人:{usr.Name}";
-            string url = string.Empty;
             MessageService.Post(
                 toUsrID,
                 title,
                 strDateTime,
-                content,
-                url
+                content
             );
         }
 

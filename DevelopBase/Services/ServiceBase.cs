@@ -11,17 +11,19 @@ namespace DevelopBase.Services
         public TextMesage(object obj) :
                     base(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json")
         { }
+    }
 
-
-        ////public string userids { get; set; } //"UserID1|UserID2|UserID3" 成员ID列表（消息接收者，多个接收者用‘|’分隔，最多支持1000个）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送
-        ////public string title { get; set; }//标题，不超过128个字节，超过会自动截断（支持id转译）
-        ////public string time { get; set; }
-        ////public string content { get; set; }
-        ////public string url { get; set; }
+    public class token
+    {
+        public int errcode { get; set; }
+        public string errmsg { get; set; }
+        public string access_token { get; set; }
+        public int expires_in { get; set; }
     }
 
     public abstract class ServiceBase
     {
+        public static readonly string strMessageTimeFormat = "yyyy-MM-dd HH:mm:ss";
         public static string NoPermissionString = "没有访问权限";
         //订单 Purchase Order
         public static readonly string StrPOPrefix = "PO";
@@ -39,7 +41,7 @@ namespace DevelopBase.Services
 
         public static IHttpClientFactory IHttpClientFactory = new ServiceCollection().AddHttpClient().BuildServiceProvider().GetService<IHttpClientFactory>();
 
-        public static readonly string MessageUri = "https://qyapi.weixin.qq.com/cgi-bin/weixin/message/send";//消息推送地址
+        public static readonly string MessageUri = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=";//消息推送地址带参
         public static readonly string GetTockenUri = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=ww3589f3907e9ad0e5&corpsecret=zVNtrajjOJgi0C7PC7Xzw7mpvJI3340j-LZhsE9bx2s";//
 
 
