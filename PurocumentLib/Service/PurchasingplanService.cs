@@ -207,12 +207,13 @@ namespace PurocumentLib.Service
 
 
             var toUsrs = dbcontext.Usr.Where(w => 
-                w.RoleID.Equals(EnumRole.测试)
-                || w.RoleID.Equals(EnumRole.采购员
-            )).ToList();
+                w.RoleID== (int)EnumRole.测试
+                || w.RoleID == (int)EnumRole.采购员
+            ).ToList();
 
             Usr usr = dbcontext.Usr.SingleOrDefault(s=>s.ID.Equals(userID));
             Department department = dbcontext.Department.SingleOrDefault(s => s.ID.Equals(intDeparmentID));
+            System.Console.WriteLine($"usr.Name:{usr.Name}");
 
             string toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
 
