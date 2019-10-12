@@ -1,6 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Compile Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Entity\PlanVendor.cs" />
   </ItemGroup>
 
@@ -13,10 +19,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="bin\" />
   </ItemGroup>
 
   <PropertyGroup>
