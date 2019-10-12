@@ -33,6 +33,11 @@ namespace PurocumentLib.Service
                     throw new Exception("订单不存在");
                 }
 
+                DateTime dtNow = DateTime.Now;
+
+
+
+
                 //创建主表
                 var entity = new Entity.ChargeBack()
                 {
@@ -46,6 +51,16 @@ namespace PurocumentLib.Service
                     ItemCount = chargeBack.Details.Count(),
                     Total = Convert.ToDecimal(0)
                 };
+
+                int intDepartmentID = order.DepartmentID;
+                string strOrderCode = entity.Code;
+                string strCode = string.Empty;
+                string strDateTime = dtNow.ToString(StrDateTimeFormat);
+                //string result = isPass ? "通过" : $"未通过:{Desc}";
+                string title = string.Empty;
+                string content = string.Empty;
+                string toUsrID = string.Empty;
+
 
                 var details = from a in chargeBack.Details
                               join b in order.Details on a.PurchasingOrderDetailID equals b.ID
@@ -70,6 +85,28 @@ namespace PurocumentLib.Service
                 dbcontext.Update(order);
 
                 dbcontext.SaveChanges();
+
+                Department department = dbcontext.Department.SingleOrDefault(s => s.ID == intDepartmentID);
+
+                var toUsrs = dbcontext.Usr.Where(w =>
+                    w.RoleID == (int)EnumRole.测试
+                    || w.RoleID == (int)EnumRole.采购员
+                ).ToList();
+
+                var toUsrIDs = toUsrs.Select(s => s.WechatID);
+                var toUserWechatIDs = toUsrs.Select(s => s.WechatID);
+                toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
+
+                title = "待审核退货计划";
+                content = $"订单编号:{strOrderCode}  退货编号:{strCode}  部门:{department?.Name}";
+
+                MessageService.Post(
+                    toUsrID,
+                    title,
+                    strDateTime,
+                    content
+                );
+
             }
             catch (Exception ex)
             {

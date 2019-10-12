@@ -34,6 +34,14 @@ namespace PurocumentLib.Service
             quote.UpdateDateTime = dateTimeNow;
             quote.UpdateUserID = userID;
 
+            int intVendorID = quote.VendorID;
+            string strCode = quote.Code;
+            string strDateTime = dateTimeNow.ToString(StrDateTimeFormat);
+            string result = isPass ? "通过" : $"未通过:{Desc}";
+            string title = string.Empty;
+            string content = string.Empty;
+            string toUsrID = string.Empty;
+
             dbcontext.Update(quote);
 
             var record = new QuoteAudit()
@@ -46,8 +54,49 @@ namespace PurocumentLib.Service
             };
             dbcontext.Add(record);
             dbcontext.SaveChanges();
+
+            Usr usr = dbcontext.Usr.SingleOrDefault(s => s.ID == userID);
+            Vendor vendor = dbcontext.Vendor.SingleOrDefault(s => s.ID == intVendorID);
+
+            if (isPass)
+            {
+                var toUsrs = dbcontext.Usr.Where(w =>
+                    w.RoleID == (int)EnumRole.测试
+                    || w.RoleID == (int)EnumRole.采购总监
+                ).ToList();
+
+                var toUsrIDs = toUsrs.Select(s => s.WechatID);
+                var toUserWechatIDs = toUsrs.Select(s => s.WechatID);
+                toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
+
+                title = "待复审报价";
+                content = $"报价编号:{strCode}   供应商:{vendor?.Name}";
+            }
+            else
+            {
+                var toUsrs = dbcontext.Usr.Where(w =>
+                    w.RoleID == (int)EnumRole.测试
+                    || w.RoleID == (int)EnumRole.采购主管
+                ).ToList();
+
+                var toUsrIDs = toUsrs.Select(s => s.WechatID);
+                var toUserWechatIDs = toUsrs.Select(s => s.WechatID);
+                toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
+
+                title = "报价初审驳回";
+                content = $"报价编号:{strCode}    复审结果:{result}";
+            }
+
+            MessageService.Post(
+                toUsrID,
+                title,
+                strDateTime,
+                content
+            );
+
         }
 
+        //报价复审
         public void QuoteAudit2(int quoteId, int userID, bool isPass, string Desc)
         {
             var dbcontext = ServiceProvider.GetDbcontext<IPurocumentDbcontext>();
@@ -66,6 +115,14 @@ namespace PurocumentLib.Service
             quote.UpdateDateTime = dateTimeNow;
             quote.UpdateUserID = userID;
 
+            int intVendorID = quote.VendorID;
+            string strCode = quote.Code;
+            string strDateTime = dateTimeNow.ToString(StrDateTimeFormat);
+            string result = isPass ? "通过" : $"未通过:{Desc}";
+            string title = string.Empty;
+            string content = string.Empty;
+            string toUsrID = string.Empty;
+
             dbcontext.Update(quote);
 
             var record = new QuoteAudit()
@@ -78,6 +135,47 @@ namespace PurocumentLib.Service
             };
             dbcontext.Add(record);
             dbcontext.SaveChanges();
+
+            Usr usr = dbcontext.Usr.SingleOrDefault(s => s.ID == userID);
+            Vendor vendor = dbcontext.Vendor.SingleOrDefault(s => s.ID == intVendorID);
+
+            if (isPass)
+            {
+                //////这里用户是Vendor 但node.js没有写vendor id信息 所以关联不上
+                ////var toUsrs = dbcontext.Usr.Where(w =>
+                ////    w.RoleID == (int)EnumRole.测试
+                ////    || w.RoleID == (int)EnumRole.采购总监
+                ////).ToList();
+
+                ////var toUsrIDs = toUsrs.Select(s => s.WechatID);
+                ////var toUserWechatIDs = toUsrs.Select(s => s.WechatID);
+                ////toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
+
+                ////title = "复审报价";
+                ////content = $"编号:{strCode}&nbsp供应商:{vendor?.Name}";
+            }
+            else
+            {
+                var toUsrs = dbcontext.Usr.Where(w =>
+                    w.RoleID == (int)EnumRole.测试
+                    || w.RoleID == (int)EnumRole.采购主管
+                ).ToList();
+
+                var toUsrIDs = toUsrs.Select(s => s.WechatID);
+                var toUserWechatIDs = toUsrs.Select(s => s.WechatID);
+                toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
+
+                title = "报价初审被驳回";
+                content = $"报价编号:{strCode}    复审结果:{result}";
+            }
+
+            MessageService.Post(
+                toUsrID,
+                title,
+                strDateTime,
+                content
+            );
+
         }
     }
 }

@@ -35,6 +35,14 @@ namespace PurocumentLib.Service
             plan.UpdateTime = dateTimeNow;
             plan.UpdateUserID = userID;
 
+            int intDeparmentID = plan.DepartmentID;
+            string strCode = plan.Code;
+            string strDateTime = dateTimeNow.ToString(StrDateTimeFormat);
+            string result = isPass ? "通过" : $"未通过:{Desc}";
+            string title = string.Empty;
+            string content = string.Empty;
+            string toUsrID = string.Empty;
+
             dbcontext.Update(plan);
 
             var record = new PurchasingAudit()
@@ -47,6 +55,47 @@ namespace PurocumentLib.Service
             };
             dbcontext.Add(record);
             dbcontext.SaveChanges();
+
+
+            Usr usr = dbcontext.Usr.SingleOrDefault(s => s.ID == userID);
+            Department department = dbcontext.Department.SingleOrDefault(s => s.ID == intDeparmentID);
+
+            if (isPass)
+            {
+                var toUsrs = dbcontext.Usr.Where(w =>
+                    w.RoleID == (int)EnumRole.测试
+                    || w.RoleID == (int)EnumRole.采购总监
+                ).ToList();
+
+                var toUsrIDs = toUsrs.Select(s => s.WechatID);
+                var toUserWechatIDs = toUsrs.Select(s => s.WechatID);
+                toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
+
+                title = "待复审采购计划";
+                content = $"编号:{strCode}&nbsp部门:{department.Name}";
+                MessageService.Post(
+                    toUsrID,
+                    title,
+                    strDateTime,
+                    content
+                );
+            }
+            else
+            {
+                var toUsrs = dbcontext.Usr.Where(w =>
+                    w.RoleID == (int)EnumRole.测试
+                    || w.RoleID == (int)EnumRole.采购主管
+                ).ToList();
+
+                var toUsrIDs = toUsrs.Select(s => s.WechatID);
+                var toUserWechatIDs = toUsrs.Select(s => s.WechatID);
+                toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
+
+                title = "采购计划复审驳回";
+                content = $"编号:{strCode}&nbsp复审结果:{result}";
+
+            }
+
         }
 
         //采购计划审核（复审）
@@ -68,6 +117,14 @@ namespace PurocumentLib.Service
             plan.UpdateTime = dateTimeNow;
             plan.UpdateUserID = userID;
 
+            int intDeparmentID = plan.DepartmentID;
+            string strCode = plan.Code;
+            string strDateTime = dateTimeNow.ToString(StrDateTimeFormat);
+            string result = isPass ? "通过" : $"未通过:{Desc}";
+            string title = string.Empty;
+            string content = string.Empty;
+            string toUsrID = string.Empty;
+
             dbcontext.Update(plan);
 
             var record = new PurchasingAudit()
@@ -80,6 +137,47 @@ namespace PurocumentLib.Service
             };
             dbcontext.Add(record);
             dbcontext.SaveChanges();
+
+
+            Usr usr = dbcontext.Usr.SingleOrDefault(s => s.ID == userID);
+            Department department = dbcontext.Department.SingleOrDefault(s => s.ID == intDeparmentID);
+            
+            if (isPass)
+            {
+                var toUsrs = dbcontext.Usr.Where(w =>
+                    w.RoleID == (int)EnumRole.测试
+                    || w.RoleID == (int)EnumRole.采购总监
+                ).ToList();
+
+                var toUsrIDs = toUsrs.Select(s => s.WechatID);
+                var toUserWechatIDs = toUsrs.Select(s => s.WechatID);
+                toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
+
+                title = "待三审采购计划";
+                content = $"编号:{strCode}&nbsp部门:{department?.Name}";
+
+            }
+            else
+            {
+                var toUsrs = dbcontext.Usr.Where(w =>
+                    w.RoleID == (int)EnumRole.测试
+                    || w.RoleID == (int)EnumRole.采购主管
+                ).ToList();
+
+                var toUsrIDs = toUsrs.Select(s => s.WechatID);
+                var toUserWechatIDs = toUsrs.Select(s => s.WechatID);
+                toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
+
+                title = "采购计划复审驳回";
+                content = $"编号:{strCode}&nbsp复审结果:{result}";
+
+            }
+            MessageService.Post(
+                toUsrID,
+                title,
+                strDateTime,
+                content
+            );
         }
 
 

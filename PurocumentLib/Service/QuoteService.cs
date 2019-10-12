@@ -38,15 +38,18 @@ namespace PurocumentLib.Service
                 dbcontext.Update(originalQuote);
             }
 
+            DateTime dtNow = DateTime.Now;
+            string strDataTimeNow = dtNow.ToString(StrQSuffixFormat);
+
             var entity = new Quote()
             {
-                Code = StrQPrefix + DateTime.Now.ToString(StrQSuffixFormat),
+                Code = StrQPrefix + strDataTimeNow,
                 Name = model.Name,
                 VendorID = model.VendorID,
                 BizTypeID = model.BizTypeID,
-                CreatDateTime = DateTime.Now,
+                CreatDateTime = dtNow,
                 CreateUserID = model.CreateUserID,
-                UpdateDateTime = DateTime.Now,
+                UpdateDateTime = dtNow,
                 Desc = model.Desc,
                 ItemCount = model.Details.Count(),
                 Status  = (int)QuoteState.QuoteAwaitAudit1,//增加状态字段 初始值为待审核
@@ -62,9 +65,36 @@ namespace PurocumentLib.Service
                               Quote = entity
                           };
 
+            int intVendorID = entity.VendorID;
+            string strCode = entity.Code;
+            string strDateTime = strDataTimeNow;
+            //string result = isPass ? "通过" : $"未通过:{Desc}";
+            string title = string.Empty;
+            string content = string.Empty;
+            string toUsrID = string.Empty;
+
             dbcontext.Add(entity);
             dbcontext.AddRange(detials);
             dbcontext.SaveChanges();
+
+            var toUsrs = dbcontext.Usr.Where(w =>
+                w.RoleID == (int)EnumRole.测试
+                || w.RoleID == (int)EnumRole.采购员
+            ).ToList();
+            Vendor vendor = dbcontext.Vendor.SingleOrDefault(s => s.ID == intVendorID);
+            var toUsrIDs = toUsrs.Select(s => s.WechatID);
+            var toUserWechatIDs = toUsrs.Select(s => s.WechatID);
+            toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
+
+            title = "待初审报价";
+            content = $"报价编号:{strCode} 供应商:{vendor?.Name}";
+            MessageService.Post(
+                toUsrID,
+                title,
+                strDateTime,
+                content
+            );
+
         }
 
         public QuoteModel Load(int id)

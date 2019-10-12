@@ -188,9 +188,13 @@ namespace PurocumentLib.Service
             }
             var plans = dbcontext.PurchasingPlan.Where(w => ids.Contains(w.ID)).ToList();
 
-            string strCode = string.Empty;//为了通知
-            int intDeparmentID = 0;//为了通知
-            string strDateTime = string.Empty;//为了通知
+            int intDeparmentID = 0;
+            string strCode = string.Empty;
+            string strDateTime = string.Empty;
+            //string result = isPass ? "通过" : $"未通过:Desc";
+            string title = string.Empty;
+            string content = string.Empty;
+            string toUsrID = string.Empty;
 
             foreach (var item in plans)
             {
@@ -210,17 +214,15 @@ namespace PurocumentLib.Service
                 w.RoleID== (int)EnumRole.测试
                 || w.RoleID == (int)EnumRole.采购员
             ).ToList();
+            Usr usr = dbcontext.Usr.SingleOrDefault(s => s.ID == userID);
+            Department department = dbcontext.Department.SingleOrDefault(s => s.ID == intDeparmentID);
+            var toUsrIDs = toUsrs.Select(s => s.WechatID);
+            toUsrID = string.Empty;
+            var toUserWechatIDs = toUsrs.Select(s => s.WechatID);
+            toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
 
-            Usr usr = dbcontext.Usr.SingleOrDefault(s=>s.ID.Equals(userID));
-            Department department = dbcontext.Department.SingleOrDefault(s => s.ID.Equals(intDeparmentID));
-            System.Console.WriteLine($"usr.Name:{usr.Name}");
-
-            string toUsrID = string.Join("|", toUsrs.Select(s => s.WechatID).ToArray());
-
-            System.Console.WriteLine(toUsrID);
-
-            string title = "待初审采购计划";
-            string content = $"编号:{strCode}&nbsp部门:{department.Name}&nbsp提交人:{usr.Name}";
+            title = "待初审采购计划";
+            content = $"编号:{strCode}&nbsp部门:{department?.Name}";
             MessageService.Post(
                 toUsrID,
                 title,
