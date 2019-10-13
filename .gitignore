@@ -43,3 +43,4 @@ DevelopBase/bin/
 .vs
 *.cache
 *.dll
+*.sqlite
